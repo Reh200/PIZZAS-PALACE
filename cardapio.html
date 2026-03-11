@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cardápio | Chefe Express🍕</title>
   <link rel="stylesheet" href="css/cardapio.css">
 </head>
-
 <body>
   <header>
     <div class="container text-center my-4">
@@ -22,140 +20,84 @@
   <main class="container">
     <h2 class="text-center mb-5">Cardápio</h2>
 
+    <!-- Pizzas Tradicionais -->
     <section aria-labelledby="pizzas-tradicionais" class="mb-5">
       <h3 id="pizzas-tradicionais">🍕 Pizzas Tradicionais</h3>
       <div class="grid">
+        <!-- Item de Pizza Calabresa -->
         <article class="item">
           <img class="img-fluid" src="img/calabresa.jpg" alt="Pizza Calabresa">
           <strong>Calabresa</strong>
           <p>Molho, queijo, calabresa e cebola</p>
           <span>R$ 35,00</span>
-          <a class="btn btn-primary mt-2" href="#" onclick="enviarPedido(this, 'pizza')">Pedir</a>
+          <a class="btn btn-primary mt-2" href="#" onclick="enviarPedido(this, 'pizza')">Adicionar ao Carrinho</a>
         </article>
+        <!-- Item de Pizza Portuguesa -->
         <article class="item">
-          <img class="img-fluid" src="img/frango-catupiry.jpeg" alt="Pizza Frango com Catupiry">
-          <strong>Frango com Catupiry</strong>
-          <p>Frango desfiado, molho e catupiry</p>
-          <span>R$ 38,00</span>
-          <a class="btn btn-primary mt-2" href="#" onclick="enviarPedido(this, 'pizza')">Pedir</a>
-        </article>
-        <article class="item">
-          <img class="img-fluid" src="img/portuguesa.jpeg" alt="Pizza Portuguesa">
+          <img class="img-fluid" src="img/portuguesa.jpg" alt="Pizza Portuguesa">
           <strong>Portuguesa</strong>
-          <p>Presunto, ovos, cebola, azeitonas e tomate</p>
-          <span>R$ 40,00</span>
-          <a class="btn btn-primary mt-2" href="#" onclick="enviarPedido(this, 'pizza')">Pedir</a>
+          <p>Molho, queijo, presunto, ovo, tomate e azeitona</p>
+          <span>R$ 38,00</span>
+          <a class="btn btn-primary mt-2" href="#" onclick="enviarPedido(this, 'pizza')">Adicionar ao Carrinho</a>
         </article>
+        <!-- Item de Pizza Marguerita -->
         <article class="item">
-          <img class="img-fluid" src="img/costela.jpg" alt="Pizza de Costela Desfiada com Azeitona">
-          <strong>Costela Desfiada</strong>
-          <p>Molho, muçarela, costela bovina desfiada, cebola roxa, azeitona e cheiro-verde</p>
-          <span>R$ 42,90</span>
-          <a class="btn btn-primary mt-2" href="#" onclick="enviarPedido(this, 'pizza')">Pedir</a>
-        </article>        
-        
+          <img class="img-fluid" src="img/marguerita.jpg" alt="Pizza Marguerita">
+          <strong>Marguerita</strong>
+          <p>Molho, tomate, manjericão e mussarela</p>
+          <span>R$ 36,00</span>
+          <a class="btn btn-primary mt-2" href="#" onclick="enviarPedido(this, 'pizza')">Adicionar ao Carrinho</a>
+        </article>
       </div>
     </section>
 
+    <!-- Pizzas Vegetarianas -->
     <section aria-labelledby="pizzas-vegetarianas" class="mb-5">
       <h3 id="pizzas-vegetarianas">🌱 Pizzas Vegetarianas</h3>
       <div class="grid">
+        <!-- Item de Pizza Margherita -->
         <article class="item">
           <img class="img-fluid" src="img/margherita.jpeg" alt="Pizza Margherita">
           <strong>Margherita</strong>
           <p>Molho, tomate, manjericão e mussarela</p>
           <span>R$ 36,00</span>
-          <a class="btn btn-primary mt-2" href="#" onclick="enviarPedido(this, 'pizza')">Pedir</a>
-        </article> 
-        <article class="item">
-          <img class="img-fluid" src="img/cheddar-carne-moida.jpeg" alt="Pizza Cheddar com Carne Moída">
-          <strong>Cheddar com Carne Moída Vegetal</strong>
-          <p>Molho, queijo cheddar, carne vegetal temperada, cebola roxa e orégano</p>
-          <span>R$ 39,00</span>
-          <a class="btn btn-primary mt-2" href="#" onclick="enviarPedido(this, 'pizza')">Pedir</a>
-        </article>        
-        <article class="item">
-          <img class="img-fluid" src="img/brocolis-alho.jpg" alt="Pizza Brócolis com Alho">
-          <strong>Brócolis com Alho</strong>
-          <p>Brócolis, alho frito e queijo</p>
-          <span>R$ 37,00</span>
-          <a class="btn btn-primary mt-2" href="#" onclick="enviarPedido(this, 'pizza')">Pedir</a>
+          <a class="btn btn-primary mt-2" href="#" onclick="enviarPedido(this, 'pizza')">Adicionar ao Carrinho</a>
         </article>
+        <!-- Item de Pizza Vegana -->
         <article class="item">
-          <img class="img-fluid" src="img/quatro-queijos.jpeg" alt="Pizza 4 Queijos">
-          <strong>4 Queijos</strong>
-          <p>Queijo mozzarella, gorgonzola, parmesão e provolone</p>
-          <span>R$ 45,00</span>
-          <a class="btn btn-primary mt-2" href="#" onclick="enviarPedido(this, 'pizza')">Pedir</a>
-        </article>
-        <article class="item">
-          <img class="img-fluid" src="img/vegana-berinjela.jpeg" alt="Pizza Vegana de Berinjela">
-          <strong>Berinjela Vegana</strong>
-          <p>Berinjela grelhada, molho, cebola, pimentão verde e queijo vegano</p>
-          <span>R$ 42,00</span>
-          <a class="btn btn-primary mt-2" href="#" onclick="enviarPedido(this, 'pizza')">Pedir</a>
-        </article>        
-        <article class="item">
-          <img class="img-fluid" src="img/caprese.jpeg" alt="Pizza Caprese">
-          <strong>Caprese</strong>
-          <p>Tomate, mozzarella de búfala, manjericão e azeite de oliva</p>
-          <span>R$ 42,00</span>
-          <a class="btn btn-primary mt-2" href="#" onclick="enviarPedido(this, 'pizza')">Pedir</a>
-        </article>
-        <article class="item">
-          <img class="img-fluid" src="img/rucula-tomate-seco.jpeg" alt="Pizza Rúcula com Tomate Seco">
-          <strong>Rúcula com Tomate Seco</strong>
-          <p>Rúcula fresca, tomate seco e queijo cremoso</p>
-          <span>R$ 44,00</span>
-          <a class="btn btn-primary mt-2" href="#" onclick="enviarPedido(this, 'pizza')">Pedir</a>
-        </article>
-        <article class="item">
-          <img class="img-fluid" src="img/funghi.jpeg" alt="Pizza Funghi">
-          <strong>Funghi</strong>
-          <p>Cogumelos funghi salteados, molho branco e mozzarella</p>
-          <span>R$ 46,00</span>
-          <a class="btn btn-primary mt-2" href="#" onclick="enviarPedido(this, 'pizza')">Pedir</a>
+          <img class="img-fluid" src="img/vegana.jpg" alt="Pizza Vegana">
+          <strong>Vegana</strong>
+          <p>Molho, tomate, cogumelos, pimentões, cebola e azeitonas</p>
+          <span>R$ 40,00</span>
+          <a class="btn btn-primary mt-2" href="#" onclick="enviarPedido(this, 'pizza')">Adicionar ao Carrinho</a>
         </article>
       </div>
     </section>
-    
+
+    <!-- Bebidas -->
     <section aria-labelledby="bebidas" class="mb-5">
       <h3>🥤 Bebidas</h3>
       <div class="grid">
+        <!-- Item de Refrigerante 2L -->
         <article class="item">
           <img src="img/gAntarctica-coca-sprite-fanta-2L.jpg" alt="Refrigerantes 2L">
           <h4>Refrigerantes 2L</h4>
           <p>Coca-Cola, Guaraná Antárctica, Sprite ou Fanta</p>
           <span class="preco">R$ 10,00</span>
-          <button onclick="enviarPedido(this, 'bebida')">Pedir</button>
+          <button onclick="enviarPedido(this, 'bebida')">Adicionar ao Carrinho</button>
         </article>
-
+        <!-- Item de Suco Natural -->
         <article class="item">
-          <img src="img/agua.jpg" alt="Água Mineral">
-          <h4>Água Mineral</h4>
-          <p>Com ou sem gás</p>
-          <span class="preco">R$ 3,00</span>
-          <button onclick="enviarPedido(this, 'bebida')">Pedir</button>
-        </article>
-
-        <article class="item">
-          <img src="img/sucos-naturais.jpg" alt="Suco Natural">
+          <img src="img/suco-natural.jpg" alt="Suco Natural">
           <h4>Suco Natural</h4>
-          <p>Laranja, maracujá, acerola, kiwi ou uva</p>
-          <span class="preco">R$ 6,00</span>
-          <button onclick="enviarPedido(this, 'bebida')">Pedir</button>
+          <p>Laranja, abacaxi, morango, etc.</p>
+          <span class="preco">R$ 12,00</span>
+          <button onclick="enviarPedido(this, 'bebida')">Adicionar ao Carrinho</button>
         </article>
-
-        <article class="item">
-          <img src="img/cerveja-600ml.jpeg" alt="Cerveja Garrafa">
-          <h4>Cerveja Garrafa 600ml</h4>
-          <p>Skol, Brahma Duplo Malte ou Antárctica(Boa)</p>
-          <span class="preco">R$ 6,50</span>
-          <button onclick="enviarPedido(this, 'bebida')">Pedir</button>
-        </article>
-       
       </div>
     </section>
+
+    <!-- Link para visualizar o carrinho -->
     <div class="text-center my-4">
       <a href="carrinho.html" class="btn btn-success">🛒 Ver Carrinho</a>
     </div>
@@ -165,10 +107,9 @@
     <p>&copy; 2025 Chefe Express🍕</p>
   </footer>
 
-  <script src="js/script.js"></script>
+  <script src="js/cardapio.js"></script> <!-- Inclui o script -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-pzjw8f+ua7Kw1TIq0AtvR2X1XJvNKgmftfU8BvZDgZjHezKK7i5X4X32aKv2bmzP"
     crossorigin="anonymous"></script>
 </body>
-
 </html>

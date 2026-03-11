@@ -3,47 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Carrinho | Chefe Express</title>
-<link rel="stylesheet" href="css/carrinho.css">
+  <title>Carrinho | Chefe Express 🍕</title>
+  <link rel="stylesheet" href="css/carrinho.css">
 </head>
 <body>
-  <h1>🛒 Carrinho de Pedidos</h1>
-  <div id="lista-pedidos"></div>
-  <button onclick="finalizarPedido()">Finalizar Compra</button>
+  <header>
+    <div class="container text-center my-4">
+      <h1>🛒 Carrinho de Pedidos</h1>
+      <a href="cardapio.html" class="btn btn-secondary mt-2">⬅ Voltar ao Cardápio</a>
+    </div>
+  </header>
 
-  <script>
-    const pedidos = JSON.parse(localStorage.getItem('pedidos')) || [];
-    const lista = document.getElementById('lista-pedidos');
+  <main>
+    <div id="lista-pedidos" class="container"></div>
 
-    if (pedidos.length === 0) {
-      lista.innerHTML = "<p>Seu carrinho está vazio.</p>";
-    } else {
-      pedidos.forEach(pedido => {
-        const div = document.createElement('div');
-        div.className = 'pedido';
-        div.innerText = `${pedido.nome} - ${pedido.preco}`;
-        lista.appendChild(div);
-      });
-    }
+    <div class="acoes text-center my-4">
+      <button class="btn btn-danger" onclick="removerTodos()">Remover Todos</button>
+      <button class="btn btn-success" onclick="finalizarPedido()">Finalizar Compra</button>
+    </div>
+  </main>
 
-    function finalizarPedido() {
-      if (pedidos.length === 0) {
-        alert("Seu carrinho está vazio.");
-        return;
-      }
-
-      let mensagem = "Olá, gostaria de fazer o seguinte pedido:%0A";
-      pedidos.forEach(p => {
-        mensagem += `• ${p.nome} - ${p.preco}%0A`;
-      });
-
-      // Limpa o carrinho
-      localStorage.removeItem('pedidos');
-
-      // Redireciona para o WhatsApp
-      const numero = '559999999999'; // Substitua pelo seu número com DDD e país
-      window.location.href = `https://wa.me/${numero}?text=${mensagem}`;
-    }
-  </script>
+  <script src="js/carrinho.js"></script>
 </body>
 </html>
