@@ -7,7 +7,7 @@
   box-sizing: border-box;
 }
 
-/* =================== Variáveis de cor (Ajustadas para Contraste) =================== */
+/* =================== Variáveis de cor =================== */
 :root {
   --bg-color: #fff8f0;
   --text-color: #333;
@@ -19,22 +19,6 @@
   --card-border: #ddd;
   --shadow: rgba(0, 0, 0, 0.08);
   --input-bg: #ffffff;
-}
-
-/* Ajuste Fino para Dark Mode (Smartphone) */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-color: #121212;      /* Fundo da página bem escuro */
-    --text-color: #e0e0e0;    /* Texto claro */
-    --primary-color: #ff4d4d;
-    --secondary-color: #34d399;
-    --header-text: #fff;
-    --hover-link: #facc15;
-    --card-bg: #1e1e1e;       /* Card cinza escuro para destacar do fundo */
-    --card-border: #333;
-    --shadow: rgba(0, 0, 0, 0.4);
-    --input-bg: #2c2c2c;
-  }
 }
 
 /* =================== Corpo da página =================== */
@@ -91,7 +75,7 @@ header nav a {
   margin-bottom: 2rem;
 }
 
-/* =================== Cartões de Pizza (Item) =================== */
+/* =================== Cartões =================== */
 .item {
   background-color: var(--card-bg);
   border: 1px solid var(--card-border);
@@ -126,10 +110,10 @@ header nav a {
 .item p {
   font-size: 0.9rem;
   margin-bottom: 1rem;
-  flex-grow: 1; /* Mantém o alinhamento dos botões */
+  flex-grow: 1;
 }
 
-/* =================== Seletor de Bordas Recheadas (NOVO) =================== */
+/* =================== Seletor =================== */
 .select-borda {
   width: 100%;
   padding: 10px;
@@ -173,7 +157,7 @@ header nav a {
   background-color: #b71c1c;
 }
 
-/* =================== Estilo do Carrinho (Página carrinho.html) =================== */
+/* =================== Carrinho =================== */
 .pedido {
   background: var(--card-bg);
   padding: 1rem;
@@ -190,7 +174,7 @@ header nav a {
   font-weight: 600;
 }
 
-/* =================== Responsividade (Mobile) =================== */
+/* =================== Responsividade =================== */
 @media (max-width: 1024px) {
   .grid { grid-template-columns: repeat(3, 1fr); }
 }
@@ -201,9 +185,8 @@ header nav a {
 }
 
 @media (max-width: 480px) {
-  .grid { grid-template-columns: 1fr; } /* Uma coluna no celular */
-  
-  /* Aumenta o contraste visual do card no mobile */
+  .grid { grid-template-columns: 1fr; }
+
   .item {
     border: 1px solid var(--primary-color);
     margin-bottom: 10px;
