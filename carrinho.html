@@ -14,8 +14,14 @@
     </div>
   </header>
 
-  <main>
-    <div id="lista-pedidos" class="container"></div>
+  <main class="container">
+    <div id="lista-pedidos"></div>
+
+    <div class="campo-endereco my-4" style="max-width: 500px; margin: 20px auto;">
+      <label for="endereco" style="display: block; font-weight: bold; margin-bottom: 5px;">Endereço de Entrega:</label>
+      <input type="text" id="endereco" placeholder="Ex: Rua das Flores, 123 - Centro" 
+             style="width: 100%; padding: 10px; border: 2px solid #ff8c00; border-radius: 8px;">
+    </div>
 
     <div class="acoes text-center my-4">
       <button class="btn btn-danger" onclick="removerTodos()">Remover Todos</button>

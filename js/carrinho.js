@@ -1,101 +1,107 @@
-// Recupera carrinho do localStorage ou cria array vazio
-let pedidos = JSON.parse(localStorage.getItem('carrinho')) || [];
+// 1. Configurações e Preços
+let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
 const lista = document.getElementById('lista-pedidos');
+const totalElemento = document.getElementById('total-carrinho');
+const foneWhatsapp = "5514991087543";
 
-// Adicionar item ao carrinho
-function enviarPedido(botao, tipo) {
-  const item = botao.closest('.item');
-  const nome = item.querySelector('strong, h4').innerText;
-  const precoTexto = item.querySelector('span, .preco').innerText;
+// Tabela de preços das bordas
+const precosBordas = {
+    "Nenhuma": 0,
+    "Cheddar": 8.00,
+    "Catupiry": 8.00,
+    "Calabresa com catupiry": 14.00,
+    "4 Queijo": 14.00,
+    "Chocolate": 12.00,
+    "Doce de Leite": 12.00
+};
 
-  // Remove R$, espaços e troca vírgula por ponto
-  const preco = parseFloat(precoTexto.replace('R$', '').replace(/\./g,'').replace(',', '.'));
-
-  if (isNaN(preco)) {
-    alert('Erro ao adicionar preço do item!');
-    return;
-  }
-
-  const existente = pedidos.find(p => p.nome === nome);
-  if (existente) {
-    existente.quantidade += 1;
-  } else {
-    pedidos.push({ nome, preco, quantidade: 1 });
-  }
-
-  localStorage.setItem('carrinho', JSON.stringify(pedidos));
-  exibirCarrinho();
-  alert(`${nome} adicionado ao carrinho!`);
-}
-
-// Exibe itens no carrinho
+// 2. Função para Exibir o Carrinho na Tela
 function exibirCarrinho() {
-  lista.innerHTML = '';
-  if (pedidos.length === 0) {
-    lista.innerHTML = "<p>Seu carrinho está vazio.</p>";
-    return;
-  }
+    if (!lista) return;
+    lista.innerHTML = '';
+    let totalGeral = 0;
 
-  pedidos.forEach((pedido, index) => {
-    const div = document.createElement('div');
-    div.className = 'pedido';
-    div.innerHTML = `
-      <div>
-        <strong>${pedido.nome}</strong>
-        <p class="preco">R$ ${(pedido.preco * pedido.quantidade).toFixed(2).replace('.', ',')}</p>
-      </div>
-      <div class="qtd-controle">
-        <button class="btn-qtd" onclick="alterarQtd(${index}, -1)">-</button>
-        <span>${pedido.quantidade}</span>
-        <button class="btn-qtd" onclick="alterarQtd(${index}, 1)">+</button>
-      </div>
-      <button class="btn-remover" onclick="removerItem(${index})">Remover</button>
-    `;
-    lista.appendChild(div);
-  });
+    if (carrinho.length === 0) {
+        lista.innerHTML = '<p class="text-center">Seu carrinho está vazio. 🍕</p>';
+        if (totalElemento) totalElemento.innerText = "Total: R$ 0,00";
+        return;
+    }
+
+    carrinho.forEach((item, index) => {
+        // Cálculo do preço: Pizza + Borda
+        const valorBorda = precosBordas[item.borda] || 0;
+        const precoUnitarioTotal = item.preco + valorBorda;
+        const subtotal = precoUnitarioTotal * item.quantidade;
+        totalGeral += subtotal;
+
+        lista.innerHTML += `
+            <div class="pedido border-bottom p-3 d-flex justify-content-between align-items-center">
+                <div>
+                    <strong class="fs-5">${item.nome}</strong><br>
+                    <span class="badge bg-secondary">Borda: ${item.borda || 'Padrão'}</span><br>
+                    <small class="text-muted">
+                        Un: R$ ${precoUnitarioTotal.toFixed(2).replace('.', ',')} | 
+                        Qtd: ${item.quantidade}
+                    </small>
+                </div>
+                <div class="text-end">
+                    <div class="fw-bold mb-2">R$ ${subtotal.toFixed(2).replace('.', ',')}</div>
+                    <button class="btn btn-sm btn-outline-danger" onclick="removerItem(${index})">
+                        <i class="bi bi-trash"></i> Remover
+                    </button>
+                </div>
+            </div>`;
+    });
+
+    if (totalElemento) {
+        totalElemento.innerText = `Total: R$ ${totalGeral.toFixed(2).replace('.', ',')}`;
+    }
 }
 
-// Alterar quantidade
-function alterarQtd(index, delta) {
-  pedidos[index].quantidade += delta;
-  if (pedidos[index].quantidade < 1) pedidos[index].quantidade = 1;
-  localStorage.setItem('carrinho', JSON.stringify(pedidos));
-  exibirCarrinho();
-}
-
-// Remover item
+// 3. Função para Remover Item
 function removerItem(index) {
-  pedidos.splice(index, 1);
-  localStorage.setItem('carrinho', JSON.stringify(pedidos));
-  exibirCarrinho();
+    carrinho.splice(index, 1);
+    localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    exibirCarrinho();
 }
 
-// Remover todos
-function removerTodos() {
-  pedidos = [];
-  localStorage.removeItem('carrinho');
-  exibirCarrinho();
-}
-
-// Finalizar compra
+// 4. Função para Finalizar e Enviar para o WhatsApp
 function finalizarPedido() {
-  if (pedidos.length === 0) {
-    alert("Seu carrinho está vazio.");
-    return;
-  }
+    const enderecoElemento = document.getElementById('endereco');
+    const endereco = enderecoElemento ? enderecoElemento.value : "";
 
-  let mensagem = "Olá, gostaria de fazer o seguinte pedido:%0A";
-  pedidos.forEach(p => {
-    mensagem += `• ${p.nome} (x${p.quantidade}) - R$ ${(p.preco * p.quantidade).toFixed(2).replace('.', ',')}%0A`;
-  });
+    if (carrinho.length === 0) {
+        alert("Seu carrinho está vazio!");
+        return;
+    }
 
-  pedidos = [];
-  localStorage.removeItem('carrinho');
-  exibirCarrinho();
+    if (!endereco) {
+        alert("Por favor, informe o endereço de entrega!");
+        return;
+    }
 
-  const numero = '5514991087543';
-  window.location.href = `https://wa.me/${numero}?text=${mensagem}`;
+    let mensagem = "*PEDIDO CHEFE EXPRESS*%0A%0A";
+    let totalFinal = 0;
+
+    carrinho.forEach(item => {
+        const valorBorda = precosBordas[item.borda] || 0;
+        const precoComBorda = item.preco + valorBorda;
+        const subtotal = precoComBorda * item.quantidade;
+        totalFinal += subtotal;
+
+        mensagem += `*${item.quantidade}x ${item.nome}*%0A`;
+        mensagem += `+ Borda: ${item.borda || 'Padrão'}%0A`;
+        mensagem += `Subtotal: R$ ${subtotal.toFixed(2)}%0A%0A`;
+    });
+
+    mensagem += `--------------------------%0A`;
+    mensagem += `*TOTAL: R$ ${totalFinal.toFixed(2)}*%0A%0A`;
+    mensagem += `*Endereço:* ${endereco}`;
+
+    // Limpeza e Redirecionamento
+    localStorage.removeItem('carrinho');
+    window.location.href = `https://wa.me/${foneWhatsapp}?text=${mensagem}`;
 }
 
-// Inicializa exibição
-exibirCarrinho();
+// 5. Inicialização
+document.addEventListener('DOMContentLoaded', exibirCarrinho);

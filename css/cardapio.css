@@ -20,7 +20,6 @@
   --shadow: rgba(0, 0, 0, 0.05);
 }
 
-/* Detecta modo escuro */
 @media (prefers-color-scheme: dark) {
   :root {
     --bg-color: #1e1e1e;
@@ -63,7 +62,7 @@ header {
 }
 
 header h1 {
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
 
 header nav a {
@@ -120,22 +119,21 @@ h2 {
 /* =================== Grade de cartões =================== */
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 cards por linha no desktop */
-  justify-content: center; /* centraliza grade no meio da tela */
+  grid-template-columns: repeat(4, 1fr);
+  justify-content: center;
   gap: 1.5rem;
   margin-bottom: 2rem;
 }
 
-/* =================== Cartões =================== */
+/* =================== Cartões (AJUSTADO) =================== */
 .item {
   background-color: var(--card-bg);
   border: 1px solid var(--card-border);
   border-radius: 12px;
-  min-height: 380px;
+  min-height: 420px; /* Aumentado para acomodar melhor os itens */
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 1rem;
+  padding: 1.2rem;
   text-align: center;
   box-shadow: 0 2px 5px var(--shadow);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -152,47 +150,54 @@ h2 {
   height: 160px;
   object-fit: cover;
   border-radius: 10px;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
 }
 
-/* =================== Conteúdo do cartão =================== */
-.item strong {
+/* =================== Conteúdo do cartão (AJUSTADO) =================== */
+.item strong, .item h4 {
   color: var(--primary-color);
   font-size: 1.1rem;
   margin-bottom: 0.5rem;
   display: block;
+  min-height: 2.8rem; /* Espaço fixo para o título */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .item p {
   font-size: 0.9rem;
   color: var(--text-color);
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  flex-grow: 1; /* Faz a descrição ocupar o espaço disponível e empurrar o preço */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .item span,
 .preco {
   font-weight: bold;
   color: var(--secondary-color);
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+  display: block;
+  margin-top: auto; /* Garante que o preço fique no rodapé */
 }
 
 /* =================== Botão de adicionar ao carrinho =================== */
-.item a.btn,
-.item button {
-  margin-top: auto;
-  padding: 0.6rem 1rem;
+.item button, .item .btn-primary {
+  padding: 0.7rem 1rem;
   border-radius: 8px;
   font-weight: bold;
   color: white;
   background-color: var(--primary-color);
-  text-decoration: none;
+  border: none;
   cursor: pointer;
   transition: transform 0.2s ease, background-color 0.3s ease;
-  display: inline-block;
+  width: 100%;
 }
 
-.item a.btn:hover,
 .item button:hover {
   background-color: #b71c1c;
   transform: translateY(-2px);
@@ -203,7 +208,7 @@ footer {
   background-color: var(--primary-color);
   color: var(--header-text);
   text-align: center;
-  padding: 0.6rem 1rem;
+  padding: 1rem;
   font-size: 0.9rem;
   border-top: 4px solid var(--secondary-color);
   margin-top: auto;
@@ -211,43 +216,16 @@ footer {
 
 /* =================== Responsividade =================== */
 @media (max-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+  .grid { grid-template-columns: repeat(3, 1fr); }
 }
 
 @media (max-width: 768px) {
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0.6rem 1rem;
-  }
-
-  header nav a {
-    display: block;
-    margin: 0.3rem 0;
-  }
-
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-
-  .item img {
-    height: 140px;
-  }
+  header { flex-direction: column; text-align: center; }
+  header nav a { margin: 0.3rem 0.5rem; display: inline-block; }
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .item { min-height: 400px; }
 }
 
 @media (max-width: 480px) {
-  h2 {
-    font-size: 1.5rem;
-  }
-
-  .grid {
-    grid-template-columns: 1fr;
-  }
-
-  .item img {
-    height: 120px;
-  }
+  .grid { grid-template-columns: 1fr; }
 }

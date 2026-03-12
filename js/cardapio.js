@@ -1,88 +1,38 @@
-// Recupera o carrinho do localStorage ou inicializa como um array vazio
+// Recupera o carrinho salvo ou cria um novo
 let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
 
-// Adicionar item ao carrinho
-function enviarPedido(botao, categoria) {
-  const item = botao.closest('.item');
-  const nome = item.querySelector('strong, h4').innerText;
-  const precoTexto = item.querySelector('span, .preco').innerText;
+function adicionarAoCarrinho(botao) {
+    // 1. Acha o card da pizza/bebida (o article com classe 'item')
+    const item = botao.closest('.item');
+    
+    // 2. Pega o nome (está no <strong>)
+    const nomeBase = item.querySelector('strong').innerText;
+    
+    // 3. Pega o Select (preço e tamanho)
+    const select = item.querySelector('.select-preco');
+    const preco = parseFloat(select.value);
+    
+    // 4. Pega o texto do tamanho (ex: "Média")
+    const opcaoTexto = select.options[select.selectedIndex].text;
+    const tamanho = opcaoTexto.split(' - ')[0];
 
-  // Converte preço para número
-  const preco = parseFloat(precoTexto.replace('R$', '').replace(/\./g,'').replace(',', '.'));
-  if (isNaN(preco)) {
-    alert('Erro ao adicionar preço do item!');
-    return;
-  }
+    // Nome final: "Bacon (Média)"
+    const nomeFinal = `${nomeBase} (${tamanho})`;
 
-  // Verifica se já existe no carrinho
-  const existente = carrinho.find(p => p.nome === nome);
-  if (existente) {
-    existente.quantidade += 1;
-  } else {
-    carrinho.push({ nome, preco, quantidade: 1, categoria });
-  }
+    // 5. Verifica se já existe esse item no carrinho
+    const existente = carrinho.find(p => p.nome === nomeFinal);
 
-  localStorage.setItem('carrinho', JSON.stringify(carrinho));
-  alert(`${nome} adicionado ao carrinho!`);
+    if (existente) {
+        existente.quantidade += 1;
+    } else {
+        carrinho.push({
+            nome: nomeFinal,
+            preco: preco,
+            quantidade: 1
+        });
+    }
+
+    // 6. Salva no navegador e avisa
+    localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    alert(`✅ ${nomeFinal} adicionado ao carrinho!`);
 }
-
-// Exibir carrinho (para página de visualização rápida, se houver)
-function exibirCarrinho() {
-  const listaCarrinho = document.getElementById('lista-carrinho');
-  if (!listaCarrinho) return;
-
-  listaCarrinho.innerHTML = '';
-  if (carrinho.length === 0) {
-    listaCarrinho.innerHTML = '<p>Seu carrinho está vazio.</p>';
-    return;
-  }
-
-  carrinho.forEach((item, i) => {
-    const div = document.createElement('div');
-    div.className = 'item-carrinho';
-    div.innerHTML = `
-      <strong>${item.nome}</strong>
-      <p>R$ ${(item.preco * item.quantidade).toFixed(2).replace('.', ',')}</p>
-      <div class="qtd-controle">
-        <button onclick="alterarQtd(${i}, -1)">-</button>
-        <span>${item.quantidade}</span>
-        <button onclick="alterarQtd(${i}, 1)">+</button>
-      </div>
-    `;
-    listaCarrinho.appendChild(div);
-  });
-}
-
-// Alterar quantidade de um item
-function alterarQtd(index, delta) {
-  carrinho[index].quantidade += delta;
-  if (carrinho[index].quantidade < 1) carrinho[index].quantidade = 1;
-  localStorage.setItem('carrinho', JSON.stringify(carrinho));
-  exibirCarrinho();
-}
-
-// Finalizar compra
-function finalizarCompra() {
-  if (carrinho.length === 0) {
-    alert("Seu carrinho está vazio!");
-    return;
-  }
-
-  let mensagem = "Olá! Gostaria de fazer o seguinte pedido:%0A";
-  carrinho.forEach(item => {
-    mensagem += `• ${item.nome} (x${item.quantidade}) - R$ ${(item.preco * item.quantidade).toFixed(2).replace('.', ',')} (Categoria: ${item.categoria})%0A`;
-  });
-
-  carrinho = [];
-  localStorage.removeItem('carrinho');
-  exibirCarrinho();
-
-  const numeroWhatsApp = "SEUNUMEROAQUI"; // coloque seu número
-  const link = `https://wa.me/${numeroWhatsApp}?text=${mensagem}`;
-  window.open(link, '_blank');
-}
-
-// Inicializa exibição
-window.onload = function() {
-  exibirCarrinho();
-};
