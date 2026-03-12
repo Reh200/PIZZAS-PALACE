@@ -15,7 +15,8 @@ body {
   line-height: 1.6;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden; /* impede rolagem para baixo e para os lados */
   scroll-behavior: smooth;
 }
 
@@ -178,7 +179,7 @@ footer {
   background-color: #333;
   color: white;
   text-align: center;
-  padding: 1rem 2rem; /* reduzido de 2rem para 1rem */
+  padding: 1rem 2rem;
   font-size: 0.9rem;
   border-top: 4px solid #ff8c00;
   margin-top: auto;
@@ -196,7 +197,6 @@ footer a:hover {
   color: #ffe8cc;
 }
 
-
 /* =================== Responsividade =================== */
 @media (max-width: 1024px) {
   .banner {
@@ -213,9 +213,11 @@ footer a:hover {
 }
 
 @media (max-width: 768px) {
+
   header {
     flex-direction: column;
     align-items: flex-start;
+    padding: 1rem;
   }
 
   nav {
@@ -252,6 +254,7 @@ footer a:hover {
 }
 
 @media (max-width: 480px) {
+
   .banner {
     height: 300px;
   }
