@@ -3,7 +3,7 @@ body {
   font-family: 'Helvetica Neue', Arial, sans-serif;
   background-color: #fffaf0;
   margin: 0;
-  padding: 20px;
+  padding: 15px; /* Reduzi um pouco para ganhar espaço lateral no mobile */
   color: #333;
 }
 
@@ -12,28 +12,23 @@ h1 {
   text-align: center;
   color: #d43f3f;
   margin-bottom: 20px;
-  font-size: 30px;
+  font-size: 26px; /* Ajustado para não quebrar linha em telas pequenas */
   font-weight: 700;
 }
 
-/* === Container do carrinho === */
-#lista-pedidos {
+/* === Containers Principais === */
+#lista-pedidos, .campo-endereco {
   max-width: 750px;
-  margin: 0 auto;
+  margin: 0 auto 20px auto;
   background: #ffffff;
   border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* Sombra mais leve para mobile */
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-/* === NOVO: Estilo do Campo de Endereço === */
+/* === Campo de Endereço === */
 .campo-endereco {
-  max-width: 750px;
-  margin: 20px auto;
-  background: #ffffff;
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-  padding: 20px 25px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -47,17 +42,18 @@ h1 {
 
 .campo-endereco input {
   width: 100%;
-  padding: 12px 15px;
+  padding: 14px; /* Padding maior para facilitar o toque */
   border: 2px solid #eee;
   border-radius: 8px;
   font-size: 16px;
   transition: border-color 0.3s ease;
   outline: none;
-  box-sizing: border-box; /* Garante que o padding não aumente a largura */
+  box-sizing: border-box;
+  appearance: none; /* Remove sombras internas no iOS */
 }
 
 .campo-endereco input:focus {
-  border-color: #ffb347; /* Cor de destaque combinando com os botões de qtd */
+  border-color: #ffb347;
 }
 
 /* === Itens do carrinho === */
@@ -67,139 +63,144 @@ h1 {
   align-items: center;
   border-bottom: 1px solid #eee;
   padding: 15px 0;
+  gap: 10px;
 }
 
 .pedido:last-child {
   border-bottom: none;
 }
 
+.info-item { /* Div auxiliar para organizar texto */
+  flex: 1;
+}
+
 .pedido strong {
-  font-size: 18px;
-  font-weight: 600;
-  color: #333;
+  font-size: 17px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* Estilo para a Borda Recheada no Carrinho */
+.pedido .borda-info {
+  font-size: 14px;
+  color: #2a9d8f;
+  font-weight: bold;
+  display: block;
 }
 
 .pedido .preco {
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   color: #d43f3f;
-  margin-top: 5px;
 }
 
-/* === Controles de quantidade === */
+/* === Controles de quantidade e Botão Remover === */
+.controles-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
 .qtd-controle {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  background: #f8f8f8;
+  padding: 5px;
+  border-radius: 8px;
 }
 
 .btn-qtd {
   background-color: #ffb347;
   border: none;
-  padding: 6px 12px;
+  width: 35px; /* Botões quadrados facilitam o clique */
+  height: 35px;
   border-radius: 6px;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
   cursor: pointer;
-  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.btn-qtd:hover {
-  background-color: #ff9e1b;
-  transform: scale(1.1);
-}
-
-/* === Botão remover item === */
 .btn-remover {
-  background-color: #e74c3c;
-  color: #fff;
-  border: none;
-  padding: 7px 14px;
+  background-color: transparent;
+  color: #e74c3c;
+  border: 1px solid #e74c3c;
+  padding: 5px 10px;
   border-radius: 6px;
+  font-size: 13px;
+  font-weight: bold;
   cursor: pointer;
-  transition: all 0.25s ease;
 }
 
-.btn-remover:hover {
-  background-color: #c0392b;
-  transform: scale(1.05);
-}
-
-/* === Botões principais === */
-button, .btn {
-  padding: 12px 25px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 600;
-  transition: background 0.25s ease, transform 0.1s ease;
-  margin: 8px;
-  display: inline-block;
-  text-decoration: none;
-  text-align: center;
-}
-
+/* === Ações e Botões Principais === */
 .acoes {
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  flex-direction: column; /* Pilha de botões no mobile é melhor */
+  max-width: 750px;
+  margin: 0 auto;
+  gap: 10px;
 }
 
-/* Remover todos */
-.btn-danger {
-  background-color: #e74c3c;
-  color: #fff;
-  min-width: 160px;
+button, .btn {
+  width: 100%; /* Ocupa a largura total no mobile */
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-.btn-danger:hover {
-  background-color: #c0392b;
-  transform: scale(1.05);
+.btn-success { background-color: #2ecc71; color: #fff; }
+.btn-danger { background-color: #e74c3c; color: #fff; }
+.btn-secondary { background-color: #555; color: #fff; }
+
+/* === TOTAL === */
+#total-carrinho {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 800;
+  color: #d43f3f;
+  margin: 10px 0;
 }
 
-/* Finalizar compra */
-.btn-success {
-  background-color: #2ecc71;
-  color: #fff;
-  min-width: 160px;
+/* === Media Query para ajuste fino de Desktop === */
+@media (min-width: 701px) {
+  .acoes {
+    flex-direction: row;
+    justify-content: center;
+  }
+  
+  button, .btn {
+    width: auto;
+    min-width: 200px;
+  }
+
+  .controles-wrapper {
+    flex-direction: row;
+    align-items: center;
+  }
 }
 
-.btn-success:hover {
-  background-color: #27ae60;
-  transform: scale(1.05);
-}
-
-/* Botão voltar ao cardápio */
-.btn-secondary {
-  background-color: #555;
-  color: #fff;
-  transition: all 0.2s ease;
-}
-
-.btn-secondary:hover {
-  background-color: #333;
-  transform: scale(1.05);
-}
-
-/* Responsividade */
-@media (max-width: 700px) {
+/* === Ajustes específicos para telas muito pequenas (iPhone SE, etc) === */
+@media (max-width: 400px) {
   .pedido {
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
-  }
-
-  .qtd-controle {
-    gap: 5px;
-  }
-
-  button, .btn {
-    min-width: 100%;
-    margin: 5px 0;
   }
   
-  .campo-endereco {
-    margin: 15px 5px;
+  .controles-wrapper {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
   }
 }

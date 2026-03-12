@@ -7,7 +7,7 @@
   box-sizing: border-box;
 }
 
-/* =================== Variáveis de cor =================== */
+/* =================== Variáveis de cor (Ajustadas para Contraste) =================== */
 :root {
   --bg-color: #fff8f0;
   --text-color: #333;
@@ -16,21 +16,24 @@
   --header-text: #fff;
   --hover-link: #ffd166;
   --card-bg: #ffffff;
-  --card-border: #eee;
-  --shadow: rgba(0, 0, 0, 0.05);
+  --card-border: #ddd;
+  --shadow: rgba(0, 0, 0, 0.08);
+  --input-bg: #ffffff;
 }
 
+/* Ajuste Fino para Dark Mode (Smartphone) */
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-color: #1e1e1e;
-    --text-color: #f0f0f0;
+    --bg-color: #121212;      /* Fundo da página bem escuro */
+    --text-color: #e0e0e0;    /* Texto claro */
     --primary-color: #ff4d4d;
     --secondary-color: #34d399;
     --header-text: #fff;
     --hover-link: #facc15;
-    --card-bg: #2c2c2c;
-    --card-border: #444;
-    --shadow: rgba(0, 0, 0, 0.3);
+    --card-bg: #1e1e1e;       /* Card cinza escuro para destacar do fundo */
+    --card-border: #333;
+    --shadow: rgba(0, 0, 0, 0.4);
+    --input-bg: #2c2c2c;
   }
 }
 
@@ -50,12 +53,12 @@ body {
 header {
   background-color: var(--primary-color);
   color: var(--header-text);
-  padding: 0.8rem 1rem;
+  padding: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  box-shadow: 0 2px 6px var(--shadow);
+  box-shadow: 0 2px 10px var(--shadow);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -70,137 +73,143 @@ header nav a {
   text-decoration: none;
   color: var(--header-text);
   font-weight: bold;
-  transition: color 0.3s ease;
 }
 
-header nav a:hover {
-  color: var(--hover-link);
-}
-
-/* =================== Botão Ver Carrinho =================== */
-.btn-cart-top,
-.btn-success {
-  background-color: var(--secondary-color);
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  font-weight: bold;
-  text-decoration: none;
-  display: inline-block;
-  transition: transform 0.2s ease, background-color 0.3s ease;
-}
-
-.btn-cart-top:hover,
-.btn-success:hover {
-  background-color: #21867a;
-  transform: translateY(-2px);
-}
-
-/* =================== Container =================== */
+/* =================== Container Principal =================== */
 .container {
   max-width: 1200px;
   margin: auto;
   padding: 20px;
+  width: 100%;
 }
 
-/* =================== Títulos =================== */
-h1, h2, h3, h4 {
-  margin-bottom: 1rem;
-  font-weight: 600;
-}
-
-h2 {
-  text-align: center;
-  color: var(--primary-color);
-  font-size: 2rem;
-  margin-bottom: 2rem;
-}
-
-/* =================== Grade de cartões =================== */
+/* =================== Grade de Produtos =================== */
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  justify-content: center;
   gap: 1.5rem;
   margin-bottom: 2rem;
 }
 
-/* =================== Cartões (AJUSTADO) =================== */
+/* =================== Cartões de Pizza (Item) =================== */
 .item {
   background-color: var(--card-bg);
   border: 1px solid var(--card-border);
   border-radius: 12px;
-  min-height: 420px; /* Aumentado para acomodar melhor os itens */
   display: flex;
   flex-direction: column;
   padding: 1.2rem;
   text-align: center;
-  box-shadow: 0 2px 5px var(--shadow);
+  box-shadow: 0 4px 6px var(--shadow);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .item:hover {
-  transform: scale(1.03);
-  box-shadow: 0 8px 16px var(--shadow);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px var(--shadow);
 }
 
-/* =================== Imagens dos produtos =================== */
 .item img {
   width: 100%;
-  height: 160px;
+  height: 150px;
   object-fit: cover;
   border-radius: 10px;
   margin-bottom: 0.8rem;
 }
 
-/* =================== Conteúdo do cartão (AJUSTADO) =================== */
-.item strong, .item h4 {
+.item h4 {
   color: var(--primary-color);
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   margin-bottom: 0.5rem;
-  display: block;
-  min-height: 2.8rem; /* Espaço fixo para o título */
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .item p {
   font-size: 0.9rem;
-  color: var(--text-color);
   margin-bottom: 1rem;
-  flex-grow: 1; /* Faz a descrição ocupar o espaço disponível e empurrar o preço */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-grow: 1; /* Mantém o alinhamento dos botões */
 }
 
-.item span,
+/* =================== Seletor de Bordas Recheadas (NOVO) =================== */
+.select-borda {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: 2px solid var(--card-border);
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  font-weight: 500;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+.select-borda:focus {
+  border-color: var(--secondary-color);
+}
+
+/* =================== Preço e Botões =================== */
 .preco {
   font-weight: bold;
   color: var(--secondary-color);
-  font-size: 1.2rem;
-  margin-bottom: 0.8rem;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
   display: block;
-  margin-top: auto; /* Garante que o preço fique no rodapé */
 }
 
-/* =================== Botão de adicionar ao carrinho =================== */
-.item button, .item .btn-primary {
-  padding: 0.7rem 1rem;
+.btn-primary, .item button {
+  padding: 0.8rem 1rem;
   border-radius: 8px;
   font-weight: bold;
   color: white;
   background-color: var(--primary-color);
   border: none;
   cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.3s ease;
   width: 100%;
+  transition: background 0.3s;
 }
 
-.item button:hover {
+.btn-primary:hover, .item button:hover {
   background-color: #b71c1c;
-  transform: translateY(-2px);
+}
+
+/* =================== Estilo do Carrinho (Página carrinho.html) =================== */
+.pedido {
+  background: var(--card-bg);
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  border: 1px solid var(--card-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pedido small {
+  color: var(--secondary-color);
+  font-weight: 600;
+}
+
+/* =================== Responsividade (Mobile) =================== */
+@media (max-width: 1024px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  header { flex-direction: column; gap: 10px; }
+}
+
+@media (max-width: 480px) {
+  .grid { grid-template-columns: 1fr; } /* Uma coluna no celular */
+  
+  /* Aumenta o contraste visual do card no mobile */
+  .item {
+    border: 1px solid var(--primary-color);
+    margin-bottom: 10px;
+  }
+
+  header h1 { font-size: 1.3rem; }
 }
 
 /* =================== Footer =================== */
@@ -208,24 +217,6 @@ footer {
   background-color: var(--primary-color);
   color: var(--header-text);
   text-align: center;
-  padding: 1rem;
-  font-size: 0.9rem;
-  border-top: 4px solid var(--secondary-color);
+  padding: 1.5rem;
   margin-top: auto;
-}
-
-/* =================== Responsividade =================== */
-@media (max-width: 1024px) {
-  .grid { grid-template-columns: repeat(3, 1fr); }
-}
-
-@media (max-width: 768px) {
-  header { flex-direction: column; text-align: center; }
-  header nav a { margin: 0.3rem 0.5rem; display: inline-block; }
-  .grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-  .item { min-height: 400px; }
-}
-
-@media (max-width: 480px) {
-  .grid { grid-template-columns: 1fr; }
 }
