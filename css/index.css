@@ -15,7 +15,8 @@ body {
   line-height: 1.6;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden; /* impede rolagem para baixo e para os lados */
   scroll-behavior: smooth;
 }
 
@@ -199,7 +200,11 @@ footer {
   background-color: #333;
   color: white;
   text-align: center;
+<<<<<<< HEAD
   padding: 1rem 2rem; 
+=======
+  padding: 1rem 2rem;
+>>>>>>> 76c0b30c1db008d567687261561a1027d9ad8395
   font-size: 0.9rem;
   border-top: 4px solid #ff8c00;
   margin-top: auto;
@@ -219,8 +224,10 @@ footer a:hover {
 
 /* =================== Responsividade =================== */
 @media (max-width: 768px) {
+
   header {
     flex-direction: column;
+<<<<<<< HEAD
     align-items: center;
     padding: 1rem;
   }
@@ -234,6 +241,10 @@ footer a:hover {
     width: 90px; /* Um pouco menor no mobile para não cobrir o conteúdo */
     height: 90px;
     margin: 0;
+=======
+    align-items: flex-start;
+    padding: 1rem;
+>>>>>>> 76c0b30c1db008d567687261561a1027d9ad8395
   }
 
   nav {
@@ -244,8 +255,14 @@ footer a:hover {
 }
 
 @media (max-width: 480px) {
+<<<<<<< HEAD
   header h1 {
     font-size: 1.4rem;
+=======
+
+  .banner {
+    height: 300px;
+>>>>>>> 76c0b30c1db008d567687261561a1027d9ad8395
   }
   
   .logo-icon {
