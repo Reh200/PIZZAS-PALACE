@@ -1,4 +1,4 @@
-// 1. Configurações e Preços
+// 1. Configurações Iniciais e Preços
 let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
 const lista = document.getElementById('lista-pedidos');
 const totalElemento = document.getElementById('total-carrinho');
@@ -14,78 +14,124 @@ const precosBordas = {
     "Doce de Leite": 12.00
 };
 
-// Palavras que identificam uma bebida (adicione outras se precisar)
 const listaBebidas = ["Coca", "Suco", "Guaraná", "Fanta", "Sprite", "Água", "Cerveja"];
 
-// Função auxiliar para checar se é pizza ou bebida pelo nome
-function verificarSeEhPizza(item) {
-    // Se o nome contém alguma palavra da lista de bebidas, NÃO é pizza
-    const ehBebida = listaBebidas.some(bebida => item.nome.includes(bebida));
+function verificarSeEhPizza(nome) {
+    const ehBebida = listaBebidas.some(bebida => nome.includes(bebida));
     return !ehBebida;
 }
 
-// 2. Função para Exibir o Carrinho na Tela
+// 2. Função para Exibir o Carrinho com Controles de Quantidade
 function exibirCarrinho() {
     if (!lista) return;
     lista.innerHTML = '';
     let totalGeral = 0;
 
     if (carrinho.length === 0) {
-        lista.innerHTML = '<p class="text-center">Seu carrinho está vazio. 🍕</p>';
-        if (totalElemento) totalElemento.innerText = "Total: R$ 0,00";
+        lista.innerHTML = '<p class="text-center py-5">Seu carrinho está vazio. 🍕</p>';
+        if (totalElemento) totalElemento.innerText = "R$ 0,00";
         return;
     }
 
     carrinho.forEach((item, index) => {
-        // Lógica automática: Se for bebida pelo nome, isPizza vira false
-        const isPizza = verificarSeEhPizza(item);
+        const isPizza = verificarSeEhPizza(item.nome);
         
+        if (isPizza && !item.borda) {
+            item.borda = "Nenhuma";
+        }
+
         const valorBorda = isPizza ? (precosBordas[item.borda] || 0) : 0;
         const precoUnitarioTotal = item.preco + valorBorda;
         const subtotal = precoUnitarioTotal * item.quantidade;
         totalGeral += subtotal;
 
-        // Borda só aparece no HTML se for pizza
-        const htmlBorda = isPizza ? `<span class="badge bg-secondary">Borda: ${item.borda || 'Padrão'}</span><br>` : '';
+        let seletorBordaHTML = "";
+        if (isPizza) {
+            seletorBordaHTML = `
+                <div class="mt-2">
+                    <label class="small fw-bold text-muted">Borda:</label>
+                    <select class="form-select form-select-sm" onchange="atualizarBorda(${index}, this.value)">
+                        <option value="Nenhuma" ${item.borda === 'Nenhuma' ? 'selected' : ''}>Sem Borda</option>
+                        <option value="Cheddar" ${item.borda === 'Cheddar' ? 'selected' : ''}>Cheddar (+R$ 8,00)</option>
+                        <option value="Catupiry" ${item.borda === 'Catupiry' ? 'selected' : ''}>Catupiry (+R$ 8,00)</option>
+                        <option value="4 Queijo" ${item.borda === '4 Queijo' ? 'selected' : ''}>4 Queijos (+R$ 14,00)</option>
+                        <option value="Chocolate" ${item.borda === 'Chocolate' ? 'selected' : ''}>Chocolate (+R$ 12,00)</option>
+                    </select>
+                </div>`;
+        }
 
         lista.innerHTML += `
-            <div class="pedido border-bottom p-3 d-flex justify-content-between align-items-center">
-                <div>
-                    <strong class="fs-5">${item.nome}</strong><br>
-                    ${htmlBorda}
-                    <small class="text-muted">
-                        Un: R$ ${precoUnitarioTotal.toFixed(2).replace('.', ',')} | 
-                        Qtd: ${item.quantidade}
-                    </small>
+            <div class="pedido border rounded p-3 mb-3 bg-white shadow-sm">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div style="flex: 1;">
+                        <strong class="fs-5">${item.nome}</strong>
+                        ${seletorBordaHTML}
+                    </div>
+                    <div class="text-end" style="min-width: 120px;">
+                        <div class="fw-bold text-success mb-2 fs-5">R$ ${subtotal.toFixed(2).replace('.', ',')}</div>
+                    </div>
                 </div>
-                <div class="text-end">
-                    <div class="fw-bold mb-2">R$ ${subtotal.toFixed(2).replace('.', ',')}</div>
-                    <button class="btn btn-sm btn-outline-danger" onclick="removerItem(${index})">
-                        <i class="bi bi-trash"></i> Remover
+                
+                <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top">
+                    <div class="d-flex align-items-center bg-light rounded border">
+                        <button class="btn btn-sm px-3" onclick="alterarQuantidade(${index}, -1)">-</button>
+                        <span class="px-3 fw-bold">${item.quantidade}</span>
+                        <button class="btn btn-sm px-3" onclick="alterarQuantidade(${index}, 1)">+</button>
+                    </div>
+                    
+                    <button class="btn btn-sm btn-link text-danger text-decoration-none" onclick="removerItem(${index})">
+                        Remover
                     </button>
                 </div>
             </div>`;
     });
 
     if (totalElemento) {
-        totalElemento.innerText = `Total: R$ ${totalGeral.toFixed(2).replace('.', ',')}`;
+        totalElemento.innerText = `R$ ${totalGeral.toFixed(2).replace('.', ',')}`;
     }
 }
 
-// 3. Função para Remover Item
+// 3. Função para Alterar Quantidade (+ ou -)
+function alterarQuantidade(index, mudanca) {
+    carrinho[index].quantidade += mudanca;
+
+    // Se a quantidade chegar a zero, removemos o item
+    if (carrinho[index].quantidade <= 0) {
+        carrinho.splice(index, 1);
+    }
+
+    localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    exibirCarrinho();
+}
+
+// 4. Funções de Suporte (Borda e Remoção)
+function atualizarBorda(index, novaBorda) {
+    carrinho[index].borda = novaBorda;
+    localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    exibirCarrinho();
+}
+
 function removerItem(index) {
     carrinho.splice(index, 1);
     localStorage.setItem('carrinho', JSON.stringify(carrinho));
     exibirCarrinho();
 }
 
-// 4. Função para Finalizar e Enviar para o WhatsApp
+function removerTodos() {
+    if (confirm("Deseja realmente esvaziar o carrinho?")) {
+        localStorage.removeItem('carrinho');
+        carrinho = [];
+        exibirCarrinho();
+    }
+}
+
+// 5. Finalizar Pedido
 function finalizarPedido() {
     const enderecoElemento = document.getElementById('endereco');
     const endereco = enderecoElemento ? enderecoElemento.value : "";
 
     if (carrinho.length === 0) {
-        alert("Seu carrinho está vazio!");
+        alert("O seu carrinho está vazio!");
         return;
     }
 
@@ -94,28 +140,27 @@ function finalizarPedido() {
         return;
     }
 
-    let mensagem = "*PEDIDO CHEFE EXPRESS*%0A%0A";
+    let mensagem = "*NOVO PEDIDO - CHEFE EXPRESS*%0A%0A";
     let totalFinal = 0;
 
     carrinho.forEach(item => {
-        const isPizza = verificarSeEhPizza(item);
+        const isPizza = verificarSeEhPizza(item.nome);
         const valorBorda = isPizza ? (precosBordas[item.borda] || 0) : 0;
-        const precoComBorda = item.preco + valorBorda;
-        const subtotal = precoComBorda * item.quantidade;
+        const precoUnitarioFinal = item.preco + valorBorda;
+        const subtotal = precoUnitarioFinal * item.quantidade;
         totalFinal += subtotal;
 
         mensagem += `*${item.quantidade}x ${item.nome}*%0A`;
-        if (isPizza) {
-            mensagem += `+ Borda: ${item.borda || 'Padrão'}%0A`;
-        }
-        mensagem += `Subtotal: R$ ${subtotal.toFixed(2).replace('.', ',')}%0A%0A`;
+        if (isPizza) mensagem += `  - Borda: ${item.borda || 'Nenhuma'}%0A`;
+        mensagem += `  Subtotal: R$ ${subtotal.toFixed(2).replace('.', ',')}%0A%0A`;
     });
 
     mensagem += `--------------------------%0A`;
-    mensagem += `*TOTAL: R$ ${totalFinal.toFixed(2).replace('.', ',')}*%0A%0A`;
-    mensagem += `*Endereço:* ${endereco}`;
+    mensagem += `*TOTAL DO PEDIDO: R$ ${totalFinal.toFixed(2).replace('.', ',')}*%0A%0A`;
+    mensagem += `*Endereço de Entrega:* %0A${endereco}`;
 
     localStorage.removeItem('carrinho');
+    carrinho = [];
     window.location.href = `https://wa.me/${foneWhatsapp}?text=${mensagem}`;
 }
 

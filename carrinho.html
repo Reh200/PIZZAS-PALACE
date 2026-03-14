@@ -4,31 +4,96 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Carrinho | Chefe Express 🍕</title>
-  <link rel="stylesheet" href="css/carrinho.css">
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/cardapio.css">
+  
+  <style>
+    /* Pequenos ajustes específicos para a página de carrinho */
+    body {
+      background-color: var(--bg-color);
+    }
+    #lista-pedidos {
+      margin-top: 20px;
+    }
+    .pedido {
+      transition: all 0.3s ease;
+    }
+    .total-container {
+      background: var(--card-bg);
+      border: 2px solid var(--secondary-color);
+      border-radius: 10px;
+      padding: 15px;
+    }
+  </style>
 </head>
 <body>
+
   <header>
-    <div class="container text-center my-4">
-      <h1>🛒 Carrinho de Pedidos</h1>
-      <a href="cardapio.html" class="btn btn-secondary mt-2">⬅ Voltar ao Cardápio</a>
+    <div class="container text-center">
+      <h1>
+        <img src="img/bebidas-logos/logo-1.png" alt="Logo" class="logo-icon">
+        Carrinho de Pedidos
+      </h1>
+      <nav>
+        <a href="cardapio.html">⬅ Voltar ao Cardápio</a>
+      </nav>
     </div>
   </header>
 
-  <main class="container">
-    <div id="lista-pedidos"></div>
+  <main class="container my-5">
+    <h2 class="text-center mb-4">Itens Selecionados</h2>
 
-    <div class="campo-endereco my-4" style="max-width: 500px; margin: 20px auto;">
-      <label for="endereco" style="display: block; font-weight: bold; margin-bottom: 5px;">Endereço de Entrega:</label>
-      <input type="text" id="endereco" placeholder="Ex: Rua das Flores, 123 - Centro" 
-             style="width: 100%; padding: 10px; border: 2px solid #ff8c00; border-radius: 8px;">
+    <div id="lista-pedidos">
+      <p class="text-center text-muted">Carregando seu carrinho...</p>
     </div>
 
-    <div class="acoes text-center my-4">
-      <button class="btn btn-danger" onclick="removerTodos()">Remover Todos</button>
-      <button class="btn btn-success" onclick="finalizarPedido()">Finalizar Compra</button>
+    <div class="total-container text-end my-4 shadow-sm">
+      <span class="fs-5 text-muted">Total do Pedido:</span>
+      <h2 id="total-carrinho" class="fw-bold" style="color: var(--secondary-color);">R$ 0,00</h2>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5 class="card-title">📍 Endereço de Entrega</h5>
+        <div class="mt-3">
+          <input type="text" id="endereco" class="form-control form-control-lg" 
+                 placeholder="Rua, Número, Bairro e Complemento"
+                 style="border: 2px solid var(--primary-color);">
+          <small class="text-muted mt-2 d-block">* Verifique os dados antes de finalizar.</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 text-center">
+      <div class="col-md-6">
+        <button class="btn btn-outline-danger w-100 py-3 fw-bold" onclick="removerTodos()">
+          🗑️ Esvaziar Carrinho
+        </button>
+      </div>
+      <div class="col-md-6">
+        <button class="btn btn-success w-100 py-3 fw-bold shadow" onclick="finalizarPedido()">
+          ✅ Finalizar no WhatsApp
+        </button>
+      </div>
     </div>
   </main>
 
+  <footer>
+    <p>&copy; 2026 Chefe Express 🍕 - O melhor sabor da região.</p>
+  </footer>
+
   <script src="js/carrinho.js"></script>
+  
+  <script>
+    // Função para limpar tudo com um clique
+    function removerTodos() {
+      if (confirm("Tem certeza que deseja remover todos os itens do carrinho?")) {
+        localStorage.removeItem('carrinho');
+        window.location.reload();
+      }
+    }
+  </script>
+
 </body>
 </html>
