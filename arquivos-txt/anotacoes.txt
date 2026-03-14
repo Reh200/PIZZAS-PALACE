@@ -5,6 +5,32 @@ Configuração GitHub
 git config --global user.name Reh200
 git config --global user.email alinerenata1400@gmail.com
 
+  header h1 { font-size: 1.3rem; }
+  footer { height: 30px; font-size: 0.75rem; }
+}
+
+/* =================== Footer (Mínimo de Altura) =================== */
+footer {
+  background-color: var(--primary-color);
+  color: var(--header-text);
+  text-align: center;
+  padding: 5px 0; /* Padding baixíssimo */
+  height: 35px;   /* Altura fixa fina */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  margin-top: auto;
+}
+
+footer p, footer span {
+  margin: 0;
+  padding: 0;
+}
+
+
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 

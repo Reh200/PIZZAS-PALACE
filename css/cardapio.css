@@ -24,13 +24,13 @@
 /* Ajuste Fino para Dark Mode (Smartphone) */
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-color: #121212;      /* Fundo da página bem escuro */
-    --text-color: #e0e0e0;    /* Texto claro */
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
     --primary-color: #ff4d4d;
     --secondary-color: #34d399;
     --header-text: #fff;
     --hover-link: #facc15;
-    --card-bg: #1e1e1e;       /* Card cinza escuro para destacar do fundo */
+    --card-bg: #1e1e1e;
     --card-border: #333;
     --shadow: rgba(0, 0, 0, 0.4);
     --input-bg: #2c2c2c;
@@ -49,23 +49,41 @@ body {
   min-height: 100vh;
 }
 
-/* =================== Cabeçalho =================== */
+/* =================== Cabeçalho (AJUSTADO) =================== */
 header {
   background-color: var(--primary-color);
   color: var(--header-text);
-  padding: 1rem;
+  padding: 0.2rem 1rem; /* Altura reduzida consideravelmente */
   display: flex;
-  justify-content: space-between;
+  flex-direction: column; /* Organiza itens em coluna para facilitar centralização */
   align-items: center;
-  flex-wrap: wrap;
+  justify-content: center;
   box-shadow: 0 2px 10px var(--shadow);
   position: sticky;
   top: 0;
   z-index: 1000;
+  min-height: 60px; /* Mantém a barra fina */
 }
 
 header h1 {
-  font-size: 2rem;
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* ESTILO DO LOGO */
+.logo-icon {
+  width: 110px;  /* Logo grande */
+  height: 110px;
+  object-fit: contain;
+  filter: none;
+  margin: -25px 0; /* O segredo: margem negativa faz o logo vazar sem esticar o header */
+}
+
+header nav {
+  margin-top: 5px;
 }
 
 header nav a {
@@ -73,6 +91,7 @@ header nav a {
   text-decoration: none;
   color: var(--header-text);
   font-weight: bold;
+  font-size: 0.9rem;
 }
 
 /* =================== Container Principal =================== */
@@ -126,10 +145,10 @@ header nav a {
 .item p {
   font-size: 0.9rem;
   margin-bottom: 1rem;
-  flex-grow: 1; /* Mantém o alinhamento dos botões */
+  flex-grow: 1; 
 }
 
-/* =================== Seletor de Bordas Recheadas (NOVO) =================== */
+/* =================== Seletor de Bordas Recheadas =================== */
 .select-borda {
   width: 100%;
   padding: 10px;
@@ -173,7 +192,7 @@ header nav a {
   background-color: #b71c1c;
 }
 
-/* =================== Estilo do Carrinho (Página carrinho.html) =================== */
+/* =================== Estilo do Carrinho =================== */
 .pedido {
   background: var(--card-bg);
   padding: 1rem;
@@ -197,26 +216,35 @@ header nav a {
 
 @media (max-width: 768px) {
   .grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-  header { flex-direction: column; gap: 10px; }
+  header { padding: 0.5rem; }
+  .logo-icon { width: 80px; height: 80px; margin: -15px 0; }
 }
 
 @media (max-width: 480px) {
-  .grid { grid-template-columns: 1fr; } /* Uma coluna no celular */
-  
-  /* Aumenta o contraste visual do card no mobile */
+  .grid { grid-template-columns: 1fr; }
   .item {
     border: 1px solid var(--primary-color);
     margin-bottom: 10px;
   }
-
   header h1 { font-size: 1.3rem; }
+  footer { height: 30px; font-size: 0.75rem; }
 }
 
-/* =================== Footer =================== */
+/* =================== Footer (Mínimo de Altura) =================== */
 footer {
   background-color: var(--primary-color);
   color: var(--header-text);
   text-align: center;
-  padding: 1.5rem;
+  padding: 5px 0; /* Padding baixíssimo */
+  height: 35px;   /* Altura fixa fina */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
   margin-top: auto;
+}
+
+footer p, footer span {
+  margin: 0;
+  padding: 0;
 }

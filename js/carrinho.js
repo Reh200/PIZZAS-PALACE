@@ -4,7 +4,6 @@ const lista = document.getElementById('lista-pedidos');
 const totalElemento = document.getElementById('total-carrinho');
 const foneWhatsapp = "5514991087543";
 
-// Tabela de preços das bordas
 const precosBordas = {
     "Nenhuma": 0,
     "Cheddar": 8.00,
@@ -14,6 +13,16 @@ const precosBordas = {
     "Chocolate": 12.00,
     "Doce de Leite": 12.00
 };
+
+// Palavras que identificam uma bebida (adicione outras se precisar)
+const listaBebidas = ["Coca", "Suco", "Guaraná", "Fanta", "Sprite", "Água", "Cerveja"];
+
+// Função auxiliar para checar se é pizza ou bebida pelo nome
+function verificarSeEhPizza(item) {
+    // Se o nome contém alguma palavra da lista de bebidas, NÃO é pizza
+    const ehBebida = listaBebidas.some(bebida => item.nome.includes(bebida));
+    return !ehBebida;
+}
 
 // 2. Função para Exibir o Carrinho na Tela
 function exibirCarrinho() {
@@ -28,17 +37,22 @@ function exibirCarrinho() {
     }
 
     carrinho.forEach((item, index) => {
-        // Cálculo do preço: Pizza + Borda
-        const valorBorda = precosBordas[item.borda] || 0;
+        // Lógica automática: Se for bebida pelo nome, isPizza vira false
+        const isPizza = verificarSeEhPizza(item);
+        
+        const valorBorda = isPizza ? (precosBordas[item.borda] || 0) : 0;
         const precoUnitarioTotal = item.preco + valorBorda;
         const subtotal = precoUnitarioTotal * item.quantidade;
         totalGeral += subtotal;
+
+        // Borda só aparece no HTML se for pizza
+        const htmlBorda = isPizza ? `<span class="badge bg-secondary">Borda: ${item.borda || 'Padrão'}</span><br>` : '';
 
         lista.innerHTML += `
             <div class="pedido border-bottom p-3 d-flex justify-content-between align-items-center">
                 <div>
                     <strong class="fs-5">${item.nome}</strong><br>
-                    <span class="badge bg-secondary">Borda: ${item.borda || 'Padrão'}</span><br>
+                    ${htmlBorda}
                     <small class="text-muted">
                         Un: R$ ${precoUnitarioTotal.toFixed(2).replace('.', ',')} | 
                         Qtd: ${item.quantidade}
@@ -84,24 +98,25 @@ function finalizarPedido() {
     let totalFinal = 0;
 
     carrinho.forEach(item => {
-        const valorBorda = precosBordas[item.borda] || 0;
+        const isPizza = verificarSeEhPizza(item);
+        const valorBorda = isPizza ? (precosBordas[item.borda] || 0) : 0;
         const precoComBorda = item.preco + valorBorda;
         const subtotal = precoComBorda * item.quantidade;
         totalFinal += subtotal;
 
         mensagem += `*${item.quantidade}x ${item.nome}*%0A`;
-        mensagem += `+ Borda: ${item.borda || 'Padrão'}%0A`;
-        mensagem += `Subtotal: R$ ${subtotal.toFixed(2)}%0A%0A`;
+        if (isPizza) {
+            mensagem += `+ Borda: ${item.borda || 'Padrão'}%0A`;
+        }
+        mensagem += `Subtotal: R$ ${subtotal.toFixed(2).replace('.', ',')}%0A%0A`;
     });
 
     mensagem += `--------------------------%0A`;
-    mensagem += `*TOTAL: R$ ${totalFinal.toFixed(2)}*%0A%0A`;
+    mensagem += `*TOTAL: R$ ${totalFinal.toFixed(2).replace('.', ',')}*%0A%0A`;
     mensagem += `*Endereço:* ${endereco}`;
 
-    // Limpeza e Redirecionamento
     localStorage.removeItem('carrinho');
     window.location.href = `https://wa.me/${foneWhatsapp}?text=${mensagem}`;
 }
 
-// 5. Inicialização
 document.addEventListener('DOMContentLoaded', exibirCarrinho);
