@@ -7,33 +7,28 @@
   box-sizing: border-box;
 }
 
-/* =================== Variáveis de cor =================== */
+/* =================== VARIÁVEIS (CORREÇÃO DE CONTRASTE) =================== */
 :root {
   --bg-color: #fff8f0;
   --text-color: #333;
   --primary-color: #d62828;
   --secondary-color: #2a9d8f;
   --header-text: #fff;
-  --hover-link: #ffd166;
-  --card-bg: #ffffff;
+  --card-bg: #ffffff; /* Fundo do card no modo claro */
   --card-border: #ddd;
   --shadow: rgba(0, 0, 0, 0.08);
   --input-bg: #ffffff;
 }
 
-/* Ajuste de Contraste para Dark Mode */
+/* Ajuste para que o card NÃO fique preto no Dark Mode */
 @media (prefers-color-scheme: dark) {
   :root {
     --bg-color: #121212;
-    --text-color: #e0e0e0;
-    --primary-color: #ff4d4d;
-    --secondary-color: #34d399;
-    --header-text: #fff;
-    --hover-link: #facc15;
-    --card-bg: #1e1e1e; /* Card um pouco mais claro que o fundo */
-    --card-border: #333;
-    --shadow: rgba(0, 0, 0, 0.4);
-    --input-bg: #2c2c2c;
+    --text-color: #e0e0e0;     /* Texto claro para ler no fundo escuro */
+    --card-bg: #252525;        /* Cinza grafite (mais claro que o fundo) */
+    --card-border: #444;       /* Borda visível */
+    --input-bg: #333;
+    --shadow: rgba(0, 0, 0, 0.5);
   }
 }
 
@@ -111,7 +106,7 @@ header nav a {
 
 /* =================== Cartões (CORRIGIDO CONTRASTE) =================== */
 .item {
-  background-color: var(--card-bg);
+  background-color: var(--card-bg) !important; /* Força o uso da variável */
   border: 1px solid var(--card-border);
   border-radius: 12px;
   display: flex;
@@ -119,7 +114,15 @@ header nav a {
   padding: 1.2rem;
   text-align: center;
   box-shadow: 0 4px 6px var(--shadow);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease;
+}
+
+/* Estilo para a descrição não sumir */
+.item p {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  flex-grow: 1;
+  color: var(--text-color); /* Usa a cor clara no dark e escura no light */
 }
 
 .item:hover {
@@ -141,31 +144,39 @@ header nav a {
   margin-bottom: 0.5rem;
 }
 
-.item p {
-  font-size: 0.9rem;
-  color: var(--text-color); /* Garante que siga a variável de texto */
-  opacity: 0.85; /* Deixa levemente diferente do título */
-  margin-bottom: 1rem;
-  flex-grow: 1; 
-}
-
-/* =================== Seletor =================== */
+/* =================== Seletor (Ajustado para Contraste) =================== */
 .select-borda {
   width: 100%;
   padding: 10px;
   margin-bottom: 1rem;
   border-radius: 8px;
-  border: 2px solid var(--card-border);
+  /* Borda mais fina (1px) para não pesar no visual escuro */
+  border: 1px solid var(--card-border); 
   background-color: var(--input-bg);
   color: var(--text-color);
   font-weight: 500;
+  font-size: 0.9rem;
   outline: none;
   cursor: pointer;
-  transition: border-color 0.3s;
+  appearance: none; /* Remove estilo padrão do sistema */
+  -webkit-appearance: none;
+  /* Adiciona uma setinha personalizada caso a original suma no escuro */
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d62828' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .select-borda:focus {
-  border-color: var(--secondary-color);
+  border-color: var(--primary-color); /* Usa o vermelho no foco para destacar */
+  box-shadow: 0 0 0 2px rgba(214, 40, 40, 0.2);
+}
+
+/* Garante que as opções dentro do select sejam legíveis no mobile */
+.select-borda option {
+  background-color: var(--card-bg);
+  color: var(--text-color);
 }
 
 /* =================== Preço e Botões =================== */
