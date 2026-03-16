@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
 
-/* =================== Reset básico =================== */
+/* =================== RESET BÁSICO =================== */
 *,
 *::before,
 *::after {
@@ -9,72 +9,62 @@
   box-sizing: border-box;
 }
 
-/* =================== Corpo da página =================== */
+/* =================== ESTRUTURA APP (SEM ROLAGEM) =================== */
+html, body {
+  height: 100vh;
+  height: 100dvh; /* Altura real para mobile */
+  overflow: hidden; /* Trava a rolagem global */
+}
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #fff8f0;
   color: #333;
-  line-height: 1.6;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  /* Permite que o corpo cresça conforme o conteúdo */
-  scroll-behavior: smooth;
-  overflow-x: hidden;
-  /* Impede apenas a rolagem lateral */
 }
 
-/* =================== Cabeçalho =================== */
+/* =================== CABEÇALHO =================== */
 header {
   background-color: #ff8c00;
   color: white;
-  padding: 0.1rem 2rem;
+  padding: 0.2rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 0;
   z-index: 1000;
-  transition: all 0.3s ease;
+  flex-shrink: 0; /* Garante que o header não seja esmagado */
 }
 
 header h1 {
-  font-size: 2.2rem;
+  font-size: 1.8rem;
   font-weight: bold;
   display: flex;
   align-items: center;
   gap: 8px;
-  line-height: 1;
 }
 
 .logo-icon {
-  width: 130px;
-  height: 130px;
+  width: 100px;
+  height: 100px;
   object-fit: contain;
-  display: block;
-  margin: -15px 0;
+  margin: -15px 0; /* Ajuste para não forçar altura do header */
   transition: transform 0.3s ease;
-}
-
-.logo-icon:hover {
-  transform: scale(1.05);
 }
 
 nav {
   display: flex;
   gap: 1.5rem;
-  align-items: center;
 }
 
 nav a {
   color: #fff;
   text-decoration: none;
   font-weight: 600;
+  font-size: 0.95rem;
   position: relative;
-  padding: 0.4rem 0;
-  transition: color 0.3s ease;
+  padding-bottom: 2px;
 }
 
 nav a::after {
@@ -88,23 +78,27 @@ nav a::after {
   transition: width 0.3s ease;
 }
 
-nav a:hover {
-  color: #ffe8cc;
-}
-
 nav a:hover::after {
   width: 100%;
 }
 
-/* =================== Banner =================== */
+/* =================== CONTEÚDO PRINCIPAL (FLEXÍVEL) =================== */
+main {
+  flex: 1; /* Ocupa todo o espaço entre o header e o footer */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Garante que o conteúdo não force rolagem */
+}
+
+/* Banner se adapta ao espaço do Main */
 .banner {
+  flex: 1;
   position: relative;
   width: 100%;
-  height: 400px;
-  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .banner-img {
@@ -114,12 +108,7 @@ nav a:hover::after {
   position: absolute;
   top: 0;
   left: 0;
-  filter: brightness(0.7);
-  transition: transform 0.5s ease;
-}
-
-.banner-img:hover {
-  transform: scale(1.02);
+  filter: brightness(0.65);
 }
 
 .banner-content {
@@ -127,181 +116,100 @@ nav a:hover::after {
   color: white;
   text-align: center;
   z-index: 10;
-  padding: 25px 35px;
-  background: rgba(0, 0, 0, 0.5);
+  padding: 20px 30px;
+  background: rgba(0, 0, 0, 0.4);
   border-radius: 12px;
-  max-width: 90%;
+  max-width: 85%;
 }
 
 .banner-content h2 {
   font-family: 'Dancing Script', cursive;
-  /* Fonte Cursiva */
   font-size: 3rem;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .banner-content p {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
 }
 
 .banner-content button {
-  padding: 12px 25px;
+  padding: 10px 25px;
   font-size: 1rem;
   background-color: #ff8c00;
   color: white;
   border: none;
   border-radius: 25px;
   cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-.banner-content button:hover {
-  background-color: #e07b00;
-  transform: scale(1.05);
-}
-
-/* =================== Conteúdo principal =================== */
-main {
-  padding: 4rem 2rem;
-  text-align: center;
-  flex: 1;
-}
-
-main h2 {
-  font-family: 'Dancing Script', cursive;
-  /* Fonte Cursiva */
-  font-size: 3.5rem;
-  color: #ff8c00;
-  margin-bottom: 1rem;
-}
-
-main p {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-}
-
-main button {
-  background-color: #ff8c00;
-  color: white;
-  border: none;
-  padding: 0.8rem 1.6rem;
-  border-radius: 25px;
-  font-size: 1rem;
   font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
 }
 
-main button:hover {
-  background-color: #e67700;
-  transform: scale(1.05);
-}
-
-/* =================== Footer =================== */
+/* =================== FOOTER =================== */
 footer {
   background-color: #333;
   color: white;
   text-align: center;
-  padding: 1rem 2rem;
-  font-size: 0.9rem;
+  padding: 0.5rem;
+  font-size: 0.8rem;
   border-top: 4px solid #ff8c00;
-  margin-top: auto;
+  flex-shrink: 0; /* Garante que o footer não suma */
 }
 
-footer a {
-  color: #ffb366;
-  text-decoration: none;
-  font-weight: 600;
-  margin: 0 5px;
-  transition: color 0.3s ease;
-}
-
-/* =================== Responsividade (Sem Rolagem) =================== */
+/* =================== RESPONSIVIDADE (TRAVA TELA) =================== */
 @media (max-width: 768px) {
-
-  /* Impede a rolagem no corpo da página */
-  html,
-  body {
-    height: 100%;
-    overflow: hidden;
-  }
-
   header {
     flex-direction: column;
-    align-items: center;
     padding: 0.5rem;
-    /* Padding reduzido para ganhar espaço */
   }
 
   header h1 {
-    font-size: 1.5rem;
-    /* Fonte menor */
-    gap: 5px;
+    font-size: 1.4rem;
   }
 
   .logo-icon {
-    width: 60px;
-    /* Logo menor para economizar altura */
-    height: 60px;
+    width: 65px;
+    height: 65px;
     margin: 0;
   }
 
   nav {
-    width: 100%;
-    margin-top: 0.5rem;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  /* Ajuste do Banner para caber na tela sem rolar */
-  .banner {
-    height: 50vh;
-    /* Ocupa metade da altura da tela */
+    margin-top: 10px;
+    gap: 15px;
   }
 
   .banner-content h2 {
-    font-size: 2rem;
+    font-size: 2.2rem;
+  }
+
+  .banner-content p {
+    font-size: 0.9rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limita texto se a tela for pequena */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }
 
 @media (max-width: 480px) {
-  header h1 {
-    font-size: 1.2rem;
+  .banner-content {
+    padding: 15px;
   }
 
-  .logo-icon {
-    width: 50px;
-    height: 50px;
-  }
-
-  /* Reduzimos o padding do main para o conteúdo subir */
-  main {
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  main h2 {
+  .banner-content h2 {
     font-size: 1.8rem;
-    /* Título cursivo menor */
-    margin-bottom: 0.5rem;
   }
 
-  main p {
-    font-size: 1rem;
-    margin-bottom: 1rem;
+  /* Ajuste para botões não estourarem a altura */
+  .banner-content button {
+    padding: 8px 15px;
+    font-size: 0.85rem;
   }
+}
 
-  .banner {
-    height: 40vh;
-    /* Banner ainda menor em celulares pequenos */
-  }
-
-  footer {
-    padding: 5px 0;
-    font-size: 0.65rem;
-  }
+/* Para celulares em modo paisagem (muito baixos) */
+@media (max-height: 450px) {
+  .logo-icon { display: none; }
+  .banner-content p { display: none; }
+  header { padding: 2px; }
+  nav { margin-top: 2px; }
 }
