@@ -21,7 +21,7 @@
   --input-bg: #ffffff;
 }
 
-/* Ajuste Fino para Dark Mode (Smartphone) */
+/* Ajuste de Contraste para Dark Mode */
 @media (prefers-color-scheme: dark) {
   :root {
     --bg-color: #121212;
@@ -30,7 +30,7 @@
     --secondary-color: #34d399;
     --header-text: #fff;
     --hover-link: #facc15;
-    --card-bg: #1e1e1e;
+    --card-bg: #1e1e1e; /* Card um pouco mais claro que o fundo */
     --card-border: #333;
     --shadow: rgba(0, 0, 0, 0.4);
     --input-bg: #2c2c2c;
@@ -49,20 +49,20 @@ body {
   min-height: 100vh;
 }
 
-/* =================== Cabeçalho (AJUSTADO) =================== */
+/* =================== Cabeçalho (MANTIDO) =================== */
 header {
   background-color: var(--primary-color);
   color: var(--header-text);
-  padding: 0.2rem 1rem; /* Altura reduzida consideravelmente */
+  padding: 0.2rem 1rem; 
   display: flex;
-  flex-direction: column; /* Organiza itens em coluna para facilitar centralização */
+  flex-direction: column; 
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 10px var(--shadow);
   position: sticky;
   top: 0;
   z-index: 1000;
-  min-height: 60px; /* Mantém a barra fina */
+  min-height: 60px; 
 }
 
 header h1 {
@@ -73,13 +73,12 @@ header h1 {
   gap: 10px;
 }
 
-/* ESTILO DO LOGO */
 .logo-icon {
-  width: 110px;  /* Logo grande */
+  width: 110px;  
   height: 110px;
   object-fit: contain;
   filter: none;
-  margin: -25px 0; /* O segredo: margem negativa faz o logo vazar sem esticar o header */
+  margin: -25px 0; 
 }
 
 header nav {
@@ -110,7 +109,7 @@ header nav a {
   margin-bottom: 2rem;
 }
 
-/* =================== Cartões =================== */
+/* =================== Cartões (CORRIGIDO CONTRASTE) =================== */
 .item {
   background-color: var(--card-bg);
   border: 1px solid var(--card-border);
@@ -144,11 +143,11 @@ header nav a {
 
 .item p {
   font-size: 0.9rem;
+  color: var(--text-color); /* Garante que siga a variável de texto */
+  opacity: 0.85; /* Deixa levemente diferente do título */
   margin-bottom: 1rem;
   flex-grow: 1; 
 }
-
-
 
 /* =================== Seletor =================== */
 .select-borda {
@@ -194,22 +193,6 @@ header nav a {
   background-color: #b71c1c;
 }
 
-.pedido {
-  background: var(--card-bg);
-  padding: 1rem;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  border: 1px solid var(--card-border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.pedido small {
-  color: var(--secondary-color);
-  font-weight: 600;
-}
-
 /* =================== Responsividade =================== */
 @media (max-width: 1024px) {
   .grid { grid-template-columns: repeat(3, 1fr); }
@@ -225,20 +208,20 @@ header nav a {
   .grid { grid-template-columns: 1fr; }
 
   .item {
-    border: 1px solid var(--primary-color);
+    border: 1px solid var(--card-border); /* CORREÇÃO: Removido a borda vermelha fixa */
     margin-bottom: 10px;
+    background-color: var(--card-bg);
   }
   header h1 { font-size: 1.3rem; }
-  footer { height: 30px; font-size: 0.75rem; }
 }
 
-/* =================== Footer (Mínimo de Altura) =================== */
+/* =================== Footer (MANTIDO) =================== */
 footer {
   background-color: var(--primary-color);
   color: var(--header-text);
   text-align: center;
-  padding: 5px 0; /* Padding baixíssimo */
-  height: 35px;   /* Altura fixa fina */
+  padding: 5px 0; 
+  height: 35px;   
   display: flex;
   align-items: center;
   justify-content: center;
