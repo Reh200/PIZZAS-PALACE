@@ -17,9 +17,11 @@ body {
   line-height: 1.6;
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Permite que o corpo cresça conforme o conteúdo */
+  min-height: 100vh;
+  /* Permite que o corpo cresça conforme o conteúdo */
   scroll-behavior: smooth;
-  overflow-x: hidden; /* Impede apenas a rolagem lateral */
+  overflow-x: hidden;
+  /* Impede apenas a rolagem lateral */
 }
 
 /* =================== Cabeçalho =================== */
@@ -49,10 +51,10 @@ header h1 {
 
 .logo-icon {
   width: 130px;
-  height: 130px; 
+  height: 130px;
   object-fit: contain;
   display: block;
-  margin: -15px 0; 
+  margin: -15px 0;
   transition: transform 0.3s ease;
 }
 
@@ -132,7 +134,8 @@ nav a:hover::after {
 }
 
 .banner-content h2 {
-  font-family: 'Dancing Script', cursive; /* Fonte Cursiva */
+  font-family: 'Dancing Script', cursive;
+  /* Fonte Cursiva */
   font-size: 3rem;
   margin-bottom: 10px;
 }
@@ -167,7 +170,8 @@ main {
 }
 
 main h2 {
-  font-family: 'Dancing Script', cursive; /* Fonte Cursiva */
+  font-family: 'Dancing Script', cursive;
+  /* Fonte Cursiva */
   font-size: 3.5rem;
   color: #ff8c00;
   margin-bottom: 1rem;
@@ -214,47 +218,90 @@ footer a {
   transition: color 0.3s ease;
 }
 
-/* =================== Responsividade =================== */
+/* =================== Responsividade (Sem Rolagem) =================== */
 @media (max-width: 768px) {
+
+  /* Impede a rolagem no corpo da página */
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+  }
+
   header {
     flex-direction: column;
     align-items: center;
-    padding: 1rem;
+    padding: 0.5rem;
+    /* Padding reduzido para ganhar espaço */
   }
 
   header h1 {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
+    /* Fonte menor */
     gap: 5px;
   }
 
   .logo-icon {
-    width: 90px;
-    height: 90px;
+    width: 60px;
+    /* Logo menor para economizar altura */
+    height: 60px;
     margin: 0;
   }
 
   nav {
     width: 100%;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     justify-content: center;
+    gap: 10px;
+  }
+
+  /* Ajuste do Banner para caber na tela sem rolar */
+  .banner {
+    height: 50vh;
+    /* Ocupa metade da altura da tela */
+  }
+
+  .banner-content h2 {
+    font-size: 2rem;
   }
 }
 
 @media (max-width: 480px) {
   header h1 {
-    font-size: 1.4rem;
-  }
-
-  .banner {
-    height: 300px;
+    font-size: 1.2rem;
   }
 
   .logo-icon {
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
+  }
+
+  /* Reduzimos o padding do main para o conteúdo subir */
+  main {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   main h2 {
-    font-size: 2.5rem;
+    font-size: 1.8rem;
+    /* Título cursivo menor */
+    margin-bottom: 0.5rem;
+  }
+
+  main p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .banner {
+    height: 40vh;
+    /* Banner ainda menor em celulares pequenos */
+  }
+
+  footer {
+    padding: 5px 0;
+    font-size: 0.65rem;
   }
 }
