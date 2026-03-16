@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+
 /* =================== Reset básico =================== */
 *,
 *::before,
@@ -15,16 +17,16 @@ body {
   line-height: 1.6;
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  overflow: hidden; /* impede rolagem para baixo e para os lados */
+  min-height: 100vh; /* Permite que o corpo cresça conforme o conteúdo */
   scroll-behavior: smooth;
+  overflow-x: hidden; /* Impede apenas a rolagem lateral */
 }
 
 /* =================== Cabeçalho =================== */
 header {
   background-color: #ff8c00;
   color: white;
-  padding: 0.1rem 2rem; /* Padding vertical quase zerado para o logo dominar */
+  padding: 0.1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -45,23 +47,19 @@ header h1 {
   line-height: 1;
 }
 
-/* REGRA PARA O LOGO EXTRA GRANDE */
 .logo-icon {
-  width: 130px;  /* Tamanho extra grande */
+  width: 130px;
   height: 130px; 
   object-fit: contain;
-  filter: none;
   display: block;
-  /* Margem negativa maior para o logo "transbordar" e o header não ficar gigante */
   margin: -15px 0; 
   transition: transform 0.3s ease;
 }
 
 .logo-icon:hover {
-  transform: scale(1.05); /* Leve pulsação ao passar o mouse */
+  transform: scale(1.05);
 }
 
-/* Ajuste na navegação */
 nav {
   display: flex;
   gap: 1.5rem;
@@ -134,7 +132,8 @@ nav a:hover::after {
 }
 
 .banner-content h2 {
-  font-size: 2.2rem;
+  font-family: 'Dancing Script', cursive; /* Fonte Cursiva */
+  font-size: 3rem;
   margin-bottom: 10px;
 }
 
@@ -152,7 +151,7 @@ nav a:hover::after {
   border-radius: 25px;
   cursor: pointer;
   font-weight: 600;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .banner-content button:hover {
@@ -168,8 +167,9 @@ main {
 }
 
 main h2 {
-  font-size: 2rem;
-  color: #f7b389;
+  font-family: 'Dancing Script', cursive; /* Fonte Cursiva */
+  font-size: 3.5rem;
+  color: #ff8c00;
   margin-bottom: 1rem;
 }
 
@@ -187,7 +187,7 @@ main button {
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 main button:hover {
@@ -200,11 +200,7 @@ footer {
   background-color: #333;
   color: white;
   text-align: center;
-<<<<<<< HEAD
-  padding: 1rem 2rem; 
-=======
   padding: 1rem 2rem;
->>>>>>> 76c0b30c1db008d567687261561a1027d9ad8395
   font-size: 0.9rem;
   border-top: 4px solid #ff8c00;
   margin-top: auto;
@@ -218,16 +214,10 @@ footer a {
   transition: color 0.3s ease;
 }
 
-footer a:hover {
-  color: #ffe8cc;
-}
-
 /* =================== Responsividade =================== */
 @media (max-width: 768px) {
-
   header {
     flex-direction: column;
-<<<<<<< HEAD
     align-items: center;
     padding: 1rem;
   }
@@ -238,13 +228,9 @@ footer a:hover {
   }
 
   .logo-icon {
-    width: 90px; /* Um pouco menor no mobile para não cobrir o conteúdo */
+    width: 90px;
     height: 90px;
     margin: 0;
-=======
-    align-items: flex-start;
-    padding: 1rem;
->>>>>>> 76c0b30c1db008d567687261561a1027d9ad8395
   }
 
   nav {
@@ -255,18 +241,20 @@ footer a:hover {
 }
 
 @media (max-width: 480px) {
-<<<<<<< HEAD
   header h1 {
     font-size: 1.4rem;
-=======
+  }
 
   .banner {
     height: 300px;
->>>>>>> 76c0b30c1db008d567687261561a1027d9ad8395
   }
-  
+
   .logo-icon {
     width: 70px;
     height: 70px;
+  }
+
+  main h2 {
+    font-size: 2.5rem;
   }
 }

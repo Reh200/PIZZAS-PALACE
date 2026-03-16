@@ -1,161 +1,179 @@
-/* Reset básico */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  /* Variáveis de cor (modo claro por padrão) */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+
+/* =================== Reset e Variáveis =================== */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-color: #fff8f0;
+  --text-color: #333;
+  --primary-color: #d62828;
+  --secondary-color: #2a9d8f;
+  --header-text: #fff;
+  --card-bg: #ffffff;
+  --card-border: #ddd;
+  --shadow: rgba(0, 0, 0, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
   :root {
-    --bg-color: #fff8f0;
-    --text-color: #333;
-    --primary-color: #d62828;
-    --secondary-color: #2a9d8f;
-    --header-text: #fff;
-    --hover-link: #ffd166;
-    --card-bg: #ffffff;
-    --card-border: #eee;
-    --shadow: rgba(0, 0, 0, 0.05);
+    --bg-color: #0d0d0d;
+    --card-bg: #1e1e1e;
+    --card-border: #333;
+    --text-color: #f0f0f0;
   }
-  
-  /* Detecta modo escuro preferido pelo sistema */
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg-color: #1e1e1e;
-      --text-color: #f0f0f0;
-      --primary-color: #ff4d4d;
-      --secondary-color: #34d399;
-      --header-text: #ffffff;
-      --hover-link: #facc15;
-      --card-bg: #2c2c2c;
-      --card-border: #444;
-      --shadow: rgba(0, 0, 0, 0.3);
-    }
-  }
-  
-  body {
-    font-family: "Segoe UI", "Helvetica Neue", sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    line-height: 1.6;
-    font-size: 16px;
-  }
-  
-  /* Cabeçalho */
-  header {
-    background-color: var(--primary-color);
-    color: var(--header-text);
-    padding: 1.5rem 0;
-    text-align: center;
-    box-shadow: 0 2px 6px var(--shadow);
-  }
-  
-  header nav a {
-    margin: 0 1rem;
-    text-decoration: none;
-    color: var(--header-text);
-    font-weight: bold;
-    transition: color 0.3s ease;
-  }
-  
-  header nav a:hover {
-    color: var(--hover-link);
-  }
-  
-  /* Container */
-  .container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 20px;
-  }
-  
-  /* Títulos */
-  h1, h2, h3 {
-    margin-bottom: 1rem;
-    font-weight: 600;
-  }
-  
-  h2 {
-    text-align: center;
-    color: var(--primary-color);
-    font-size: 2rem;
-  }
-  
-  /* Grade responsiva */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-  }
-  
-  /* Cartões dos itens */
-  .item {
-    background-color: var(--card-bg);
-    padding: 1rem;
-    border: 1px solid var(--card-border);
-    border-radius: 15px;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 2px 5px var(--shadow);
-  }
-  
-  .item:hover {
-    transform: scale(1.03);
-    box-shadow: 0 8px 16px var(--shadow);
-  }
-  
-  /* Imagens dos produtos */
-  .item img {
-    max-width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 0.75rem;
-  }
-  
-  /* Título do item */
-  .item strong {
-    display: block;
-    margin-top: 10px;
-    font-size: 1.2rem;
-    color: var(--primary-color);
-  }
-  
-  /* Descrição */
-  .item p {
-    margin: 0.5rem 0;
-    color: var(--text-color);
-    font-size: 0.95rem;
-  }
-  
-  /* Preço */
-  .item span,
-  .preco {
-    font-weight: bold;
-    color: var(--secondary-color);
-    display: block;
-    margin: 0.75rem 0;
-    font-size: 1rem;
-  }
-  
-  /* Botões */
-  button,
-  .btn {
-    background-color: var(--secondary-color);
-    color: white;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    font-weight: bold;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    text-decoration: none;
-    display: inline-block;
-  }
-  
-  button:hover,
-  .btn:hover {
-    background-color: #21867a;
-    transform: translateY(-2px);
-  }
-  
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  text-align: center;
+}
+
+/* =================== Cabeçalho (Idêntico ao Cardápio) =================== */
+header {
+  background-color: var(--primary-color);
+  color: var(--header-text);
+  padding: 1rem;
+  box-shadow: 0 2px 10px var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+header h1 {
+  font-size: 1.8rem;
+  margin-bottom: 5px;
+}
+
+header nav {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+header nav a {
+  text-decoration: none;
+  color: var(--header-text);
+  font-weight: bold;
+  font-size: 0.9rem;
+  transition: opacity 0.2s;
+}
+
+header nav a:hover {
+  opacity: 0.8;
+}
+
+/* =================== Conteúdo Principal =================== */
+main {
+  flex: 1;
+  max-width: 600px;
+  width: 90%;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 15px;
+  box-shadow: 0 4px 15px var(--shadow);
+}
+
+h2 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+h3 {
+  margin-top: 30px;
+  color: var(--primary-color);
+  text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: 1px;
+}
+
+p {
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+}
+
+/* =================== Botão WhatsApp =================== */
+button {
+  background-color: #25d366; /* Cor oficial do WhatsApp */
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+  box-shadow: 0 4px 0px #128c7e;
+  margin: 20px 0;
+  width: 100%;
+  max-width: 300px;
+}
+
+button:hover {
+  background-color: #128c7e;
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+/* Estilo do Botão de Alternância */
+.btn-theme {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid white;
+  color: white;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 1.2rem;
+  transition: all 0.3s;
+  margin-left: 10px;
+}
+
+.btn-theme:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* Variáveis para o Modo Escuro Manual */
+body.dark-mode {
+  --bg-color: #0d0d0d;
+  --card-bg: #1e1e1e;
+  --card-border: #333;
+  --text-color: #f0f0f0;
+  --input-bg: #2a2a2a;
+  --shadow: rgba(0, 0, 0, 0.4);
+}
+
+/* Ajuste sutil para imagens no modo escuro */
+body.dark-mode .item img {
+  opacity: 0.8;
+}
+
+/* =================== Rodapé =================== */
+footer {
+  background-color: var(--primary-color);
+  color: var(--header-text);
+  padding: 15px;
+  font-size: 0.9rem;
+}
+
+/* =================== Responsividade =================== */
+@media (max-width: 480px) {
+  h2 { font-size: 2rem; }
+  main { padding: 20px; margin: 20px auto; }
+}

@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');/* =================== Reset básico =================== */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+
+/* =================== Reset básico =================== */
 *,
 *::before,
 *::after {
@@ -40,9 +42,10 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow-x: hidden; /* Evita quebras de simetria por rolagem lateral */
 }
 
-/* =================== Cabeçalho (Centralizado) =================== */
+/* =================== Cabeçalho (Original) =================== */
 header {
   background-color: var(--primary-color);
   color: var(--header-text);
@@ -95,15 +98,18 @@ header nav a {
   margin: 0 auto;
   padding: 20px;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza o conteúdo interno do container */
 }
 
-/* =================== Título Cardápio Completo =================== */
+/* Título Cardápio Completo (Cursivo) */
 h2 {
-  font-family: 'Dancing Script', cursive; /* A letra cursiva solicitada */
+  font-family: 'Dancing Script', cursive;
   text-align: center;
   margin: 2.5rem 0;
   color: var(--text-color);
-  font-size: 3rem; /* Aumentado pois fontes cursivas tendem a parecer menores */
+  font-size: 3rem;
   font-weight: 700;
   display: flex;
   flex-direction: column;
@@ -111,7 +117,6 @@ h2 {
   gap: 5px;
 }
 
-/* Detalhe sutil abaixo da letra cursiva */
 h2::after {
   content: "";
   width: 100px;
@@ -120,78 +125,66 @@ h2::after {
   margin-top: 5px;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+/* Títulos de Categorias */
+h3.border-bottom {
+  text-align: center !important;
+  display: block !important;
+  width: 100%;
+  color: var(--text-color);
+  font-weight: 700;
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--primary-color) !important;
+  padding-bottom: 12px !important;
+  margin-top: 40px !important;
+  margin-bottom: 25px !important;
 }
 
-/* =================== Seção de Bordas Recheadas (Ajustado para o seu HTML) =================== */
-
-/* Estilo para a <section> */
+/* =================== Seção de Bordas Recheadas =================== */
 section.mb-5.border {
-  background-color: var(--card-bg) !important; /* Força a cor do seu tema */
+  background-color: var(--card-bg) !important;
   border: 1px solid var(--card-border) !important;
   padding: 1.5rem !important;
   border-radius: 12px !important;
   margin-bottom: 3rem !important;
   box-shadow: var(--shadow) !important;
+  width: 100%;
 }
 
-/* Título centralizado */
 section.mb-5.border h3 {
   text-align: center;
   margin-bottom: 1.5rem;
   color: var(--text-color);
 }
 
-/* Onde era o 'row', agora vira Grid */
 section.mb-5.border .row {
   display: grid !important;
-  grid-template-columns: repeat(3, 1fr) !important; /* 3 colunas */
+  grid-template-columns: repeat(3, 1fr) !important;
   gap: 1rem !important;
+  justify-content: center;
 }
 
-/* Remove margens extras das colunas do bootstrap */
-section.mb-5.border .col {
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
-/* Estilo do item interno (Cheddar, Catupiry, etc) */
 section.mb-5.border .bg-white.d-flex {
   padding: 0.8rem 1rem !important;
   border: 1px solid var(--card-border) !important;
   border-radius: 8px !important;
-  background-color: var(--input-bg) !important; /* Cor do seu tema */
+  background-color: var(--input-bg) !important;
   display: flex !important;
   justify-content: space-between !important;
   align-items: center !important;
   color: var(--text-color) !important;
 }
 
-/* Preço em destaque */
-section.mb-5.border strong {
-  color: var(--secondary-color);
+/* =================== Grid de Produtos (Centralização Corrigida) =================== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  justify-items: center; /* Centraliza os itens dentro das células da grid */
+  justify-content: center; /* Centraliza a grid como um todo */
 }
 
-/* Texto de observação no rodapé da seção */
-section.mb-5.border .texto-muted, 
-section.mb-5.border p.text-center {
-  color: var(--text-color) !important;
-  opacity: 0.7;
-  font-size: 0.8rem;
-  margin-top: 1rem;
-}
-
-/* Responsividade: 1 coluna no celular */
-@media (max-width: 600px) {
-  section.mb-5.border .row {
-    grid-template-columns: 1fr !important;
-  }
-}
-/* =================== Cartões de Produtos =================== */
 .item {
   background-color: var(--card-bg); 
   border: 1px solid var(--card-border);
@@ -201,12 +194,8 @@ section.mb-5.border p.text-center {
   padding: 1.2rem;
   text-align: center;
   box-shadow: 0 4px 6px var(--shadow);
-  transition: transform 0.3s ease;
-}
-
-.item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 15px var(--shadow);
+  height: 100%;
+  width: 100%; /* Permite que o max-width no mobile controle a simetria */
 }
 
 .item img {
@@ -222,7 +211,10 @@ section.mb-5.border p.text-center {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
   font-weight: bold;
-  text-align: center;
+  min-height: 2.4em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .item p {
@@ -231,37 +223,23 @@ section.mb-5.border p.text-center {
   font-size: 0.85rem;
   margin-bottom: 1rem;
   flex-grow: 1;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .select-preco {
   width: 100% !important;
-  padding: 5px 10px !important; /* Altura reduzida do seletor */
-  margin-bottom: 20px !important; /* FORÇA O ESPAÇO para o botão não grudar */
+  padding: 5px 10px !important;
+  margin-bottom: 20px !important; 
   border-radius: 8px !important;
   border: 1px solid var(--card-border) !important;
   background-color: var(--input-bg) !important;
   color: var(--text-color) !important;
-  font-size: 0.85rem !important;
-  cursor: pointer !important;
-  display: block !important;
-  appearance: none; /* Remove seta padrão em alguns navegadores */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C2.185 5.355 2.402 5 2.815 5h10.37c.413 0 .63.355.364.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-}
-
-/* =================== Preço e Botões =================== */
-.preco {
-  font-weight: bold;
-  color: var(--secondary-color);
-  font-size: 1.3rem;
-  margin-bottom: 0.8rem;
-  display: block;
 }
 
 .item button {
-  padding: 0.4rem 1rem; /* Diminuído de 0.6 para 0.4 */
+  padding: 0.4rem 1rem;
   border-radius: 50px;
   font-weight: 800;
   color: white;
@@ -270,77 +248,38 @@ section.mb-5.border p.text-center {
   cursor: pointer;
   width: 100%;
   text-transform: uppercase;
-  font-size: 0.7rem; /* Fonte levemente menor para caber na altura */
-  min-height: 32px;  /* Diminuído de 40px para 32px */
-  letter-spacing: 0.5px;
+  font-size: 0.7rem;
+  min-height: 32px;
   transition: all 0.2s ease-in-out;
-  box-shadow: 0 3px 0px #b01e1e; /* Sombra 3D levemente menor para combinar */
+  box-shadow: 0 3px 0px #b01e1e;
   position: relative;
-  top: 0;
+  margin-top: auto;
 }
 
-.item button:hover {
-  background-color: #e63946;
-  top: -1px;
-  box-shadow: 0 4px 0px #b01e1e;
-}
-
-.item button:active {
-  top: 2px; /* Clique físico proporcional à nova altura */
-  box-shadow: 0 1px 0px #b01e1e;
-}
-
-/* =================== Estilo dos Títulos de Categorias =================== */
-/* Pizzas Salgadas, Doces e Bebidas */
-h3.border-bottom {
-  text-align: center !important;
-  display: block !important;
-  width: 100%;
-  color: var(--text-color);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border-bottom: 2px solid var(--primary-color) !important; /* Linha temática */
-  padding-bottom: 12px !important;
-  margin-top: 40px !important;
-  margin-bottom: 25px !important;
-}
-
-/* Título das Bordas Recheadas */
-h3.text-center.mb-4 {
-  text-align: center !important;
-  width: 100%;
-  color: var(--text-color);
-  font-weight: 700;
-  margin-bottom: 20px !important;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-/* Ajuste fino para garantir que o ícone acompanhe o texto centralizado */
-h3.text-center.mb-4::before,
-h3.text-center.mb-4::after {
-  content: "";
-  flex: 0; 
-}
-
-/* =================== Responsividade =================== */
+/* =================== Responsividade (Simetria Mobile) =================== */
 @media (max-width: 1100px) {
   .grid { grid-template-columns: repeat(3, 1fr); }
-  .bordas-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
   .grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-  .logo-icon { width: 80px; height: 80px; margin: -15px 0; }
-  header h1 { font-size: 1.5rem; }
+  section.mb-5.border .row { grid-template-columns: repeat(2, 1fr) !important; }
 }
 
-@media (max-width: 480px) {
-  .grid { grid-template-columns: 1fr; }
-  .bordas-grid { grid-template-columns: 1fr; }
+@media (max-width: 500px) {
+  .container {
+    padding: 15px; /* Redução leve para telas muito pequenas */
+  }
+  .grid { 
+    grid-template-columns: 1fr; 
+    justify-content: center;
+  }
+  .item { 
+    width: 100%; 
+    max-width: 320px; /* Mantém o card centralizado e com bordas iguais */
+    margin: 0 auto; 
+  }
+  section.mb-5.border .row { grid-template-columns: 1fr !important; }
 }
 
 /* =================== Footer =================== */
@@ -348,7 +287,6 @@ footer {
   background-color: var(--primary-color);
   color: var(--header-text);
   text-align: center;
-  padding: 5px 0; 
   height: 35px;   
   display: flex;
   align-items: center;
