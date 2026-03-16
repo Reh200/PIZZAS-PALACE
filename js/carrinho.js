@@ -64,7 +64,6 @@ function exibirCarrinho() {
     if (totalElemento) totalElemento.innerText = `R$ ${totalGeral.toFixed(2).replace('.', ',')}`;
 }
 
-// Lógica de Pagamento Multi-seleção
 function gerenciarPagamento() {
     const selecionados = document.querySelectorAll('input[name="metodo"]:checked');
     const boxTroco = document.getElementById('box-troco');
@@ -76,7 +75,7 @@ function gerenciarPagamento() {
     }
 
     const temDinheiro = Array.from(selecionados).some(el => el.value === 'Dinheiro');
-    boxTroco.style.display = temDinheiro ? 'block' : 'none';
+    if (boxTroco) boxTroco.style.display = temDinheiro ? 'block' : 'none';
 }
 
 function alterarQuantidade(index, mudanca) {
@@ -116,7 +115,10 @@ function finalizarPedido() {
     if (!endereco) return alert("Informe o endereço!");
     if (selecionados.length === 0) return alert("Escolha o pagamento!");
 
-    const pagamentos = Array.from(selecionados).map(el => el.value).join(" + ");
+    // Ajuste aqui: Cada pagamento em uma nova linha com um marcador
+    const pagamentos = Array.from(selecionados)
+        .map(el => `  - ${el.value}`)
+        .join("%0A");
 
     let mensagem = "*NOVO PEDIDO - CHEFE EXPRESS*%0A%0A";
     let total = 0;
@@ -126,18 +128,21 @@ function finalizarPedido() {
         const sub = (item.preco + valorBorda) * item.quantidade;
         total += sub;
         mensagem += `*${item.quantidade}x ${item.nome}*%0A`;
-        if (verificarSeEhPizza(item.nome)) mensagem += ` - Borda: ${item.borda || 'Nenhuma'}%0A`;
-        mensagem += ` Sub: R$ ${sub.toFixed(2).replace('.', ',')}%0A%0A`;
+        if (verificarSeEhPizza(item.nome)) {
+            mensagem += `  - Borda: ${item.borda || 'Nenhuma'}%0A`;
+        }
+        mensagem += `  Sub: R$ ${sub.toFixed(2).replace('.', ',')}%0A%0A`;
     });
 
     mensagem += `*TOTAL: R$ ${total.toFixed(2).replace('.', ',')}*%0A%0A`;
-    mensagem += `*Endereço:* ${endereco}%0A`;
-    mensagem += `*Pagamento:* ${pagamentos}`;
+    mensagem += `*Endereço:*%0A${endereco}%0A%0A`;
+    mensagem += `*Forma de Pagamento:*%0A${pagamentos}`;
     
-    if (pagamentos.includes('Dinheiro') && troco) {
+    if (Array.from(selecionados).some(el => el.value === 'Dinheiro') && troco) {
         mensagem += `%0A*Troco para:* R$ ${troco}`;
     }
 
+    // Limpa o carrinho e envia
     localStorage.removeItem('carrinho');
     window.location.href = `https://wa.me/${foneWhatsapp}?text=${mensagem}`;
 }

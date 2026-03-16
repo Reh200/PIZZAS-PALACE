@@ -1,4 +1,4 @@
-/* =================== Reset básico =================== */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');/* =================== Reset básico =================== */
 *,
 *::before,
 *::after {
@@ -12,24 +12,27 @@
   --text-color: #333;
   --primary-color: #d62828;
   --secondary-color: #2a9d8f;
+  --header-text: #fff;
   --card-bg: #ffffff;
   --card-border: #ddd;
   --input-bg: #ffffff;
+  --shadow: rgba(0, 0, 0, 0.08);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-color: #0d0d0d;       /* Fundo quase preto */
-    --card-bg: #1e1e1e;        /* Card cinza grafite (mais claro que o fundo) */
-    --card-border: #333;       /* Borda sutil */
-    --text-color: #f0f0f0;     /* Texto quase branco (máximo contraste) */
-    --input-bg: #2a2a2a;       /* Fundo do select um pouco mais claro que o card */
+    --bg-color: #0d0d0d;
+    --card-bg: #1e1e1e;
+    --card-border: #333;
+    --text-color: #f0f0f0;
+    --input-bg: #2a2a2a;
+    --shadow: rgba(0, 0, 0, 0.4);
   }
 }
 
 /* =================== Corpo da página =================== */
 body {
-  font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: var(--bg-color);
   color: var(--text-color);
   line-height: 1.6;
@@ -39,15 +42,16 @@ body {
   min-height: 100vh;
 }
 
-/* =================== Cabeçalho (MANTIDO) =================== */
+/* =================== Cabeçalho (Centralizado) =================== */
 header {
   background-color: var(--primary-color);
   color: var(--header-text);
-  padding: 0.2rem 1rem; 
+  padding: 0.5rem 1rem; 
   display: flex;
   flex-direction: column; 
   align-items: center;
   justify-content: center;
+  text-align: center; 
   box-shadow: 0 2px 10px var(--shadow);
   position: sticky;
   top: 0;
@@ -61,37 +65,61 @@ header h1 {
   align-items: center;
   justify-content: center;
   gap: 10px;
+  width: 100%;
 }
 
 .logo-icon {
   width: 110px;  
   height: 110px;
   object-fit: contain;
-  filter: none;
   margin: -25px 0; 
 }
 
 header nav {
   margin-top: 5px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
 }
 
 header nav a {
-  margin: 0 0.5rem;
   text-decoration: none;
   color: var(--header-text);
   font-weight: bold;
   font-size: 0.9rem;
 }
 
-/* =================== Container Principal =================== */
+/* =================== Layout e Títulos Gerais =================== */
 .container {
   max-width: 1200px;
-  margin: auto;
+  margin: 0 auto;
   padding: 20px;
   width: 100%;
 }
 
-/* =================== Grade de Produtos =================== */
+/* =================== Título Cardápio Completo =================== */
+h2 {
+  font-family: 'Dancing Script', cursive; /* A letra cursiva solicitada */
+  text-align: center;
+  margin: 2.5rem 0;
+  color: var(--text-color);
+  font-size: 3rem; /* Aumentado pois fontes cursivas tendem a parecer menores */
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Detalhe sutil abaixo da letra cursiva */
+h2::after {
+  content: "";
+  width: 100px;
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--primary-color), transparent);
+  margin-top: 5px;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -99,9 +127,73 @@ header nav a {
   margin-bottom: 2rem;
 }
 
-/* =================== Cartões (CORRIGIDO CONTRASTE) =================== */
+/* =================== Seção de Bordas Recheadas (Ajustado para o seu HTML) =================== */
+
+/* Estilo para a <section> */
+section.mb-5.border {
+  background-color: var(--card-bg) !important; /* Força a cor do seu tema */
+  border: 1px solid var(--card-border) !important;
+  padding: 1.5rem !important;
+  border-radius: 12px !important;
+  margin-bottom: 3rem !important;
+  box-shadow: var(--shadow) !important;
+}
+
+/* Título centralizado */
+section.mb-5.border h3 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+}
+
+/* Onde era o 'row', agora vira Grid */
+section.mb-5.border .row {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important; /* 3 colunas */
+  gap: 1rem !important;
+}
+
+/* Remove margens extras das colunas do bootstrap */
+section.mb-5.border .col {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Estilo do item interno (Cheddar, Catupiry, etc) */
+section.mb-5.border .bg-white.d-flex {
+  padding: 0.8rem 1rem !important;
+  border: 1px solid var(--card-border) !important;
+  border-radius: 8px !important;
+  background-color: var(--input-bg) !important; /* Cor do seu tema */
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  color: var(--text-color) !important;
+}
+
+/* Preço em destaque */
+section.mb-5.border strong {
+  color: var(--secondary-color);
+}
+
+/* Texto de observação no rodapé da seção */
+section.mb-5.border .texto-muted, 
+section.mb-5.border p.text-center {
+  color: var(--text-color) !important;
+  opacity: 0.7;
+  font-size: 0.8rem;
+  margin-top: 1rem;
+}
+
+/* Responsividade: 1 coluna no celular */
+@media (max-width: 600px) {
+  section.mb-5.border .row {
+    grid-template-columns: 1fr !important;
+  }
+}
+/* =================== Cartões de Produtos =================== */
 .item {
-  background-color: var(--card-bg) !important; /* Força o uso da variável */
+  background-color: var(--card-bg); 
   border: 1px solid var(--card-border);
   border-radius: 12px;
   display: flex;
@@ -110,12 +202,6 @@ header nav a {
   text-align: center;
   box-shadow: 0 4px 6px var(--shadow);
   transition: transform 0.3s ease;
-}
-
-.item p {
-  color: var(--text-color) !important;
-  opacity: 0.9;
-  font-size: 0.9rem;
 }
 
 .item:hover {
@@ -135,82 +221,129 @@ header nav a {
   color: var(--primary-color);
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
+  font-weight: bold;
+  text-align: center;
 }
 
-.select-borda {
-  width: 100%;
-  padding: 10px;
+.item p {
+  color: var(--text-color);
+  opacity: 0.9;
+  font-size: 0.85rem;
   margin-bottom: 1rem;
-  border-radius: 8px;
-  border: 1px solid var(--card-border);
-  background-color: var(--input-bg); /* Agora usa uma cor diferente do card */
-  color: var(--text-color);
-  font-weight: 500;
-  font-size: 0.9rem;
-  outline: none;
-  cursor: pointer;
-  display: block;
+  flex-grow: 1;
+  text-align: center;
 }
 
-.select-borda:focus {
-  border-color: var(--primary-color); /* Usa o vermelho no foco para destacar */
-  box-shadow: 0 0 0 2px rgba(214, 40, 40, 0.2);
-}
-
-/* Garante que as opções dentro do select sejam legíveis no mobile */
-.select-borda option {
-  background-color: var(--card-bg);
-  color: var(--text-color);
+.select-preco {
+  width: 100% !important;
+  padding: 5px 10px !important; /* Altura reduzida do seletor */
+  margin-bottom: 20px !important; /* FORÇA O ESPAÇO para o botão não grudar */
+  border-radius: 8px !important;
+  border: 1px solid var(--card-border) !important;
+  background-color: var(--input-bg) !important;
+  color: var(--text-color) !important;
+  font-size: 0.85rem !important;
+  cursor: pointer !important;
+  display: block !important;
+  appearance: none; /* Remove seta padrão em alguns navegadores */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C2.185 5.355 2.402 5 2.815 5h10.37c.413 0 .63.355.364.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
 }
 
 /* =================== Preço e Botões =================== */
 .preco {
   font-weight: bold;
   color: var(--secondary-color);
-  font-size: 1.4rem;
-  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  margin-bottom: 0.8rem;
   display: block;
 }
 
-.btn-primary, .item button {
-  padding: 0.8rem 1rem;
-  border-radius: 8px;
-  font-weight: bold;
+.item button {
+  padding: 0.4rem 1rem; /* Diminuído de 0.6 para 0.4 */
+  border-radius: 50px;
+  font-weight: 800;
   color: white;
   background-color: var(--primary-color);
   border: none;
   cursor: pointer;
   width: 100%;
-  transition: background 0.3s;
+  text-transform: uppercase;
+  font-size: 0.7rem; /* Fonte levemente menor para caber na altura */
+  min-height: 32px;  /* Diminuído de 40px para 32px */
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 3px 0px #b01e1e; /* Sombra 3D levemente menor para combinar */
+  position: relative;
+  top: 0;
 }
 
-.btn-primary:hover, .item button:hover {
-  background-color: #b71c1c;
+.item button:hover {
+  background-color: #e63946;
+  top: -1px;
+  box-shadow: 0 4px 0px #b01e1e;
+}
+
+.item button:active {
+  top: 2px; /* Clique físico proporcional à nova altura */
+  box-shadow: 0 1px 0px #b01e1e;
+}
+
+/* =================== Estilo dos Títulos de Categorias =================== */
+/* Pizzas Salgadas, Doces e Bebidas */
+h3.border-bottom {
+  text-align: center !important;
+  display: block !important;
+  width: 100%;
+  color: var(--text-color);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 2px solid var(--primary-color) !important; /* Linha temática */
+  padding-bottom: 12px !important;
+  margin-top: 40px !important;
+  margin-bottom: 25px !important;
+}
+
+/* Título das Bordas Recheadas */
+h3.text-center.mb-4 {
+  text-align: center !important;
+  width: 100%;
+  color: var(--text-color);
+  font-weight: 700;
+  margin-bottom: 20px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Ajuste fino para garantir que o ícone acompanhe o texto centralizado */
+h3.text-center.mb-4::before,
+h3.text-center.mb-4::after {
+  content: "";
+  flex: 0; 
 }
 
 /* =================== Responsividade =================== */
-@media (max-width: 1024px) {
+@media (max-width: 1100px) {
   .grid { grid-template-columns: repeat(3, 1fr); }
+  .bordas-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
   .grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-  header { padding: 0.5rem; }
   .logo-icon { width: 80px; height: 80px; margin: -15px 0; }
+  header h1 { font-size: 1.5rem; }
 }
 
 @media (max-width: 480px) {
   .grid { grid-template-columns: 1fr; }
-
-  .item {
-    border: 1px solid var(--card-border); /* CORREÇÃO: Removido a borda vermelha fixa */
-    margin-bottom: 10px;
-    background-color: var(--card-bg);
-  }
-  header h1 { font-size: 1.3rem; }
+  .bordas-grid { grid-template-columns: 1fr; }
 }
 
-/* =================== Footer (MANTIDO) =================== */
+/* =================== Footer =================== */
 footer {
   background-color: var(--primary-color);
   color: var(--header-text);
@@ -222,9 +355,4 @@ footer {
   justify-content: center;
   font-size: 0.8rem;
   margin-top: auto;
-}
-
-footer p, footer span {
-  margin: 0;
-  padding: 0;
 }

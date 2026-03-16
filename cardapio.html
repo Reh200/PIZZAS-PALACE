@@ -6,24 +6,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cardápio | Chefe Express 🍕</title>
   <link rel="stylesheet" href="css/cardapio.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
 
-<header>
-  <div class="container text-center my-4">
-    <h1>
-      <img src="img/bebidas-logos/logo-1.png" alt="Logo Chefe Express" class="logo-icon">
-      Chefe Express
-    </h1>
-    <nav aria-label="Navegação principal">
-      <a href="index.html" class="mx-3 text-decoration-none">Início</a>
-      <a href="contato.html" class="mx-3 text-decoration-none">Contato</a>
-      <a href="carrinho.html" class="mx-3 text-decoration-none font-weight-bold">🛒 Ver Carrinho</a>
-    </nav>
-  </div>
-</header>
+  <header>
+    <div class="container text-center my-4">
+      <h1>
+        <img src="img/bebidas-logos/logo-1.png" alt="Logo Chefe Express" class="logo-icon">
+        Chefe Express
+      </h1>
+      <nav aria-label="Navegação principal">
+        <a href="index.html" class="mx-3 text-decoration-none">Início</a>
+        <a href="contato.html" class="mx-3 text-decoration-none">Contato</a>
+        <a href="carrinho.html" class="mx-3 text-decoration-none font-weight-bold">🛒 Ver Carrinho</a>
+      </nav>
+    </div>
+  </header>
 
   <main class="container">
     <h2 class="text-center mb-5">Cardápio Completo</h2>
@@ -305,11 +304,13 @@
       <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
         <div class="col">
           <div class="p-2 border rounded bg-white d-flex justify-content-between align-items-center">
-            <span>Cheddar</span> <strong>R$ 8,00</strong></div>
+            <span>Cheddar</span> <strong>R$ 8,00</strong>
+          </div>
         </div>
         <div class="col">
           <div class="p-2 border rounded bg-white d-flex justify-content-between align-items-center">
-            <span>Catupiry</span> <strong>R$ 8,00</strong></div>
+            <span>Catupiry</span> <strong>R$ 8,00</strong>
+          </div>
         </div>
         <div class="col">
           <div class="p-2 border rounded bg-white d-flex justify-content-between align-items-center"><span>4
@@ -317,7 +318,8 @@
         </div>
         <div class="col">
           <div class="p-2 border rounded bg-white d-flex justify-content-between align-items-center">
-            <span>Chocolate</span> <strong>R$ 12,00</strong></div>
+            <span>Chocolate</span> <strong>R$ 12,00</strong>
+          </div>
         </div>
       </div>
       <p class="text-muted small mt-3 text-center">* As bordas podem ser solicitadas na finalização do pedido.</p>
@@ -346,13 +348,13 @@
           <strong class="d-block h5">Suco Natural</strong>
           <p class="small text-muted">Laranja, Maracujá ou Acerola (Garrafa Lacrada)</p>
           <select class="form-select form-select-sm mb-2 select-preco">
-            <option value="12.00">Laranja -  garrafa 500ml - R$ 12,00</option>
+            <option value="12.00">Laranja - garrafa 500ml - R$ 12,00</option>
             <option value="19.00">Laranja - garrafa 1L - R$ 19,00</option>
             <option value="12.00">Maracujá - garrafa 500ml - R$ 12,00</option>
             <option value="19.00">Maracujá - garrafa 1L - R$ 19,00</option>
             <option value="12.00">Acerola - garrafa 500ml - R$ 12,00</option>
             <option value="19.00">Acerola - garrafa 1L - R$ 19,00</option>
-            
+
           </select>
           <button class="btn btn-primary btn-sm w-100" onclick="adicionarAoCarrinho(this)">Adicionar ao
             Carrinho</button>
