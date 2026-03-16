@@ -92,6 +92,57 @@ header nav a {
   font-size: 0.9rem;
 }
 
+/* =================== Responsividade do Cabeçalho =================== */
+
+@media (max-width: 768px) {
+    header {
+        padding: 0.3rem 0.5rem;
+        min-height: auto; /* Deixa o conteúdo ditar a altura */
+    }
+
+    header h1 {
+        font-size: 1.4rem; /* Reduz o título principal */
+        gap: 5px;
+    }
+
+    .logo-icon {
+        width: 80px;  /* Reduz o logo em tablets */
+        height: 80px;
+        margin: -15px 0; /* Ajusta a margem negativa para não subir demais */
+    }
+
+    header nav {
+        gap: 10px; /* Encurta o espaço entre os links */
+    }
+
+    header nav a {
+        font-size: 0.8rem; /* Links um pouco menores */
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.2rem; /* Título ideal para celulares pequenos */
+    }
+
+    .logo-icon {
+        width: 65px; /* Logo discreto para sobrar espaço na tela */
+        height: 65px;
+        margin: -10px 0;
+    }
+
+    header nav {
+        flex-wrap: wrap; /* Permite que os links quebrem linha se necessário */
+        justify-content: center;
+        width: 100%;
+    }
+
+    header nav a {
+        padding: 5px; /* Aumenta a área de toque para dedos */
+    }
+    
+}
+
 /* =================== Layout e Títulos Gerais =================== */
 .container {
   max-width: 1200px;
