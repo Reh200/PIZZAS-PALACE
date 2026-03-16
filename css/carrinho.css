@@ -1,206 +1,292 @@
-/* === Estilo geral da página === */
+/* =================== VARIÁVEIS E BASE =================== */
+:root {
+    --vermelho: #d43f3f;
+    --texto-claro: #ffffff;
+    --bg-site: #fffaf0;
+    --cinza-escuro: #333;
+    --cinza-borda: #eee;
+    --sombra: rgba(0, 0, 0, 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
 body {
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  background-color: #fffaf0;
-  margin: 0;
-  padding: 15px; /* Reduzi um pouco para ganhar espaço lateral no mobile */
-  color: #333;
+    background-color: var(--bg-site);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-/* === Título === */
-h1 {
-  text-align: center;
-  color: #d43f3f;
-  margin-bottom: 20px;
-  font-size: 26px; /* Ajustado para não quebrar linha em telas pequenas */
-  font-weight: 700;
+/* =================== CABEÇALHO E RODAPÉ (MANTIDOS) =================== */
+header {
+    background-color: var(--vermelho);
+    color: var(--texto-claro);
+    padding: 0; /* Zero padding */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-/* === Containers Principais === */
-#lista-pedidos, .campo-endereco {
-  max-width: 750px;
-  margin: 0 auto 20px auto;
-  background: #ffffff;
-  border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* Sombra mais leve para mobile */
-  padding: 20px;
-  box-sizing: border-box;
+footer {
+    background-color: var(--vermelho);
+    color: var(--texto-claro);
+    padding: 4px 0; /* Rodapé ultra fino */
+    margin-top: auto;
+    text-align: center;
+    font-size: 0.7rem;
 }
 
-/* === Campo de Endereço === */
-.campo-endereco {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 15px;
+    height: 35px; /* Altura mínima para o texto */
 }
 
-.campo-endereco label {
-  font-weight: 600;
-  color: #555;
-  font-size: 16px;
+.logo-txt {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.1rem; /* Fonte menor */
+    font-weight: bold;
 }
 
-.campo-endereco input {
-  width: 100%;
-  padding: 14px; /* Padding maior para facilitar o toque */
-  border: 2px solid #eee;
-  border-radius: 8px;
-  font-size: 16px;
-  transition: border-color 0.3s ease;
-  outline: none;
-  box-sizing: border-box;
-  appearance: none; /* Remove sombras internas no iOS */
+.logo-icon {
+    width: 60px; /* Logo menor para não forçar o header */
+    height: 60px;
+    margin: -5px 0; 
+    object-fit: contain;
 }
 
-.campo-endereco input:focus {
-  border-color: #ffb347;
+.btn-voltar {
+    color: white;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 0.7rem;
 }
 
-/* === Itens do carrinho === */
-.pedido {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #eee;
-  padding: 15px 0;
-  gap: 10px;
+/* =================== LAYOUT E GRID =================== */
+.interface {
+    max-width: 1000px;
+    margin: 20px auto; 
+    padding: 0 15px;
+    width: 100%;
 }
 
-.pedido:last-child {
-  border-bottom: none;
+.carrinho-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 20px;
 }
 
-.info-item { /* Div auxiliar para organizar texto */
-  flex: 1;
+/* =================== ITENS DO CARRINHO =================== */
+.item-pedido {
+    background: #ffffff;
+    border-radius: 6px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--cinza-borda);
 }
 
-.pedido strong {
-  font-size: 17px;
-  display: block;
-  margin-bottom: 4px;
+.info-item strong {
+    font-size: 1rem;
+    color: var(--cinza-escuro);
 }
 
-/* Estilo para a Borda Recheada no Carrinho */
-.pedido .borda-info {
-  font-size: 14px;
-  color: #2a9d8f;
-  font-weight: bold;
-  display: block;
+.form-select-sm {
+    padding: 2px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 11px;
+    color: #777;
+    background: #fafafa;
 }
 
-.pedido .preco {
-  font-size: 16px;
-  font-weight: 600;
-  color: #d43f3f;
+.preco-subtotal {
+    color: #000;
+    font-weight: bold;
+    font-size: 1rem;
 }
 
-/* === Controles de quantidade e Botão Remover === */
-.controles-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 10px;
+.btn-group {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    margin: 5px 0;
 }
 
-.qtd-controle {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: #f8f8f8;
-  padding: 5px;
-  border-radius: 8px;
+.btn-group button {
+    border: none;
+    background: #f5f5f5;
+    color: #333;
+    padding: 2px 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
 }
 
-.btn-qtd {
-  background-color: #ffb347;
-  border: none;
-  width: 35px; /* Botões quadrados facilitam o clique */
-  height: 35px;
-  border-radius: 6px;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.btn-group span {
+    padding: 0 8px;
+    font-size: 0.85rem;
 }
 
 .btn-remover {
-  background-color: transparent;
-  color: #e74c3c;
-  border: 1px solid #e74c3c;
-  padding: 5px 10px;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: bold;
-  cursor: pointer;
+    background: none;
+    border: none;
+    color: #ccc;
+    cursor: pointer;
+    font-size: 0.7rem;
+    text-transform: lowercase;
 }
 
-/* === Ações e Botões Principais === */
-.acoes {
-  display: flex;
-  flex-direction: column; /* Pilha de botões no mobile é melhor */
-  max-width: 750px;
-  margin: 0 auto;
-  gap: 10px;
+/* =================== RESUMO, ENDEREÇO E PAGAMENTO =================== */
+.card-resumo {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--cinza-borda);
+    position: sticky;
+    top: 55px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
 }
 
-button, .btn {
-  width: 100%; /* Ocupa a largura total no mobile */
-  padding: 16px;
-  border: none;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: bold;
-  text-decoration: none;
-  text-align: center;
-  margin: 0;
-  box-sizing: border-box;
+.card-resumo h2.titulo-sessao {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #999;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #f9f9f9;
+    padding-bottom: 5px;
 }
 
-.btn-success { background-color: #2ecc71; color: #fff; }
-.btn-danger { background-color: #e74c3c; color: #fff; }
-.btn-secondary { background-color: #555; color: #fff; }
-
-/* === TOTAL === */
-#total-carrinho {
-  text-align: center;
-  font-size: 22px;
-  font-weight: 800;
-  color: #d43f3f;
-  margin: 10px 0;
-}
-
-/* === Media Query para ajuste fino de Desktop === */
-@media (min-width: 701px) {
-  .acoes {
-    flex-direction: row;
-    justify-content: center;
-  }
-  
-  button, .btn {
-    width: auto;
-    min-width: 200px;
-  }
-
-  .controles-wrapper {
-    flex-direction: row;
-    align-items: center;
-  }
-}
-
-/* === Ajustes específicos para telas muito pequenas (iPhone SE, etc) === */
-@media (max-width: 400px) {
-  .pedido {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .controles-wrapper {
-    width: 100%;
-    flex-direction: row;
+.total-box {
+    display: flex;
     justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 20px;
+    padding: 10px 0;
+    border-bottom: 1px dashed #eee;
+}
+
+.total-box span {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #666;
+    text-transform: uppercase;
+}
+
+#total-carrinho {
+    font-size: 1.8rem;
+    color: #000;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+/* Campos de Input e Label */
+.campo-endereco, .campo-pagamento, .campo-troco, .campo-obs {
+    margin-top: 15px;
+}
+
+.campo-endereco label, .campo-pagamento label, .campo-troco label, .campo-obs label {
+    display: block;
+    font-weight: 700;
+    font-size: 0.75rem;
+    color: #444;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.campo-endereco textarea, .campo-obs textarea, #troco {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    color: #333;
+    background-color: #fafafa;
+    transition: border-color 0.2s;
+    line-height: 1.4;
+    resize: none;
+}
+
+.campo-endereco textarea { height: 70px; }
+.campo-obs textarea { height: 50px; }
+
+.campo-endereco textarea:focus, .campo-obs textarea:focus, #troco:focus {
+    outline: none;
+    border-color: var(--vermelho);
+    background-color: #fff;
+}
+
+/* Grid de Pagamento (Múltiplo) */
+.opcoes-pagamento {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 5px;
+}
+
+.check-container {
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    display: flex;
     align-items: center;
+    gap: 6px;
+    color: #444;
+}
+
+.check-container input {
+    accent-color: var(--vermelho);
+}
+
+/* Botões */
+.btn-finalizar {
+    width: 100%;
+    background-color: var(--vermelho);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin-top: 15px;
+}
+
+.btn-esvaziar {
+    display: block;
+    width: 100%;
+    text-align: center;
     margin-top: 10px;
-  }
+    color: #ddd;
+    background: none;
+    border: none;
+    font-size: 0.7rem;
+    cursor: pointer;
+}
+
+/* Responsividade */
+@media (max-width: 850px) {
+    .carrinho-grid { grid-template-columns: 1fr; }
+    .item-pedido { padding: 10px; }
+    .opcoes-pagamento { grid-template-columns: 1fr 1fr; }
 }

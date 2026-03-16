@@ -21,7 +21,6 @@
   --input-bg: #ffffff;
 }
 
-<<<<<<< HEAD
 /* Ajuste Fino para Dark Mode (Smartphone) */
 @media (prefers-color-scheme: dark) {
   :root {
@@ -38,8 +37,6 @@
   }
 }
 
-=======
->>>>>>> 76c0b30c1db008d567687261561a1027d9ad8395
 /* =================== Corpo da página =================== */
 body {
   font-family: "Segoe UI", "Helvetica Neue", sans-serif;
@@ -148,17 +145,12 @@ header nav a {
 .item p {
   font-size: 0.9rem;
   margin-bottom: 1rem;
-<<<<<<< HEAD
   flex-grow: 1; 
 }
 
-/* =================== Seletor de Bordas Recheadas =================== */
-=======
-  flex-grow: 1;
-}
+
 
 /* =================== Seletor =================== */
->>>>>>> 76c0b30c1db008d567687261561a1027d9ad8395
 .select-borda {
   width: 100%;
   padding: 10px;
@@ -202,11 +194,6 @@ header nav a {
   background-color: #b71c1c;
 }
 
-<<<<<<< HEAD
-/* =================== Estilo do Carrinho =================== */
-=======
-/* =================== Carrinho =================== */
->>>>>>> 76c0b30c1db008d567687261561a1027d9ad8395
 .pedido {
   background: var(--card-bg);
   padding: 1rem;
@@ -236,10 +223,7 @@ header nav a {
 
 @media (max-width: 480px) {
   .grid { grid-template-columns: 1fr; }
-<<<<<<< HEAD
-=======
 
->>>>>>> 76c0b30c1db008d567687261561a1027d9ad8395
   .item {
     border: 1px solid var(--primary-color);
     margin-bottom: 10px;
