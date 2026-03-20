@@ -11,24 +11,32 @@
 <body>
 
   <header>
-    <div class="container text-center my-4">
-      <h1>
+    <div class="header-container text-center">
+      <h1 class="logo-txt">
         <img src="img/bebidas-logos/logo-1.png" alt="Logo Chefe Express" class="logo-icon">
         Chefe Express
       </h1>
-      <nav aria-label="Navegação principal">
-        <a href="index.html" class="mx-3 text-decoration-none">Início</a>
-        <a href="contato.html" class="mx-3 text-decoration-none">Contato</a>
-        <a href="carrinho.html" class="mx-3 text-decoration-none font-weight-bold">Ver Carrinho</a>
+
+      <nav aria-label="Navegação principal" class="nav-principal">
+        <a href="index.html">Início</a>
+        <a href="contato.html">Contato</a>
+        <a href="carrinho.html" class="nav-destaque">🛒 Ver Carrinho</a>
       </nav>
+
+      <div class="sub-header-categorias">
+        <a href="#promocionais" class="cat-link promo">🎁 Promoções</a>
+        <a href="#salgadas" class="cat-link">🍕 Salgadas</a>
+        <a href="#doces" class="cat-link">🍫 Doces</a>
+        <a href="#bebidas" class="cat-link">🥤 Bebidas</a>
+      </div>
     </div>
   </header>
 
   <main class="container">
     <h2 class="text-center mb-5">Cardápio Completo</h2>
 
-    <section class="mb-5">
-      <h3 class="border-bottom pb-2 mb-4">🍕 Pizzas Promocionais</h3>
+    <section id="promocionais" class="mb-5 categoria-scroll">
+      <h3 class="border-bottom pb-2 mb-4">🎁 Pizzas Promocionais</h3>
       <div class="grid d-flex flex-wrap justify-content-center gap-4">
 
         <article class="item border p-3 rounded shadow-sm text-center" style="width: 250px;">
@@ -177,7 +185,7 @@
       </div>
     </section>
 
-    <section class="mb-5">
+    <section id="salgadas" class="mb-5 categoria-scroll">
       <h3 class="border-bottom pb-2 mb-4">🍕 Pizzas Salgadas</h3>
       <div class="grid d-flex flex-wrap justify-content-center gap-4">
 
@@ -244,7 +252,7 @@
       </div>
     </section>
 
-    <section class="mb-5">
+    <section id="doces" class="mb-5 categoria-scroll">
       <h3 class="border-bottom pb-2 mb-4">🍫 Pizzas Doces</h3>
       <div class="grid d-flex flex-wrap justify-content-center gap-4">
 
@@ -325,19 +333,23 @@
       <p class="text-muted small mt-3 text-center">* As bordas podem ser solicitadas na finalização do pedido.</p>
     </section>
 
-    <section class="mb-5">
+    <section id="bebidas" class="mb-5 categoria-scroll">
       <h3 class="border-bottom pb-2 mb-4">🥤 Bebidas</h3>
       <div class="grid d-flex flex-wrap justify-content-center gap-4">
 
         <article class="item border p-3 rounded shadow-sm text-center" style="width: 250px;">
           <img class="img-fluid rounded mb-2" src="img/bebidas-logos/coca.jpeg" alt="Coca-Cola">
           <strong class="d-block h5">Coca-Cola</strong>
-          <p class="small text-muted">Original ou Sem Açúcar</p>
+          <p class="small text-muted">Original e Sem Açúcar</p>
           <select class="form-select form-select-sm mb-2 select-preco">
-            <option value="6.00">Lata 350ml - R$ 6,00</option>
-            <option value="9.00">Garrafa 600ml - R$ 9,00</option>
-            <option value="11.00">Garrafa 1L - R$ 11,00</option>
-            <option value="14.00">Garrafa 2L - R$ 14,00</option>
+            <option value="6.00">Lata 350ml (Original) - R$ 6,00</option>
+            <option value="6.00">Lata 350ml (Sem Açucar) - R$ 6,00</option>
+            <option value="9.00">Garrafa 600ml (Original) - R$ 9,00</option>
+            <option value="9.00">Garrafa 600ml (Sem Açucar) - R$ 9,00</option>
+            <option value="11.00">Garrafa 1L (Original) - R$ 11,00</option>
+            <option value="11.00">Garrafa 1L (Sem Açucar) - R$ 11,00</option>
+            <option value="14.00">Garrafa 2L (Original) - R$ 14,00</option>
+            <option value="14.00">Garrafa 2L (Sem Açucar) - R$ 14,00</option>
           </select>
           <button class="btn btn-primary btn-sm w-100" onclick="adicionarAoCarrinho(this)">Adicionar ao
             Carrinho</button>
@@ -346,7 +358,7 @@
         <article class="item border p-3 rounded shadow-sm text-center" style="width: 250px;">
           <img class="img-fluid rounded mb-2" src="img/bebidas-logos/acerola-laranja-maracuja.jpeg" alt="Suco Natural">
           <strong class="d-block h5">Suco Natural</strong>
-          <p class="small text-muted">Laranja, Maracujá ou Acerola (Garrafa Lacrada)</p>
+          <p class="small text-muted">Laranja, Maracujá e Acerola (Garrafa Lacrada)</p>
           <select class="form-select form-select-sm mb-2 select-preco">
             <option value="12.00">Laranja - garrafa 500ml - R$ 12,00</option>
             <option value="19.00">Laranja - garrafa 1L - R$ 19,00</option>
@@ -354,7 +366,48 @@
             <option value="19.00">Maracujá - garrafa 1L - R$ 19,00</option>
             <option value="12.00">Acerola - garrafa 500ml - R$ 12,00</option>
             <option value="19.00">Acerola - garrafa 1L - R$ 19,00</option>
+          </select>
+          <button class="btn btn-primary btn-sm w-100" onclick="adicionarAoCarrinho(this)">Adicionar ao
+            Carrinho</button>
+        </article>
 
+        <article class="item border p-3 rounded shadow-sm text-center" style="width: 250px;">
+          <img class="img-fluid rounded mb-2" src="img/bebidas-logos/agua.jpg" alt="Água">
+          <strong class="d-block h5">Água 500ml</strong>
+          <p class="small text-muted">Com ou Sem Gás</p>
+          <select class="form-select form-select-sm mb-2 select-preco">
+            <option value="2.00">Sem gás - R$ 2,00</option>
+            <option value="3.00">Com gás - R$ 3,00</option>
+          </select>
+          <button class="btn btn-primary btn-sm w-100" onclick="adicionarAoCarrinho(this)">Adicionar ao
+            Carrinho</button>
+        </article>
+
+        <article class="item border p-3 rounded shadow-sm text-center" style="width: 250px;">
+          <img class="img-fluid rounded mb-2" src="img/bebidas-logos/cerveja-600ml.jpeg" alt="Cerveja-600ml">
+          <strong class="d-block h5">Cerveja 600ml</strong>
+          <p class="small text-muted">Antárctica, Skol e Brahma</p>
+          <select class="form-select form-select-sm mb-2 select-preco">
+            <option value="6.00">Antárctica Pilsen - R$ 6,00</option>
+            <option value="6.00">Skol Pilsen - R$ 6,00</option>
+            <option value="7.00">Brahma Duplo Malte - R$ 7,00</option>
+          </select>
+          <button class="btn btn-primary btn-sm w-100" onclick="adicionarAoCarrinho(this)">Adicionar ao
+            Carrinho</button>
+        </article>
+
+        <article class="item border p-3 rounded shadow-sm text-center" style="width: 250px;">
+          <img class="img-fluid rounded mb-2" src="img/bebidas-logos/jahuba-refris.jpg" alt="Jahuba">
+          <strong class="d-block h5">Jahuba 2L</strong>
+          <p class="small text-muted">Tubaína, Cola, Guaraná, uva, Laranja e Limão</p>
+          <select class="form-select form-select-sm mb-2 select-preco">
+            <option value="7.00">Tubaína - R$ 7,00</option>
+            <option value="7.00">Cola - R$ 7,00</option>
+            <option value="7.00">Guaraná - R$ 7,00</option>
+            <option value="7.00">Uva - R$ 7,00</option>
+            <option value="7.00">Laranja - R$ 7,00</option>
+            <option value="7.00">Limão - R$ 7,00</option>
+            <option value="7.00">Guaraná (Sem Açucar) - R$ 7,00</option>
           </select>
           <button class="btn btn-primary btn-sm w-100" onclick="adicionarAoCarrinho(this)">Adicionar ao
             Carrinho</button>

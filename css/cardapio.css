@@ -42,24 +42,25 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  overflow-x: hidden; /* Evita quebras de simetria por rolagem lateral */
+  overflow-x: hidden;
+  /* Evita quebras de simetria por rolagem lateral */
 }
 
-/* =================== Cabeçalho (Original) =================== */
+/* =================== Cabeçalho (Original Ajustado) =================== */
 header {
   background-color: var(--primary-color);
   color: var(--header-text);
-  padding: 0.5rem 1rem; 
+  padding: 0.5rem 1rem;
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center; 
+  text-align: center;
   box-shadow: 0 2px 10px var(--shadow);
   position: sticky;
   top: 0;
   z-index: 1000;
-  min-height: 60px; 
+  min-height: 60px;
 }
 
 header h1 {
@@ -72,10 +73,10 @@ header h1 {
 }
 
 .logo-icon {
-  width: 110px;  
+  width: 110px;
   height: 110px;
   object-fit: contain;
-  margin: -25px 0; 
+  margin: -25px 0;
 }
 
 header nav {
@@ -92,55 +93,123 @@ header nav a {
   font-size: 0.9rem;
 }
 
+/* =================== Novo: Subcabeçalho de Categorias =================== */
+
+.sub-header-categorias {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding-bottom: 5px;
+  width: 100%;
+  overflow-x: auto;
+  /* Permite deslizar no celular */
+  white-space: nowrap;
+}
+
+/* Esconde a barra de rolagem para um visual mais limpo */
+.sub-header-categorias::-webkit-scrollbar {
+  display: none;
+}
+
+.cat-link {
+  text-decoration: none;
+  background-color: rgba(255, 255, 255, 0.2);
+  /* Fundo levemente transparente */
+  color: var(--header-text);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.cat-link:hover {
+  background-color: #fff;
+  color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+.cat-link.promo {
+  background-color: #d43f3f;
+  /* Destaque para promoções */
+  color: #fff;
+  border-color: #ff4d4d;
+}
+
+/* =================== Ajuste de Scroll (Fundamental) =================== */
+
+/* Adicione esta classe às suas tags <section id="..."> */
+section {
+  scroll-margin-top: 160px;
+  /* Isso impede que o título suma atrás do header */
+}
+
+/* Garante o deslize suave */
+html {
+  scroll-behavior: smooth;
+}
+
 /* =================== Responsividade do Cabeçalho =================== */
 
 @media (max-width: 768px) {
-    header {
-        padding: 0.3rem 0.5rem;
-        min-height: auto; /* Deixa o conteúdo ditar a altura */
-    }
+  header {
+    padding: 0.3rem 0.5rem;
+    min-height: auto;
+    /* Deixa o conteúdo ditar a altura */
+  }
 
-    header h1 {
-        font-size: 1.4rem; /* Reduz o título principal */
-        gap: 5px;
-    }
+  header h1 {
+    font-size: 1.4rem;
+    /* Reduz o título principal */
+    gap: 5px;
+  }
 
-    .logo-icon {
-        width: 80px;  /* Reduz o logo em tablets */
-        height: 80px;
-        margin: -15px 0; /* Ajusta a margem negativa para não subir demais */
-    }
+  .logo-icon {
+    width: 80px;
+    /* Reduz o logo em tablets */
+    height: 80px;
+    margin: -15px 0;
+    /* Ajusta a margem negativa para não subir demais */
+  }
 
-    header nav {
-        gap: 10px; /* Encurta o espaço entre os links */
-    }
+  header nav {
+    gap: 10px;
+    /* Encurta o espaço entre os links */
+  }
 
-    header nav a {
-        font-size: 0.8rem; /* Links um pouco menores */
-    }
+  header nav a {
+    font-size: 0.8rem;
+    /* Links um pouco menores */
+  }
 }
 
 @media (max-width: 480px) {
-    header h1 {
-        font-size: 1.2rem; /* Título ideal para celulares pequenos */
-    }
+  header h1 {
+    font-size: 1.2rem;
+    /* Título ideal para celulares pequenos */
+  }
 
-    .logo-icon {
-        width: 65px; /* Logo discreto para sobrar espaço na tela */
-        height: 65px;
-        margin: -10px 0;
-    }
+  .logo-icon {
+    width: 65px;
+    /* Logo discreto para sobrar espaço na tela */
+    height: 65px;
+    margin: -10px 0;
+  }
 
-    header nav {
-        flex-wrap: wrap; /* Permite que os links quebrem linha se necessário */
-        justify-content: center;
-        width: 100%;
-    }
+  header nav {
+    flex-wrap: wrap;
+    /* Permite que os links quebrem linha se necessário */
+    justify-content: center;
+    width: 100%;
+  }
 
-    header nav a {
-        padding: 5px; /* Aumenta a área de toque para dedos */
-    }
-    
+  header nav a {
+    padding: 5px;
+    /* Aumenta a área de toque para dedos */
+  }
+
 }
 
 /* =================== Layout e Títulos Gerais =================== */
@@ -151,7 +220,8 @@ header nav a {
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centraliza o conteúdo interno do container */
+  align-items: center;
+  /* Centraliza o conteúdo interno do container */
 }
 
 /* Título Cardápio Completo (Cursivo) */
@@ -225,6 +295,74 @@ section.mb-5.border .bg-white.d-flex {
   color: var(--text-color) !important;
 }
 
+/* =================== SEÇÕES (CONTAINERS COMPACTOS) =================== */
+section.mb-5.border {
+    background-color: var(--card-bg) !important;
+    border: 1px solid var(--card-border) !important;
+    padding: 0.8rem !important;      /* Reduzido: de 2.5 para 0.8 */
+    border-radius: 8px !important;   /* Cantos mais discretos */
+    margin-bottom: 1.5rem !important; /* Reduzido: de 4 para 1.5 */
+    box-shadow: var(--shadow) !important;
+    width: 100%;
+}
+
+/* Título da Categoria */
+section.mb-5.border h3 {
+    text-align: left;                /* Alinhado à esquerda poupa espaço vertical */
+    margin-bottom: 0.8rem;           /* Espaço mínimo abaixo do título */
+    font-size: 1.1rem;               /* Fonte menor e mais direta */
+    border-bottom: 1px solid var(--card-border);
+    padding-bottom: 5px;
+}
+
+/* =================== GRID DE ITENS =================== */
+section.mb-5.border .row {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0.5rem !important;          /* Espaço mínimo entre os cards */
+    justify-content: center;
+}
+
+/* =================== CARD DO ITEM (LINHA FINA) =================== */
+section.mb-5.border .bg-white.d-flex {
+    padding: 0.5rem 0.8rem !important; /* Super compacto */
+    border: 1px solid var(--card-border) !important;
+    border-radius: 4px !important;
+    background-color: var(--input-bg) !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    color: var(--text-color) !important;
+    font-size: 0.9rem;                /* Texto menor para caber em linhas finas */
+}
+
+/* =================== AVISO DE BORDAS (DISCRETO) =================== */
+p.text-muted.small.mt-3.text-center {
+    background: none !important;
+    border: none !important;
+    padding: 0.2rem !important;
+    margin: 0.5rem auto !important;   /* Colado na seção anterior */
+    font-size: 0.75rem !important;
+    opacity: 0.7;
+}
+
+/* =================== RESPONSIVIDADE COMPACTA =================== */
+@media (max-width: 992px) {
+    section.mb-5.border .row {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+@media (max-width: 480px) {
+    section.mb-5.border .row {
+        grid-template-columns: 1fr !important; /* 1 coluna no celular para não esmagar o texto */
+        gap: 0.3rem !important;
+    }
+    section.mb-5.border {
+        padding: 0.5rem !important;
+    }
+}
+
 /* =================== Grid de Produtos (Centralização Corrigida) =================== */
 .grid {
   display: grid;
@@ -232,12 +370,14 @@ section.mb-5.border .bg-white.d-flex {
   gap: 1.5rem;
   margin-bottom: 2rem;
   width: 100%;
-  justify-items: center; /* Centraliza os itens dentro das células da grid */
-  justify-content: center; /* Centraliza a grid como um todo */
+  justify-items: center;
+  /* Centraliza os itens dentro das células da grid */
+  justify-content: center;
+  /* Centraliza a grid como um todo */
 }
 
 .item {
-  background-color: var(--card-bg); 
+  background-color: var(--card-bg);
   border: 1px solid var(--card-border);
   border-radius: 12px;
   display: flex;
@@ -246,7 +386,8 @@ section.mb-5.border .bg-white.d-flex {
   text-align: center;
   box-shadow: 0 4px 6px var(--shadow);
   height: 100%;
-  width: 100%; /* Permite que o max-width no mobile controle a simetria */
+  width: 100%;
+  /* Permite que o max-width no mobile controle a simetria */
 }
 
 .item img {
@@ -282,7 +423,7 @@ section.mb-5.border .bg-white.d-flex {
 .select-preco {
   width: 100% !important;
   padding: 5px 10px !important;
-  margin-bottom: 20px !important; 
+  margin-bottom: 20px !important;
   border-radius: 8px !important;
   border: 1px solid var(--card-border) !important;
   background-color: var(--input-bg) !important;
@@ -309,28 +450,43 @@ section.mb-5.border .bg-white.d-flex {
 
 /* =================== Responsividade (Simetria Mobile) =================== */
 @media (max-width: 1100px) {
-  .grid { grid-template-columns: repeat(3, 1fr); }
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
-  .grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-  section.mb-5.border .row { grid-template-columns: repeat(2, 1fr) !important; }
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  section.mb-5.border .row {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
 }
 
 @media (max-width: 500px) {
   .container {
-    padding: 15px; /* Redução leve para telas muito pequenas */
+    padding: 15px;
+    /* Redução leve para telas muito pequenas */
   }
-  .grid { 
-    grid-template-columns: 1fr; 
+
+  .grid {
+    grid-template-columns: 1fr;
     justify-content: center;
   }
-  .item { 
-    width: 100%; 
-    max-width: 320px; /* Mantém o card centralizado e com bordas iguais */
-    margin: 0 auto; 
+
+  .item {
+    width: 100%;
+    max-width: 320px;
+    /* Mantém o card centralizado e com bordas iguais */
+    margin: 0 auto;
   }
-  section.mb-5.border .row { grid-template-columns: 1fr !important; }
+
+  section.mb-5.border .row {
+    grid-template-columns: 1fr !important;
+  }
 }
 
 /* =================== Footer =================== */
@@ -338,7 +494,7 @@ footer {
   background-color: var(--primary-color);
   color: var(--header-text);
   text-align: center;
-  height: 35px;   
+  height: 35px;
   display: flex;
   align-items: center;
   justify-content: center;
