@@ -15,9 +15,10 @@
       <div class="header-flex">
         <h1 class="logo-txt">
           <img src="img/bebidas-logos/logo-1.png" alt="Logo" class="logo-icon">
-          Carrinho
+          Meu Carrinho
         </h1>
-        <div class="header-acoes"> <a href="cardapio.html" class="btn-voltar">Voltar ao Cardápio</a>
+        <div class="header-acoes">
+          <a href="cardapio.html" class="btn-voltar">Voltar ao Cardápio</a>
         </div>
       </div>
     </div>
@@ -27,7 +28,7 @@
     <div class="carrinho-grid">
 
       <section class="col-itens">
-        <h2 class="titulo-sessao">Seus Itens</h2>
+        <h2 class="titulo-sessao">Itens Escolhidos</h2>
         <div id="lista-pedidos">
         </div>
       </section>
@@ -35,26 +36,33 @@
       <aside class="col-resumo">
         <div class="card-resumo">
           <div class="total-box">
-            <span>Total a pagar:</span>
+            <span>Total do Pedido:</span>
             <h2 id="total-carrinho">R$ 0,00</h2>
           </div>
 
           <div class="campo-endereco">
             <label for="endereco">Endereço de Entrega</label>
-            <textarea id="endereco" placeholder="Rua, número, bairro e referência..."></textarea>
+            <textarea id="endereco" placeholder="Rua, número, bairro e pontos de referência..."></textarea>
+          </div>
+
+          <div class="campo-telefone">
+            <label for="telefone">📱 Número de Contato</label>
+            <input type="tel" id="telefone" placeholder="(DDD) 99999-9999" required>
           </div>
 
           <div class="campo-pagamento">
-            <label>Formas de Pagamento (escolha até 2)</label>
+            <label>💳 Forma de Pagamento (escolha até 2)</label>
             <div class="opcoes-pagamento">
               <label class="check-container">
-                <input type="checkbox" name="metodo" value="Pix" onchange="gerenciarPagamento()"> Pix
+                <input type="checkbox" name="metodo" value="Pix" onchange="gerenciarPagamento()"> Pix (Online)
               </label>
               <label class="check-container">
-                <input type="checkbox" name="metodo" value="Cartão de Crédito" onchange="gerenciarPagamento()"> Crédito
+                <input type="checkbox" name="metodo" value="Cartão de Crédito" onchange="gerenciarPagamento()"> Cartão
+                de Crédito
               </label>
               <label class="check-container">
-                <input type="checkbox" name="metodo" value="Cartão de Débito" onchange="gerenciarPagamento()"> Débito
+                <input type="checkbox" name="metodo" value="Cartão de Débito" onchange="gerenciarPagamento()"> Cartão de
+                Débito
               </label>
               <label class="check-container">
                 <input type="checkbox" name="metodo" value="Dinheiro" onchange="gerenciarPagamento()"> Dinheiro
@@ -63,12 +71,14 @@
           </div>
 
           <div id="box-troco" class="campo-troco" style="display: none;">
-            <label for="troco">Troco para quanto?</label>
+            <label for="troco">Precisa de troco para quanto?</label>
             <input type="text" id="troco" placeholder="Ex: 50,00">
           </div>
 
           <div class="acoes-carrinho">
-            <button class="btn-finalizar" onclick="finalizarPedido()">Finalizar no WhatsApp</button>
+            <button id="btn-finalizar" class="btn-finalizar" onclick="finalizarPedido()">
+              Finalizar Pedido 🍕
+            </button>
             <button class="btn-esvaziar" onclick="removerTodos()">Esvaziar Carrinho</button>
           </div>
         </div>

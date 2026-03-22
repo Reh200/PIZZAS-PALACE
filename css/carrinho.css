@@ -197,11 +197,11 @@ footer {
 }
 
 /* Campos de Input e Label */
-.campo-endereco, .campo-pagamento, .campo-troco, .campo-obs {
+.campo-endereco, .campo-pagamento, .campo-troco, .campo-obs, .campo-telefone {
     margin-top: 15px;
 }
 
-.campo-endereco label, .campo-pagamento label, .campo-troco label, .campo-obs label {
+.campo-endereco label, .campo-pagamento label, .campo-troco label, .campo-telefone label, .campo-obs label {
     display: block;
     font-weight: 700;
     font-size: 0.75rem;
@@ -210,7 +210,7 @@ footer {
     text-transform: uppercase;
 }
 
-.campo-endereco textarea, .campo-obs textarea, #troco {
+.campo-endereco textarea, .campo-obs textarea, .campo-telefone textarea, #troco {
     width: 100%;
     padding: 10px;
     border: 1px solid #e0e0e0;
@@ -225,8 +225,9 @@ footer {
 
 .campo-endereco textarea { height: 70px; }
 .campo-obs textarea { height: 50px; }
+.campo-telefone textarea { height: 50px; }
 
-.campo-endereco textarea:focus, .campo-obs textarea:focus, #troco:focus {
+.campo-endereco textarea:focus, .campo-telefone textarea:focus, .campo-obs textarea:focus, #troco:focus {
     outline: none;
     border-color: var(--vermelho);
     background-color: #fff;
