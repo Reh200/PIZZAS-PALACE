@@ -100,14 +100,14 @@ function finalizarPedido() {
         mensagem += `   Sub: R$ ${sub.toFixed(2).replace('.', ',')}%0A%0A`;
     });
 
-    mensagem += `*💰 TOTAL: R$ ${totalGeral.toFixed(2).replace('.', ',')}*%0A%0A`;
-    mensagem += `*👤 Cliente:* ${nome}%0A*📍 Endereço:* ${endereco}%0A*📱 Contato:* ${telefone}%0A`;
+    mensagem += `*TOTAL: R$ ${totalGeral.toFixed(2).replace('.', ',')}*%0A%0A`;
+    mensagem += `*Cliente:* ${nome}%0A*Endereço:* ${endereco}%0A*Contato:* ${telefone}%0A`;
     
-    if (cpfChecked) mensagem += `*🆔 CPF:* ${cpf}%0A`;
+    if (cpfChecked) mensagem += `*CPF:* ${cpf}%0A`;
     
-    mensagem += `*💳 Pagamento:* ${metodos.join(", ")}%0A`;
-    if (metodos.includes('Dinheiro') && troco) mensagem += `*💵 Troco para:* R$ ${troco}%0A`;
-    if (obs) mensagem += `*📝 Obs:* ${obs}`;
+    mensagem += `*Pagamento:* ${metodos.join(", ")}%0A`;
+    if (metodos.includes('Dinheiro') && troco) mensagem += `*Troco para:* R$ ${troco}%0A`;
+    if (obs) mensagem += `*Obs:* ${obs}`;
 
     localStorage.removeItem('carrinho');
     window.open(`https://wa.me/${foneWhatsapp}?text=${mensagem}`, '_blank');
