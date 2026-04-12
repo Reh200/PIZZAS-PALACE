@@ -20,25 +20,26 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+/* Garante que o conteúdo ocupe todo o espaço disponível após remover o footer */
+.conteudo-principal {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 /* =================== CABEÇALHO E RODAPÉ (MANTIDOS) =================== */
 header {
     background-color: var(--vermelho);
     color: var(--texto-claro);
-    padding: 0; /* Zero padding */
+    padding: 0;
+    /* Zero padding */
     position: sticky;
     top: 0;
     z-index: 1000;
-}
-
-footer {
-    background-color: var(--vermelho);
-    color: var(--texto-claro);
-    padding: 4px 0; /* Rodapé ultra fino */
-    margin-top: auto;
-    text-align: center;
-    font-size: 0.7rem;
 }
 
 .header-flex {
@@ -48,28 +49,31 @@ footer {
     max-width: 1000px;
     margin: 0 auto;
     padding: 0 15px;
-    height: 35px; /* Altura mínima para o texto */
+    height: 20px;
+    /* Altura mínima para o texto */
 }
 
 .logo-txt {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 1.1rem; /* Fonte menor */
+    font-size: 1.1rem;
+    /* Fonte menor */
     font-weight: bold;
 }
 
 .logo-icon {
-    width: 60px; /* Logo menor para não forçar o header */
-    height: 60px;
-    margin: -5px 0; 
+    width: 70px;
+    /* Logo menor para não forçar o header */
+    height: 70px;
+    margin: -5px 0;
     object-fit: contain;
 }
 
 .btn-voltar {
     color: white;
     text-decoration: none;
-    border: 1px solid rgba(255,255,255,0.3);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 2px 8px;
     border-radius: 3px;
     font-size: 0.7rem;
@@ -78,7 +82,7 @@ footer {
 /* =================== LAYOUT E GRID =================== */
 .interface {
     max-width: 1000px;
-    margin: 20px auto; 
+    margin: 20px auto;
     padding: 0 15px;
     width: 100%;
 }
@@ -155,12 +159,15 @@ footer {
 /* =================== RESUMO, ENDEREÇO E PAGAMENTO =================== */
 .card-resumo {
     background: #fff;
-    padding: 20px;
+    padding: 15px;
     border-radius: 8px;
     border: 1px solid var(--cinza-borda);
-    position: sticky;
-    top: 55px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+
+    /* Removemos o sticky e max-height para testar */
+    position: relative;
+    height: auto;
+    overflow: visible;
 }
 
 .card-resumo h2.titulo-sessao {
@@ -168,7 +175,7 @@ footer {
     text-transform: uppercase;
     letter-spacing: 1px;
     color: #999;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     border-bottom: 1px solid #f9f9f9;
     padding-bottom: 5px;
 }
@@ -176,9 +183,13 @@ footer {
 .total-box {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 20px;
-    padding: 10px 0;
+    align-items: center;
+    /* Ajuste o primeiro valor (topo) para um valor negativo, se necessário, 
+       ou simplesmente reduza a margem inferior (10px) */
+    margin: -6px auto 6px auto;
+    /* Exemplo: subi 5px e reduzi a margem inferior para 5px */
+    width: 95%;
+    padding: 0;
     border-bottom: 1px dashed #eee;
 }
 
@@ -190,18 +201,33 @@ footer {
 }
 
 #total-carrinho {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     color: #000;
     font-weight: 800;
     letter-spacing: -1px;
 }
 
-/* Campos de Input e Label */
-.campo-endereco, .campo-pagamento, .campo-troco, .campo-obs, .campo-telefone {
+/* =================== CAMPOS DE FORMULÁRIO (UNIFICADO) =================== */
+
+/* 1. Margem entre um campo e outro */
+.campo-endereco,
+.campo-pagamento,
+.campo-troco,
+.campo-telefone,
+.campo-obs,
+.campo-nome,
+.campo-cpf {
     margin-top: 15px;
 }
 
-.campo-endereco label, .campo-pagamento label, .campo-troco label, .campo-telefone label, .campo-obs label {
+/* 2. Estilo dos Labels (Títulos dos campos) */
+.campo-endereco label,
+.campo-pagamento label,
+.campo-troco label,
+.campo-telefone label,
+.campo-obs label,
+.campo-nome label,
+.campo-cpf label {
     display: block;
     font-weight: 700;
     font-size: 0.75rem;
@@ -210,10 +236,17 @@ footer {
     text-transform: uppercase;
 }
 
-.campo-endereco textarea, .campo-obs textarea, .campo-telefone textarea, #troco {
+/* 3. Estilo dos Inputs e Textareas */
+/* Adicionei o seletor para input caso você venha a usar */
+.campo-endereco textarea,
+.campo-obs textarea,
+.campo-telefone textarea,
+.campo-nome textarea,
+.campo-cpf textarea,
+#troco {
     width: 100%;
     padding: 10px;
-    border: 1px solid #e0e0e0;
+    border: 0.5px solid #ccc;
     border-radius: 5px;
     font-size: 0.85rem;
     color: #333;
@@ -221,23 +254,69 @@ footer {
     transition: border-color 0.2s;
     line-height: 1.4;
     resize: none;
+    height: 40px;
+    /* Padronizado para todos */
 }
 
-.campo-endereco textarea { height: 70px; }
-.campo-obs textarea { height: 50px; }
-.campo-telefone textarea { height: 50px; }
+/* 1. ESPAÇAMENTO ENTRE CAMPOS (Super compacto) */
+.campo-nome, .campo-cpf, .campo-endereco, 
+.campo-pagamento, .campo-troco, .campo-telefone, .campo-obs {
+    margin-top: 8px; /* O mínimo possível para não grudar */
+}
 
-.campo-endereco textarea:focus, .campo-telefone textarea:focus, .campo-obs textarea:focus, #troco:focus {
+/* 2. LABELS (Negrito, tamanho reduzido e cor mais escura) */
+.campo-endereco label, .campo-pagamento label, .campo-troco label, 
+.campo-telefone label, .campo-obs label, .campo-nome label, .campo-cpf label {
+    display: block;
+    font-weight: 700;        /* Mantém o negrito */
+    font-size: 0.65rem;      /* Tamanho compacto */
+    color: #333;             /* Cor mais escura para facilitar a leitura */
+    margin-bottom: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* 3. INPUTS E TEXTAREAS (Linha fina e minimalista) */
+.campo-endereco textarea, .campo-obs textarea, .campo-telefone textarea, 
+.campo-nome textarea, .campo-cpf textarea, #troco {
+    width: 100%;
+    padding: 4px 6px;   /* Padding quase nulo */
+    border: 0.5px solid #eee; /* Borda quase imperceptível */
+    border-radius: 2px; /* Quase sem arredondamento */
+    font-size: 0.75rem; /* Texto bem compacto */
+    color: #444;
+    background-color: #fdfdfd; /* Fundo quase branco */
+    transition: all 0.2s;
+    line-height: 1.1;
+    resize: none;
+    height: 30px; /* Altura mínima funcional */
+}
+
+/* 4. FOCO (Apenas uma linha fina) */
+.campo-endereco textarea:focus, .campo-telefone textarea:focus, 
+.campo-obs textarea:focus, .campo-nome textarea:focus, 
+.campo-cpf textarea:focus, #troco:focus {
     outline: none;
-    border-color: var(--vermelho);
+    border: 0.5px solid var(--vermelho);
     background-color: #fff;
+    box-shadow: none; /* Remove qualquer sombra */
+}
+
+.box-entrega {
+    font-size: 0.9rem;
+    color: #555;
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    border-left: 4px solid #ffc107;
 }
 
 /* Grid de Pagamento (Múltiplo) */
 .opcoes-pagamento {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 8px;
+    gap: 5px;
     margin-top: 5px;
 }
 
@@ -264,62 +343,39 @@ footer {
     background-color: var(--vermelho);
     color: white;
     border: none;
-    padding: 12px;
+    padding: 8px;
     border-radius: 4px;
     font-weight: bold;
     font-size: 0.9rem;
     cursor: pointer;
     text-transform: uppercase;
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
+/* Deixa o botão de esvaziar mais discreto */
 .btn-esvaziar {
     display: block;
     width: 100%;
-    text-align: center;
-    margin-top: 10px;
-    color: #ddd;
+    margin-top: 5px;
+    color: #999;
+    font-size: 0.7rem;
+    text-decoration: underline;
     background: none;
     border: none;
-    font-size: 0.7rem;
     cursor: pointer;
-}
-
-/* Estilo do Botão de Alternância */
-.btn-theme {
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid white;
-  color: white;
-  cursor: pointer;
-  padding: 5px 10px;
-  border-radius: 20px;
-  font-size: 1.2rem;
-  transition: all 0.3s;
-  margin-left: 10px;
-}
-
-.btn-theme:hover {
-  background: rgba(255, 255, 255, 0.4);
-}
-
-/* Variáveis para o Modo Escuro Manual */
-body.dark-mode {
-  --bg-color: #0d0d0d;
-  --card-bg: #1e1e1e;
-  --card-border: #333;
-  --text-color: #f0f0f0;
-  --input-bg: #2a2a2a;
-  --shadow: rgba(0, 0, 0, 0.4);
-}
-
-/* Ajuste sutil para imagens no modo escuro */
-body.dark-mode .item img {
-  opacity: 0.8;
 }
 
 /* Responsividade */
 @media (max-width: 850px) {
-    .carrinho-grid { grid-template-columns: 1fr; }
-    .item-pedido { padding: 10px; }
-    .opcoes-pagamento { grid-template-columns: 1fr 1fr; }
+    .carrinho-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .item-pedido {
+        padding: 10px;
+    }
+
+    .opcoes-pagamento {
+        grid-template-columns: 1fr 1fr;
+    }
 }
