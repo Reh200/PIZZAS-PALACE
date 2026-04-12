@@ -258,48 +258,180 @@ header {
     /* Padronizado para todos */
 }
 
-/* 1. ESPAÇAMENTO ENTRE CAMPOS (Super compacto) */
-.campo-nome, .campo-cpf, .campo-endereco, 
-.campo-pagamento, .campo-troco, .campo-telefone, .campo-obs {
-    margin-top: 8px; /* O mínimo possível para não grudar */
+/* =================== CAMPOS DE FORMULÁRIO (UNIFICADO E ALINHADO) =================== */
+
+/* 1. Margem superior padrão para todos os containers */
+.campo-nome,
+.campo-cpf,
+.campo-endereco,
+.campo-pagamento,
+.campo-troco,
+.campo-telefone,
+.campo-obs {
+    margin-top: 10px;
 }
 
-/* 2. LABELS (Negrito, tamanho reduzido e cor mais escura) */
-.campo-endereco label, .campo-pagamento label, .campo-troco label, 
-.campo-telefone label, .campo-obs label, .campo-nome label, .campo-cpf label {
+/* 2. LABELS: Padronização total */
+.campo-endereco label,
+.campo-pagamento label,
+.campo-troco label,
+.campo-telefone label,
+.campo-obs label,
+.campo-nome label,
+.campo-cpf label:not([for="check-cpf"]) {
     display: block;
-    font-weight: 700;        /* Mantém o negrito */
-    font-size: 0.65rem;      /* Tamanho compacto */
-    color: #333;             /* Cor mais escura para facilitar a leitura */
-    margin-bottom: 2px;
+    font-weight: 700;
+    font-size: 0.65rem;
+    color: #333;
+    margin-bottom: 3px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
-/* 3. INPUTS E TEXTAREAS (Linha fina e minimalista) */
-.campo-endereco textarea, .campo-obs textarea, .campo-telefone textarea, 
-.campo-nome textarea, .campo-cpf textarea, #troco {
+/* 3. INPUTS, TEXTAREAS E SELECTS: Estilo unificado */
+.campo-endereco textarea,
+.campo-obs textarea,
+.campo-telefone textarea,
+.campo-nome textarea,
+.campo-cpf input[type="text"],
+#troco,
+#nome,
+#telefone {
     width: 100%;
-    padding: 4px 6px;   /* Padding quase nulo */
-    border: 0.5px solid #eee; /* Borda quase imperceptível */
-    border-radius: 2px; /* Quase sem arredondamento */
-    font-size: 0.75rem; /* Texto bem compacto */
+    padding: 6px 8px;
+    border: 0.5px solid #eee;
+    border-radius: 2px;
+    font-size: 0.75rem;
     color: #444;
-    background-color: #fdfdfd; /* Fundo quase branco */
+    background-color: #fdfdfd;
     transition: all 0.2s;
-    line-height: 1.1;
+    line-height: 1.2;
     resize: none;
-    height: 30px; /* Altura mínima funcional */
+    height: 30px;
+    box-sizing: border-box;
+    /* Garante que o padding não quebre o tamanho */
 }
 
-/* 4. FOCO (Apenas uma linha fina) */
-.campo-endereco textarea:focus, .campo-telefone textarea:focus, 
-.campo-obs textarea:focus, .campo-nome textarea:focus, 
-.campo-cpf textarea:focus, #troco:focus {
+/* 4. AJUSTE ESPECIAL DO CHECKBOX CPF */
+.campo-cpf label[for="check-cpf"] {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+    font-size: 0.65rem;
+    color: #666;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+}
+
+#check-cpf {
+    accent-color: var(--vermelho);
+    width: 12px;
+    height: 12px;
+}
+
+/* Estado do input de CPF */
+#cpf:disabled {
+    background-color: #f9f9f9 !important;
+    border: 0.5px solid #eee !important;
+    color: #ccc !important;
+    cursor: not-allowed;
+}
+
+#cpf:not(:disabled) {
+    background-color: #fff !important;
+    border: 0.5px solid var(--vermelho) !important;
+    color: #333 !important;
+}
+
+/* 5. FOCO */
+textarea:focus,
+input:focus,
+#troco:focus {
     outline: none;
     border: 0.5px solid var(--vermelho);
     background-color: #fff;
-    box-shadow: none; /* Remove qualquer sombra */
+}
+
+/* =================== AJUSTE ESPECIAL DO CAMPO CPF =================== */
+
+/* Container que envolve o checkbox do CPF */
+.campo-cpf label[for="check-cpf"],
+.campo-cpf label:has(#check-cpf) {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+    font-size: 0.65rem;
+    color: #666;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+}
+
+/* Estilizando o checkbox para ficar com a cor do site */
+#check-cpf {
+    accent-color: var(--vermelho);
+    width: 12px;
+    height: 12px;
+}
+
+/* O input de texto do CPF quando desabilitado */
+#cpf:disabled {
+    background-color: #f9f9f9 !important;
+    border: 0.5px solid #eee !important;
+    color: #ccc !important;
+    cursor: not-allowed;
+}
+
+/* O input de texto do CPF quando habilitado */
+#cpf:not(:disabled) {
+    background-color: #fff !important;
+    border: 0.5px solid var(--vermelho) !important;
+    color: #333 !important;
+}
+
+/* 3. INPUTS E TEXTAREAS (Linha fina e minimalista) */
+.campo-endereco textarea,
+.campo-obs textarea,
+.campo-telefone textarea,
+.campo-nome textarea,
+.campo-cpf textarea,
+#troco {
+    width: 100%;
+    padding: 4px 6px;
+    /* Padding quase nulo */
+    border: 0.5px solid #eee;
+    /* Borda quase imperceptível */
+    border-radius: 2px;
+    /* Quase sem arredondamento */
+    font-size: 0.75rem;
+    /* Texto bem compacto */
+    color: #444;
+    background-color: #fdfdfd;
+    /* Fundo quase branco */
+    transition: all 0.2s;
+    line-height: 1.1;
+    resize: none;
+    height: 30px;
+    /* Altura mínima funcional */
+}
+
+/* 4. FOCO (Apenas uma linha fina) */
+.campo-endereco textarea:focus,
+.campo-telefone textarea:focus,
+.campo-obs textarea:focus,
+.campo-nome textarea:focus,
+.campo-cpf textarea:focus,
+#troco:focus {
+    outline: none;
+    border: 0.5px solid var(--vermelho);
+    background-color: #fff;
+    box-shadow: none;
+    /* Remove qualquer sombra */
 }
 
 .box-entrega {
