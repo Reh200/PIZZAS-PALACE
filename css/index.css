@@ -18,53 +18,60 @@ html, body {
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #fff8f0;
-  color: #333;
+  background-color: #0d0d0d;
+  color: #fff;
   display: flex;
   flex-direction: column;
 }
 
 /* =================== CABEÇALHO =================== */
 header {
-  background-color: #b32020;
-  color: white;
-  padding: 0.2rem 2rem;
+  background-color: #141414;
+  color: #fff;
+  padding: 0.8rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
   z-index: 1000;
   flex-shrink: 0; /* Garante que o header não seja esmagado */
+  border-bottom: 2px solid #b58c38; /* Linha dourada */
 }
 
-header h1 {
+.logo-area h1 {
   font-size: 1.8rem;
   font-weight: bold;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
+  color: #dfa629; /* Cor dourada */
 }
 
 .logo-icon {
-  width: 100px;
-  height: 100px;
+  width: 75px;
+  height: 75px;
   object-fit: contain;
-  margin: -15px 0; /* Ajuste para não forçar altura do header */
-  transition: transform 0.3s ease;
+  margin: -10px 0;
 }
 
 nav {
   display: flex;
-  gap: 1.5rem;
+  gap: 2rem;
+  align-items: center;
 }
 
 nav a {
   color: #fff;
   text-decoration: none;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 1rem;
   position: relative;
-  padding-bottom: 2px;
+  padding-bottom: 4px;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: #dfa629;
 }
 
 nav a::after {
@@ -74,7 +81,7 @@ nav a::after {
   bottom: 0;
   width: 0%;
   height: 2px;
-  background-color: #fff;
+  background-color: #dfa629;
   transition: width 0.3s ease;
 }
 
@@ -82,7 +89,22 @@ nav a:hover::after {
   width: 100%;
 }
 
-/* =================== CONTEÚDO PRINCIPAL (FLEXÍVEL) =================== */
+.btn-header {
+  background-color: #dfa629;
+  color: #0d0d0d;
+  padding: 10px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-header:hover {
+  background-color: #c48c22;
+  transform: translateY(-2px);
+}
+
+/* =================== CONTEÚDO PRINCIPAL =================== */
 main {
   flex: 1; /* Ocupa todo o espaço entre o header e o footer */
   display: flex;
@@ -99,6 +121,7 @@ main {
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75));
 }
 
 .banner-img {
@@ -108,7 +131,8 @@ main {
   position: absolute;
   top: 0;
   left: 0;
-  filter: brightness(0.65);
+  filter: brightness(0.4) saturate(1.2); /* Deixa a imagem escura e rica */
+  z-index: 1;
 }
 
 .banner-content {
@@ -116,50 +140,66 @@ main {
   color: white;
   text-align: center;
   z-index: 10;
-  padding: 20px 30px;
-  background: rgba(0, 0, 0, 0.4);
-  border-radius: 12px;
-  max-width: 85%;
+  padding: 40px 50px;
+  background: rgba(20, 19, 18, 0.7);
+  border: 1px solid #b58c38;
+  border-radius: 20px;
+  max-width: 70%;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.8);
 }
 
 .banner-content h2 {
   font-family: 'Dancing Script', cursive;
-  font-size: 3rem;
-  margin-bottom: 5px;
+  font-size: 4.5rem;
+  margin-bottom: 20px;
+  color: #dfa629; /* Texto dourado */
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.9);
+  line-height: 1.2;
 }
 
 .banner-content p {
-  font-size: 1.1rem;
-  margin-bottom: 15px;
+  font-size: 1.35rem;
+  margin-bottom: 30px;
+  color: #e0e0e0;
+  line-height: 1.5;
 }
 
 .banner-content button {
-  padding: 10px 25px;
-  font-size: 1rem;
-  background-color: #b32020;
-  color: white;
+  padding: 14px 36px;
+  font-size: 1.1rem;
+  background-color: #dfa629;
+  color: #0d0d0d;
   border: none;
-  border-radius: 25px;
+  border-radius: 30px;
   cursor: pointer;
   font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(223, 166, 41, 0.4);
+}
+
+.banner-content button:hover {
+  background-color: #c48c22;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(223, 166, 41, 0.6);
 }
 
 /* =================== FOOTER =================== */
 footer {
-  background-color: #333;
-  color: white;
+  background-color: #141414;
+  color: #dfa629;
   text-align: center;
-  padding: 0.5rem;
-  font-size: 0.8rem;
-  border-top: 4px solid #b32020;
+  padding: 1rem;
+  font-size: 0.9rem;
+  border-top: 4px solid #b58c38;
   flex-shrink: 0; /* Garante que o footer não suma */
 }
 
-/* =================== RESPONSIVIDADE (TRAVA TELA) =================== */
+/* =================== RESPONSIVIDADE =================== */
 @media (max-width: 768px) {
   header {
     flex-direction: column;
-    padding: 0.5rem;
+    padding: 0.6rem;
+    gap: 10px;
   }
 
   header h1 {
@@ -167,26 +207,34 @@ footer {
   }
 
   .logo-icon {
-    width: 65px;
-    height: 65px;
-    margin: 0;
+    width: 55px;
+    height: 55px;
   }
 
   nav {
-    margin-top: 10px;
-    gap: 15px;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .banner-content {
+    max-width: 90%;
+    padding: 25px;
   }
 
   .banner-content h2 {
-    font-size: 2.2rem;
+    font-size: 3rem;
+    margin-bottom: 12px;
   }
 
   .banner-content p {
-    font-size: 0.9rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 2; /* Limita texto se a tela for pequena */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+
+  .banner-content button {
+    padding: 10px 24px;
+    font-size: 0.95rem;
   }
 }
 
@@ -196,12 +244,11 @@ footer {
   }
 
   .banner-content h2 {
-    font-size: 1.8rem;
+    font-size: 2.2rem;
   }
 
-  /* Ajuste para botões não estourarem a altura */
   .banner-content button {
-    padding: 8px 15px;
+    padding: 10px 20px;
     font-size: 0.85rem;
   }
 }
@@ -210,6 +257,7 @@ footer {
 @media (max-height: 450px) {
   .logo-icon { display: none; }
   .banner-content p { display: none; }
-  header { padding: 2px; }
-  nav { margin-top: 2px; }
+  header { padding: 4px; }
+  nav { margin-top: 4px; }
+  nav a { font-size: 0.8rem; }
 }

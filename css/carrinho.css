@@ -1,11 +1,11 @@
-/* =================== VARIÁVEIS E BASE =================== */
 :root {
-    --vermelho: #d43f3f;
+    --bg-site: #0d0d0d;
     --texto-claro: #ffffff;
-    --bg-site: #fffaf0;
-    --cinza-escuro: #333;
-    --cinza-borda: #eee;
-    --sombra: rgba(0, 0, 0, 0.05);
+    --vermelho: #dfa629; /* Dourado */
+    --cinza-escuro: #cccccc;
+    --cinza-borda: #2a2a2a;
+    --sombra: rgba(0, 0, 0, 0.6);
+    --input-bg: #1f1f1f;
 }
 
 * {
@@ -17,6 +17,7 @@
 
 body {
     background-color: var(--bg-site);
+    color: var(--texto-claro);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -33,13 +34,13 @@ body {
 
 /* =================== CABEÇALHO E RODAPÉ (MANTIDOS) =================== */
 header {
-    background-color: var(--vermelho);
+    background-color: #141414;
     color: var(--texto-claro);
     padding: 0;
-    /* Zero padding */
     position: sticky;
     top: 0;
     z-index: 1000;
+    border-bottom: 2px solid #b58c38;
 }
 
 .header-flex {
@@ -49,34 +50,39 @@ header {
     max-width: 1000px;
     margin: 0 auto;
     padding: 0 15px;
-    height: 20px;
-    /* Altura mínima para o texto */
+    height: 20px; /* Altura original restaurada */
 }
 
 .logo-txt {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 1.1rem;
-    /* Fonte menor */
+    font-size: 1.1rem; /* Fonte original restaurada */
     font-weight: bold;
+    color: var(--vermelho);
 }
 
 .logo-icon {
-    width: 70px;
-    /* Logo menor para não forçar o header */
+    width: 70px; /* Logo original restaurada */
     height: 70px;
-    margin: -5px 0;
+    margin: -5px 0; /* Margem original restaurada */
     object-fit: contain;
 }
 
 .btn-voltar {
-    color: white;
+    color: #fff;
     text-decoration: none;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 2px 8px;
-    border-radius: 3px;
-    font-size: 0.7rem;
+    border: 1px solid rgba(223, 166, 41, 0.5);
+    padding: 2px 8px; /* Padding original restaurado */
+    border-radius: 3px; /* Raio original restaurado */
+    font-size: 0.7rem; /* Tamanho original restaurado */
+    background-color: transparent;
+    transition: all 0.3s ease;
+}
+
+.btn-voltar:hover {
+    background-color: var(--vermelho);
+    color: #0d0d0d;
 }
 
 /* =================== LAYOUT E GRID =================== */
@@ -95,10 +101,10 @@ header {
 
 /* =================== ITENS DO CARRINHO =================== */
 .item-pedido {
-    background: #ffffff;
-    border-radius: 6px;
-    padding: 10px 15px;
-    margin-bottom: 10px;
+    background: #141414;
+    border-radius: 6px; /* Borda original restaurada */
+    padding: 10px 15px; /* Padding original restaurado */
+    margin-bottom: 10px; /* Margem original restaurada */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -111,60 +117,71 @@ header {
 }
 
 .form-select-sm {
-    padding: 2px;
-    border: 1px solid #ddd;
-    border-radius: 3px;
-    font-size: 11px;
-    color: #777;
-    background: #fafafa;
+    padding: 4px 6px;
+    border: 1px solid var(--cinza-borda);
+    border-radius: 4px;
+    font-size: 12px;
+    color: #e0e0e0;
+    background: #1a1a1a;
 }
 
 .preco-subtotal {
-    color: #000;
+    color: var(--vermelho);
     font-weight: bold;
-    font-size: 1rem;
+    font-size: 1rem; /* Tamanho original restaurado */
 }
 
 .btn-group {
     display: flex;
     align-items: center;
-    border: 1px solid #ddd;
-    border-radius: 3px;
+    border: 1px solid var(--cinza-borda);
+    border-radius: 3px; /* Borda original restaurada */
     margin: 5px 0;
+    background: #1f1f1f;
 }
 
 .btn-group button {
     border: none;
-    background: #f5f5f5;
-    color: #333;
-    padding: 2px 8px;
+    background: #1a1a1a;
+    color: var(--texto-claro);
+    padding: 2px 8px; /* Padding original restaurado */
     cursor: pointer;
     font-size: 0.9rem;
+    transition: background 0.2s, color 0.2s;
+}
+
+.btn-group button:hover {
+    background: var(--vermelho);
+    color: #0d0d0d;
 }
 
 .btn-group span {
-    padding: 0 8px;
-    font-size: 0.85rem;
+    padding: 0 8px; /* Padding original restaurado */
+    font-size: 0.85rem; /* Tamanho original restaurado */
+    color: var(--texto-claro);
 }
 
 .btn-remover {
     background: none;
     border: none;
-    color: #ccc;
+    color: #666;
     cursor: pointer;
-    font-size: 0.7rem;
+    font-size: 0.7rem; /* Tamanho original restaurado */
     text-transform: lowercase;
+    transition: color 0.2s;
+}
+
+.btn-remover:hover {
+    color: var(--vermelho);
 }
 
 /* =================== RESUMO, ENDEREÇO E PAGAMENTO =================== */
 .card-resumo {
-    background: #fff;
-    padding: 15px;
-    border-radius: 8px;
+    background: #141414;
+    padding: 15px; /* Padding original restaurado */
+    border-radius: 8px; /* Borda original restaurada */
     border: 1px solid var(--cinza-borda);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
-
-    /* Removemos o sticky e max-height para testar */
     position: relative;
     height: auto;
     overflow: visible;
@@ -174,93 +191,37 @@ header {
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: #999;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #f9f9f9;
-    padding-bottom: 5px;
+    color: var(--vermelho);
+    margin-bottom: 10px; /* Margem original restaurada */
+    border-bottom: 1px solid var(--cinza-borda);
+    padding-bottom: 5px; /* Padding original restaurado */
 }
 
 .total-box {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* Ajuste o primeiro valor (topo) para um valor negativo, se necessário, 
-       ou simplesmente reduza a margem inferior (10px) */
-    margin: -6px auto 6px auto;
-    /* Exemplo: subi 5px e reduzi a margem inferior para 5px */
+    margin: -6px auto 6px auto; /* Margem original restaurada */
     width: 95%;
     padding: 0;
-    border-bottom: 1px dashed #eee;
+    border-bottom: 1px dashed var(--cinza-borda);
 }
 
 .total-box span {
-    font-size: 0.85rem;
+    font-size: 0.85rem; /* Tamanho original restaurado */
     font-weight: 600;
-    color: #666;
+    color: var(--cinza-escuro);
     text-transform: uppercase;
 }
 
 #total-carrinho {
     font-size: 1.6rem;
-    color: #000;
+    color: var(--vermelho);
     font-weight: 800;
     letter-spacing: -1px;
 }
 
 /* =================== CAMPOS DE FORMULÁRIO (UNIFICADO) =================== */
-
-/* 1. Margem entre um campo e outro */
-.campo-endereco,
-.campo-pagamento,
-.campo-troco,
-.campo-telefone,
-.campo-obs,
-.campo-nome,
-.campo-cpf {
-    margin-top: 15px;
-}
-
-/* 2. Estilo dos Labels (Títulos dos campos) */
-.campo-endereco label,
-.campo-pagamento label,
-.campo-troco label,
-.campo-telefone label,
-.campo-obs label,
-.campo-nome label,
-.campo-cpf label {
-    display: block;
-    font-weight: 700;
-    font-size: 0.75rem;
-    color: #444;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-}
-
-/* 3. Estilo dos Inputs e Textareas */
-/* Adicionei o seletor para input caso você venha a usar */
-.campo-endereco textarea,
-.campo-obs textarea,
-.campo-telefone textarea,
-.campo-nome textarea,
-.campo-cpf textarea,
-#troco {
-    width: 100%;
-    padding: 10px;
-    border: 0.5px solid #ccc;
-    border-radius: 5px;
-    font-size: 0.85rem;
-    color: #333;
-    background-color: #fafafa;
-    transition: border-color 0.2s;
-    line-height: 1.4;
-    resize: none;
-    height: 40px;
-    /* Padronizado para todos */
-}
-
-/* =================== CAMPOS DE FORMULÁRIO (UNIFICADO E ALINHADO) =================== */
-
-/* 1. Margem superior padrão para todos os containers */
 .campo-nome,
 .campo-cpf,
 .campo-endereco,
@@ -268,10 +229,10 @@ header {
 .campo-troco,
 .campo-telefone,
 .campo-obs {
-    margin-top: 10px;
+    margin-top: 10px; /* Margem original restaurada */
 }
 
-/* 2. LABELS: Padronização total */
+/* Estilo dos Labels */
 .campo-endereco label,
 .campo-pagamento label,
 .campo-troco label,
@@ -281,14 +242,14 @@ header {
 .campo-cpf label:not([for="check-cpf"]) {
     display: block;
     font-weight: 700;
-    font-size: 0.65rem;
-    color: #333;
-    margin-bottom: 3px;
+    font-size: 0.65rem; /* Tamanho original restaurado */
+    color: var(--texto-claro);
+    margin-bottom: 3px; /* Margem original restaurada */
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
-/* 3. INPUTS, TEXTAREAS E SELECTS: Estilo unificado */
+/* Estilo dos Inputs, Textareas e Selects */
 .campo-endereco textarea,
 .campo-obs textarea,
 .campo-telefone textarea,
@@ -298,66 +259,19 @@ header {
 #nome,
 #telefone {
     width: 100%;
-    padding: 6px 8px;
-    border: 0.5px solid #eee;
-    border-radius: 2px;
-    font-size: 0.75rem;
-    color: #444;
-    background-color: #fdfdfd;
+    padding: 4px 6px; /* Padding original restaurado (Quase nulo) */
+    border: 0.5px solid var(--cinza-borda); /* Borda original restaurada */
+    border-radius: 2px; /* Raio original restaurado */
+    font-size: 0.75rem; /* Fonte original restaurada */
+    color: var(--texto-claro);
+    background-color: var(--input-bg);
     transition: all 0.2s;
-    line-height: 1.2;
+    line-height: 1.1; /* Linha original restaurada */
     resize: none;
-    height: 30px;
+    height: 30px; /* Altura original restaurada */
     box-sizing: border-box;
-    /* Garante que o padding não quebre o tamanho */
 }
 
-/* 4. AJUSTE ESPECIAL DO CHECKBOX CPF */
-.campo-cpf label[for="check-cpf"] {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-weight: 700;
-    font-size: 0.65rem;
-    color: #666;
-    text-transform: uppercase;
-    cursor: pointer;
-    margin-bottom: 4px;
-    letter-spacing: 0.5px;
-}
-
-#check-cpf {
-    accent-color: var(--vermelho);
-    width: 12px;
-    height: 12px;
-}
-
-/* Estado do input de CPF */
-#cpf:disabled {
-    background-color: #f9f9f9 !important;
-    border: 0.5px solid #eee !important;
-    color: #ccc !important;
-    cursor: not-allowed;
-}
-
-#cpf:not(:disabled) {
-    background-color: #fff !important;
-    border: 0.5px solid var(--vermelho) !important;
-    color: #333 !important;
-}
-
-/* 5. FOCO */
-textarea:focus,
-input:focus,
-#troco:focus {
-    outline: none;
-    border: 0.5px solid var(--vermelho);
-    background-color: #fff;
-}
-
-/* =================== AJUSTE ESPECIAL DO CAMPO CPF =================== */
-
-/* Container que envolve o checkbox do CPF */
 .campo-cpf label[for="check-cpf"],
 .campo-cpf label:has(#check-cpf) {
     display: flex;
@@ -365,139 +279,112 @@ input:focus,
     gap: 6px;
     font-weight: 700;
     font-size: 0.65rem;
-    color: #666;
+    color: var(--cinza-escuro);
     text-transform: uppercase;
     cursor: pointer;
     margin-bottom: 4px;
     letter-spacing: 0.5px;
 }
 
-/* Estilizando o checkbox para ficar com a cor do site */
 #check-cpf {
     accent-color: var(--vermelho);
     width: 12px;
     height: 12px;
 }
 
-/* O input de texto do CPF quando desabilitado */
 #cpf:disabled {
-    background-color: #f9f9f9 !important;
-    border: 0.5px solid #eee !important;
+    background-color: #1a1a1a !important;
+    border: 0.5px solid #2a2a2a !important;
     color: #ccc !important;
     cursor: not-allowed;
 }
 
-/* O input de texto do CPF quando habilitado */
 #cpf:not(:disabled) {
-    background-color: #fff !important;
+    background-color: var(--input-bg) !important;
     border: 0.5px solid var(--vermelho) !important;
-    color: #333 !important;
+    color: var(--texto-claro) !important;
 }
 
-/* 3. INPUTS E TEXTAREAS (Linha fina e minimalista) */
-.campo-endereco textarea,
-.campo-obs textarea,
-.campo-telefone textarea,
-.campo-nome textarea,
-.campo-cpf textarea,
-#troco {
-    width: 100%;
-    padding: 4px 6px;
-    /* Padding quase nulo */
-    border: 0.5px solid #eee;
-    /* Borda quase imperceptível */
-    border-radius: 2px;
-    /* Quase sem arredondamento */
-    font-size: 0.75rem;
-    /* Texto bem compacto */
-    color: #444;
-    background-color: #fdfdfd;
-    /* Fundo quase branco */
-    transition: all 0.2s;
-    line-height: 1.1;
-    resize: none;
-    height: 30px;
-    /* Altura mínima funcional */
-}
-
-/* 4. FOCO (Apenas uma linha fina) */
-.campo-endereco textarea:focus,
-.campo-telefone textarea:focus,
-.campo-obs textarea:focus,
-.campo-nome textarea:focus,
-.campo-cpf textarea:focus,
+textarea:focus,
+input:focus,
 #troco:focus {
     outline: none;
     border: 0.5px solid var(--vermelho);
-    background-color: #fff;
+    background-color: #222;
     box-shadow: none;
-    /* Remove qualquer sombra */
 }
 
 .box-entrega {
-    font-size: 0.9rem;
-    color: #555;
-    background: #f8f9fa;
+    font-size: 0.85rem; /* Tamanho original restaurado */
+    color: #ccc;
+    background: #1e1e1e;
     padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 5px;
+    border-radius: 5px; /* Borda original restaurada */
+    margin-bottom: 5px; /* Margem original restaurada */
     border-left: 4px solid #ffc107;
 }
 
-/* Grid de Pagamento (Múltiplo) */
 .opcoes-pagamento {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 5px;
-    margin-top: 5px;
+    gap: 5px; /* Espaço original restaurado */
+    margin-top: 5px; /* Margem original restaurada */
 }
 
 .check-container {
-    background: #fafafa;
-    border: 1px solid #e0e0e0;
-    padding: 8px;
-    border-radius: 4px;
-    font-size: 0.75rem;
+    background: #141414;
+    border: 1px solid var(--cinza-borda);
+    padding: 8px; /* Padding original restaurado */
+    border-radius: 4px; /* Raio original restaurado */
+    font-size: 0.75rem; /* Tamanho original restaurado */
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 6px;
-    color: #444;
+    color: var(--texto-claro);
 }
 
 .check-container input {
     accent-color: var(--vermelho);
 }
 
-/* Botões */
 .btn-finalizar {
     width: 100%;
     background-color: var(--vermelho);
-    color: white;
+    color: #0d0d0d;
     border: none;
-    padding: 8px;
-    border-radius: 4px;
+    padding: 8px; /* Padding original restaurado */
+    border-radius: 4px; /* Raio original restaurado */
     font-weight: bold;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     cursor: pointer;
     text-transform: uppercase;
-    margin-top: 10px;
+    margin-top: 10px; /* Margem original restaurada */
+    box-shadow: 0 3px 0px #ab7c1c;
+    transition: all 0.2s;
 }
 
-/* Deixa o botão de esvaziar mais discreto */
+.btn-finalizar:hover {
+    background-color: #c48c22;
+    transform: translateY(-2px);
+}
+
 .btn-esvaziar {
     display: block;
     width: 100%;
-    margin-top: 5px;
-    color: #999;
-    font-size: 0.7rem;
+    margin-top: 5px; /* Margem original restaurada */
+    color: var(--cinza-escuro);
+    font-size: 0.7rem; /* Tamanho original restaurado */
     text-decoration: underline;
     background: none;
     border: none;
     cursor: pointer;
 }
 
-/* Responsividade */
+.btn-esvaziar:hover {
+    color: var(--vermelho);
+}
+
 @media (max-width: 850px) {
     .carrinho-grid {
         grid-template-columns: 1fr;

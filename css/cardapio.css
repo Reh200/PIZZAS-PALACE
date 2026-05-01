@@ -10,26 +10,15 @@
 }
 
 :root {
-  --bg-color: #fff8f0;
-  --text-color: #333;
-  --primary-color: #d62828;
-  --secondary-color: #2a9d8f;
+  --bg-color: #0d0d0d;
+  --text-color: #ffffff;
+  --primary-color: #dfa629; /* Dourado Principal */
+  --secondary-color: #b58c38; /* Dourado Secundário / Linhas */
   --header-text: #fff;
-  --card-bg: #ffffff;
-  --card-border: #ddd;
-  --input-bg: #ffffff;
-  --shadow: rgba(0, 0, 0, 0.08);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-color: #0d0d0d;
-    --card-bg: #1e1e1e;
-    --card-border: #333;
-    --text-color: #f0f0f0;
-    --input-bg: #2a2a2a;
-    --shadow: rgba(0, 0, 0, 0.4);
-  }
+  --card-bg: #141414;
+  --card-border: #2a2a2a;
+  --input-bg: #1f1f1f;
+  --shadow: rgba(0, 0, 0, 0.6);
 }
 
 /* =================== Corpo da página =================== */
@@ -43,12 +32,11 @@ body {
   flex-direction: column;
   min-height: 100vh;
   overflow-x: hidden;
-  /* Evita quebras de simetria por rolagem lateral */
 }
 
-/* =================== Cabeçalho (Original Ajustado) =================== */
+/* =================== Cabeçalho =================== */
 header {
-  background-color: var(--primary-color);
+  background-color: #141414;
   color: var(--header-text);
   padding: 0.5rem 1rem;
   display: flex;
@@ -56,11 +44,12 @@ header {
   align-items: center;
   justify-content: center;
   text-align: center;
-  box-shadow: 0 2px 10px var(--shadow);
+  box-shadow: 0 4px 15px var(--shadow);
   position: sticky;
   top: 0;
   z-index: 1000;
   min-height: 60px;
+  border-bottom: 2px solid var(--secondary-color);
 }
 
 header h1 {
@@ -70,13 +59,14 @@ header h1 {
   justify-content: center;
   gap: 10px;
   width: 100%;
+  color: var(--primary-color);
 }
 
 .logo-icon {
-  width: 110px;
-  height: 110px;
+  width: 90px;
+  height: 90px;
   object-fit: contain;
-  margin: -25px 0;
+  margin: -18px 0;
 }
 
 header nav {
@@ -90,126 +80,133 @@ header nav a {
   text-decoration: none;
   color: var(--header-text);
   font-weight: bold;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  transition: color 0.3s;
 }
 
-/* =================== Novo: Subcabeçalho de Categorias =================== */
+header nav a:hover {
+  color: var(--primary-color);
+}
 
+/* Botão no topo */
+.btn-header {
+  background-color: var(--primary-color);
+  color: #0d0d0d !important;
+  padding: 6px 14px !important;
+  border-radius: 20px;
+  font-size: 0.85rem !important;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s ease !important;
+}
+
+.btn-header:hover {
+  background-color: #c48c22;
+  transform: translateY(-2px);
+}
+
+/* =================== Subcabeçalho de Categorias =================== */
 .sub-header-categorias {
   display: flex;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
   margin-top: 12px;
   padding-bottom: 5px;
   width: 100%;
   overflow-x: auto;
-  /* Permite deslizar no celular */
   white-space: nowrap;
 }
 
-/* Esconde a barra de rolagem para um visual mais limpo */
 .sub-header-categorias::-webkit-scrollbar {
   display: none;
 }
 
 .cat-link {
   text-decoration: none;
-  background-color: rgba(255, 255, 255, 0.2);
-  /* Fundo levemente transparente */
+  background-color: #1a1a1a;
   color: var(--header-text);
   padding: 6px 14px;
   border-radius: 20px;
   font-size: 0.8rem;
   font-weight: bold;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(181, 140, 56, 0.5);
   transition: all 0.3s ease;
 }
 
 .cat-link:hover {
-  background-color: #fff;
-  color: var(--primary-color);
+  background-color: var(--primary-color);
+  color: #0d0d0d;
+  border-color: var(--primary-color);
   transform: translateY(-2px);
 }
 
 .cat-link.promo {
-  background-color: #d43f3f;
-  /* Destaque para promoções */
-  color: #fff;
-  border-color: #ff4d4d;
+  background-color: #1a1a1a;
+  color: var(--primary-color);
+  border-color: var(--primary-color);
 }
 
-/* =================== Ajuste de Scroll (Fundamental) =================== */
+.cat-link.promo:hover {
+  background-color: var(--primary-color);
+  color: #0d0d0d;
+}
 
-/* Adicione esta classe às suas tags <section id="..."> */
+/* =================== Ajuste de Scroll =================== */
 section {
   scroll-margin-top: 160px;
-  /* Isso impede que o título suma atrás do header */
 }
 
-/* Garante o deslize suave */
 html {
   scroll-behavior: smooth;
 }
 
 /* =================== Responsividade do Cabeçalho =================== */
-
 @media (max-width: 768px) {
   header {
-    padding: 0.3rem 0.5rem;
+    padding: 0.5rem;
     min-height: auto;
-    /* Deixa o conteúdo ditar a altura */
   }
 
   header h1 {
     font-size: 1.4rem;
-    /* Reduz o título principal */
     gap: 5px;
   }
 
   .logo-icon {
-    width: 80px;
-    /* Reduz o logo em tablets */
-    height: 80px;
-    margin: -15px 0;
-    /* Ajusta a margem negativa para não subir demais */
+    width: 65px;
+    height: 65px;
+    margin: -10px 0;
   }
 
   header nav {
     gap: 10px;
-    /* Encurta o espaço entre os links */
   }
 
   header nav a {
     font-size: 0.8rem;
-    /* Links um pouco menores */
   }
 }
 
 @media (max-width: 480px) {
   header h1 {
     font-size: 1.2rem;
-    /* Título ideal para celulares pequenos */
   }
 
   .logo-icon {
-    width: 65px;
-    /* Logo discreto para sobrar espaço na tela */
-    height: 65px;
-    margin: -10px 0;
+    width: 50px;
+    height: 50px;
+    margin: -5px 0;
   }
 
   header nav {
     flex-wrap: wrap;
-    /* Permite que os links quebrem linha se necessário */
     justify-content: center;
     width: 100%;
   }
 
   header nav a {
-    padding: 5px;
-    /* Aumenta a área de toque para dedos */
+    padding: 3px;
   }
-
 }
 
 /* =================== Layout e Títulos Gerais =================== */
@@ -221,21 +218,20 @@ html {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* Centraliza o conteúdo interno do container */
 }
 
-/* Título Cardápio Completo (Cursivo) */
 h2 {
   font-family: 'Dancing Script', cursive;
   text-align: center;
   margin: 2.5rem 0;
-  color: var(--text-color);
-  font-size: 3rem;
+  color: var(--primary-color);
+  font-size: 3.5rem;
   font-weight: 700;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 5px;
+  text-shadow: 1px 2px 4px rgba(0,0,0,0.8);
 }
 
 h2::after {
@@ -246,15 +242,13 @@ h2::after {
   margin-top: 5px;
 }
 
-/* Títulos de Categorias */
 h3.border-bottom {
   text-align: center !important;
   display: block !important;
   width: 100%;
-  color: var(--text-color);
+  color: var(--primary-color);
   font-weight: 700;
-  text-transform: uppercase;
-  border-bottom: 2px solid var(--primary-color) !important;
+  border-bottom: 2px solid var(--secondary-color) !important;
   padding-bottom: 12px !important;
   margin-top: 40px !important;
   margin-bottom: 25px !important;
@@ -267,14 +261,14 @@ section.mb-5.border {
   padding: 1.5rem !important;
   border-radius: 12px !important;
   margin-bottom: 3rem !important;
-  box-shadow: var(--shadow) !important;
+  box-shadow: 0 4px 10px var(--shadow) !important;
   width: 100%;
 }
 
 section.mb-5.border h3 {
   text-align: center;
   margin-bottom: 1.5rem;
-  color: var(--text-color);
+  color: var(--primary-color);
 }
 
 section.mb-5.border .row {
@@ -297,73 +291,73 @@ section.mb-5.border .bg-white.d-flex {
 
 /* =================== SEÇÕES (CONTAINERS COMPACTOS) =================== */
 section.mb-5.border {
-    background-color: var(--card-bg) !important;
-    border: 1px solid var(--card-border) !important;
-    padding: 0.8rem !important;      /* Reduzido: de 2.5 para 0.8 */
-    border-radius: 8px !important;   /* Cantos mais discretos */
-    margin-bottom: 1.5rem !important; /* Reduzido: de 4 para 1.5 */
-    box-shadow: var(--shadow) !important;
-    width: 100%;
+  background-color: var(--card-bg) !important;
+  border: 1px solid var(--card-border) !important;
+  padding: 0.8rem !important;
+  border-radius: 8px !important;
+  margin-bottom: 1.5rem !important;
+  box-shadow: 0 4px 10px var(--shadow) !important;
+  width: 100%;
 }
 
-/* Título da Categoria */
 section.mb-5.border h3 {
-    text-align: left;                /* Alinhado à esquerda poupa espaço vertical */
-    margin-bottom: 0.8rem;           /* Espaço mínimo abaixo do título */
-    font-size: 1.1rem;               /* Fonte menor e mais direta */
-    border-bottom: 1px solid var(--card-border);
-    padding-bottom: 5px;
+  text-align: left;
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+  border-bottom: 1px solid var(--card-border);
+  padding-bottom: 5px;
 }
 
 /* =================== GRID DE ITENS =================== */
 section.mb-5.border .row {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 0.5rem !important;          /* Espaço mínimo entre os cards */
-    justify-content: center;
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 0.5rem !important;
+  justify-content: center;
 }
 
-/* =================== CARD DO ITEM (LINHA FINA) =================== */
+/* =================== CARD DO ITEM =================== */
 section.mb-5.border .bg-white.d-flex {
-    padding: 0.5rem 0.8rem !important; /* Super compacto */
-    border: 1px solid var(--card-border) !important;
-    border-radius: 4px !important;
-    background-color: var(--input-bg) !important;
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    color: var(--text-color) !important;
-    font-size: 0.9rem;                /* Texto menor para caber em linhas finas */
+  padding: 0.5rem 0.8rem !important;
+  border: 1px solid var(--card-border) !important;
+  border-radius: 4px !important;
+  background-color: var(--input-bg) !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  color: var(--text-color) !important;
+  font-size: 0.9rem;
 }
 
-/* =================== AVISO DE BORDAS (DISCRETO) =================== */
+/* =================== AVISO DE BORDAS =================== */
 p.text-muted.small.mt-3.text-center {
-    background: none !important;
-    border: none !important;
-    padding: 0.2rem !important;
-    margin: 0.5rem auto !important;   /* Colado na seção anterior */
-    font-size: 0.75rem !important;
-    opacity: 0.7;
+  background: none !important;
+  border: none !important;
+  padding: 0.2rem !important;
+  margin: 0.5rem auto !important;
+  font-size: 0.75rem !important;
+  color: var(--secondary-color) !important;
+  opacity: 0.8;
 }
 
 /* =================== RESPONSIVIDADE COMPACTA =================== */
 @media (max-width: 992px) {
-    section.mb-5.border .row {
-        grid-template-columns: repeat(2, 1fr) !important;
-    }
+  section.mb-5.border .row {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
 }
 
 @media (max-width: 480px) {
-    section.mb-5.border .row {
-        grid-template-columns: 1fr !important; /* 1 coluna no celular para não esmagar o texto */
-        gap: 0.3rem !important;
-    }
-    section.mb-5.border {
-        padding: 0.5rem !important;
-    }
+  section.mb-5.border .row {
+    grid-template-columns: 1fr !important;
+    gap: 0.3rem !important;
+  }
+  section.mb-5.border {
+    padding: 0.5rem !important;
+  }
 }
 
-/* =================== Grid de Produtos (Centralização Corrigida) =================== */
+/* =================== Grid de Produtos =================== */
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -371,9 +365,7 @@ p.text-muted.small.mt-3.text-center {
   margin-bottom: 2rem;
   width: 100%;
   justify-items: center;
-  /* Centraliza os itens dentro das células da grid */
   justify-content: center;
-  /* Centraliza a grid como um todo */
 }
 
 .item {
@@ -384,10 +376,9 @@ p.text-muted.small.mt-3.text-center {
   flex-direction: column;
   padding: 1.2rem;
   text-align: center;
-  box-shadow: 0 4px 6px var(--shadow);
+  box-shadow: 0 4px 12px var(--shadow);
   height: 100%;
   width: 100%;
-  /* Permite que o max-width no mobile controle a simetria */
 }
 
 .item img {
@@ -410,7 +401,7 @@ p.text-muted.small.mt-3.text-center {
 }
 
 .item p {
-  color: var(--text-color);
+  color: #ccc;
   opacity: 0.9;
   font-size: 0.85rem;
   margin-bottom: 1rem;
@@ -434,18 +425,23 @@ p.text-muted.small.mt-3.text-center {
   padding: 0.4rem 1rem;
   border-radius: 50px;
   font-weight: 800;
-  color: white;
+  color: #0d0d0d;
   background-color: var(--primary-color);
   border: none;
   cursor: pointer;
   width: 100%;
   text-transform: uppercase;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   min-height: 32px;
   transition: all 0.2s ease-in-out;
-  box-shadow: 0 3px 0px #b01e1e;
   position: relative;
   margin-top: auto;
+  box-shadow: 0 3px 0px #ab7c1c;
+}
+
+.item button:hover {
+  background-color: #c48c22;
+  transform: translateY(-2px);
 }
 
 /* =================== Responsividade (Simetria Mobile) =================== */
@@ -469,7 +465,6 @@ p.text-muted.small.mt-3.text-center {
 @media (max-width: 500px) {
   .container {
     padding: 15px;
-    /* Redução leve para telas muito pequenas */
   }
 
   .grid {
@@ -480,7 +475,6 @@ p.text-muted.small.mt-3.text-center {
   .item {
     width: 100%;
     max-width: 320px;
-    /* Mantém o card centralizado e com bordas iguais */
     margin: 0 auto;
   }
 
@@ -491,8 +485,8 @@ p.text-muted.small.mt-3.text-center {
 
 /* =================== Footer =================== */
 footer {
-  background-color: var(--primary-color);
-  color: var(--header-text);
+  background-color: #141414;
+  color: var(--primary-color);
   text-align: center;
   height: 35px;
   display: flex;
@@ -500,4 +494,5 @@ footer {
   justify-content: center;
   font-size: 0.8rem;
   margin-top: auto;
+  border-top: 3px solid var(--secondary-color);
 }
