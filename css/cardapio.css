@@ -22,6 +22,12 @@
 }
 
 /* =================== Corpo da página =================== */
+html {
+  scroll-behavior: smooth;
+  width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: var(--bg-color);
@@ -31,6 +37,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  width: 100%;
   overflow-x: hidden;
 }
 
@@ -38,7 +45,7 @@ body {
 header {
   background-color: #141414;
   color: var(--header-text);
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 0.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -48,39 +55,54 @@ header {
   position: sticky;
   top: 0;
   z-index: 1000;
-  min-height: 60px;
+  width: 100%;
+  box-sizing: border-box;
   border-bottom: 2px solid var(--secondary-color);
+  height: auto; /* Ajusta-se automaticamente ao conteúdo */
+}
+
+.header-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
 }
 
 header h1 {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   width: 100%;
   color: var(--primary-color);
+  flex-wrap: wrap; /* Permite quebrar a linha, se necessário */
 }
 
 .logo-icon {
-  width: 90px;
-  height: 90px;
+  width: 60px;
+  height: 60px;
   object-fit: contain;
-  margin: -18px 0;
+  margin: 0; /* Remove a margem negativa que causa cortes */
+  flex-shrink: 0;
 }
 
 header nav {
-  margin-top: 5px;
+  margin-top: 8px;
   display: flex;
   justify-content: center;
-  gap: 15px;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 header nav a {
   text-decoration: none;
   color: var(--header-text);
   font-weight: bold;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   transition: color 0.3s;
 }
 
@@ -92,9 +114,9 @@ header nav a:hover {
 .btn-header {
   background-color: var(--primary-color);
   color: #0d0d0d !important;
-  padding: 6px 14px !important;
+  padding: 5px 12px !important;
   border-radius: 20px;
-  font-size: 0.85rem !important;
+  font-size: 0.8rem !important;
   font-weight: bold;
   text-decoration: none;
   transition: all 0.3s ease !important;
@@ -109,12 +131,13 @@ header nav a:hover {
 .sub-header-categorias {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  margin-top: 12px;
-  padding-bottom: 5px;
+  gap: 8px;
+  margin-top: 10px;
+  padding-bottom: 3px;
   width: 100%;
   overflow-x: auto;
   white-space: nowrap;
+  box-sizing: border-box;
 }
 
 .sub-header-categorias::-webkit-scrollbar {
@@ -125,9 +148,9 @@ header nav a:hover {
   text-decoration: none;
   background-color: #1a1a1a;
   color: var(--header-text);
-  padding: 6px 14px;
+  padding: 5px 12px;
   border-radius: 20px;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: bold;
   border: 1px solid rgba(181, 140, 56, 0.5);
   transition: all 0.3s ease;
@@ -156,65 +179,13 @@ section {
   scroll-margin-top: 160px;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-/* =================== Responsividade do Cabeçalho =================== */
-@media (max-width: 768px) {
-  header {
-    padding: 0.5rem;
-    min-height: auto;
-  }
-
-  header h1 {
-    font-size: 1.4rem;
-    gap: 5px;
-  }
-
-  .logo-icon {
-    width: 65px;
-    height: 65px;
-    margin: -10px 0;
-  }
-
-  header nav {
-    gap: 10px;
-  }
-
-  header nav a {
-    font-size: 0.8rem;
-  }
-}
-
-@media (max-width: 480px) {
-  header h1 {
-    font-size: 1.2rem;
-  }
-
-  .logo-icon {
-    width: 50px;
-    height: 50px;
-    margin: -5px 0;
-  }
-
-  header nav {
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 100%;
-  }
-
-  header nav a {
-    padding: 3px;
-  }
-}
-
 /* =================== Layout e Títulos Gerais =================== */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
   width: 100%;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -254,42 +225,7 @@ h3.border-bottom {
   margin-bottom: 25px !important;
 }
 
-/* =================== Seção de Bordas Recheadas =================== */
-section.mb-5.border {
-  background-color: var(--card-bg) !important;
-  border: 1px solid var(--card-border) !important;
-  padding: 1.5rem !important;
-  border-radius: 12px !important;
-  margin-bottom: 3rem !important;
-  box-shadow: 0 4px 10px var(--shadow) !important;
-  width: 100%;
-}
-
-section.mb-5.border h3 {
-  text-align: center;
-  margin-bottom: 1.5rem;
-  color: var(--primary-color);
-}
-
-section.mb-5.border .row {
-  display: grid !important;
-  grid-template-columns: repeat(3, 1fr) !important;
-  gap: 1rem !important;
-  justify-content: center;
-}
-
-section.mb-5.border .bg-white.d-flex {
-  padding: 0.8rem 1rem !important;
-  border: 1px solid var(--card-border) !important;
-  border-radius: 8px !important;
-  background-color: var(--input-bg) !important;
-  display: flex !important;
-  justify-content: space-between !important;
-  align-items: center !important;
-  color: var(--text-color) !important;
-}
-
-/* =================== SEÇÕES (CONTAINERS COMPACTOS) =================== */
+/* =================== Seções e Bordas =================== */
 section.mb-5.border {
   background-color: var(--card-bg) !important;
   border: 1px solid var(--card-border) !important;
@@ -298,6 +234,7 @@ section.mb-5.border {
   margin-bottom: 1.5rem !important;
   box-shadow: 0 4px 10px var(--shadow) !important;
   width: 100%;
+  box-sizing: border-box;
 }
 
 section.mb-5.border h3 {
@@ -306,9 +243,9 @@ section.mb-5.border h3 {
   font-size: 1.1rem;
   border-bottom: 1px solid var(--card-border);
   padding-bottom: 5px;
+  color: var(--primary-color);
 }
 
-/* =================== GRID DE ITENS =================== */
 section.mb-5.border .row {
   display: grid !important;
   grid-template-columns: repeat(3, 1fr) !important;
@@ -316,7 +253,6 @@ section.mb-5.border .row {
   justify-content: center;
 }
 
-/* =================== CARD DO ITEM =================== */
 section.mb-5.border .bg-white.d-flex {
   padding: 0.5rem 0.8rem !important;
   border: 1px solid var(--card-border) !important;
@@ -329,7 +265,6 @@ section.mb-5.border .bg-white.d-flex {
   font-size: 0.9rem;
 }
 
-/* =================== AVISO DE BORDAS =================== */
 p.text-muted.small.mt-3.text-center {
   background: none !important;
   border: none !important;
@@ -340,30 +275,14 @@ p.text-muted.small.mt-3.text-center {
   opacity: 0.8;
 }
 
-/* =================== RESPONSIVIDADE COMPACTA =================== */
-@media (max-width: 992px) {
-  section.mb-5.border .row {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
-}
-
-@media (max-width: 480px) {
-  section.mb-5.border .row {
-    grid-template-columns: 1fr !important;
-    gap: 0.3rem !important;
-  }
-  section.mb-5.border {
-    padding: 0.5rem !important;
-  }
-}
-
-/* =================== Grid de Produtos =================== */
+/* =================== Grid de Itens =================== */
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
   margin-bottom: 2rem;
   width: 100%;
+  box-sizing: border-box;
   justify-items: center;
   justify-content: center;
 }
@@ -379,6 +298,7 @@ p.text-muted.small.mt-3.text-center {
   box-shadow: 0 4px 12px var(--shadow);
   height: 100%;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .item img {
@@ -419,6 +339,7 @@ p.text-muted.small.mt-3.text-center {
   border: 1px solid var(--card-border) !important;
   background-color: var(--input-bg) !important;
   color: var(--text-color) !important;
+  box-sizing: border-box;
 }
 
 .item button {
@@ -437,11 +358,110 @@ p.text-muted.small.mt-3.text-center {
   position: relative;
   margin-top: auto;
   box-shadow: 0 3px 0px #ab7c1c;
+  box-sizing: border-box;
 }
 
 .item button:hover {
   background-color: #c48c22;
   transform: translateY(-2px);
+}
+
+/* =================== Responsividade (Simetria Mobile) =================== */
+@media (max-width: 1100px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  section.mb-5.border .row {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  section.mb-5.border .row {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .logo-icon {
+    width: 65px;
+    height: 65px;
+    margin: -10px 0;
+  }
+
+  header nav {
+    gap: 10px;
+  }
+
+  header nav a {
+    font-size: 0.8rem;
+  }
+  
+  h2 {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .container {
+    padding: 15px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    justify-content: center;
+  }
+
+  .item {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  section.mb-5.border .row {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 480px) {
+  section.mb-5.border .row {
+    grid-template-columns: 1fr !important;
+    gap: 0.3rem !important;
+  }
+
+  section.mb-5.border {
+    padding: 0.5rem !important;
+  }
+
+  header h1 {
+    font-size: 1.2rem;
+  }
+
+  .logo-icon {
+    width: 50px;
+    height: 50px;
+    margin: -5px 0;
+  }
+
+  header nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+
+  header nav a {
+    padding: 3px;
+  }
+  
+  h2 {
+    font-size: 2.2rem;
+  }
 }
 
 /* =================== Footer =================== */
@@ -456,47 +476,6 @@ footer {
   font-size: 0.8rem;
   margin-top: auto;
   border-top: 3px solid var(--secondary-color);
-}
-
-/* =================== Responsividade (Simetria Mobile) =================== */
-@media (max-width: 1100px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-
-  section.mb-5.border .row {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 1rem;
-  }
-}
-
-@media (max-width: 576px) {
-  .container {
-    padding: 15px;
-  }
-
-  .grid {
-    grid-template-columns: 1fr;
-    justify-content: center;
-    gap: 1.2rem;
-  }
-
-  .item {
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
-  }
-
-  section.mb-5.border .row {
-    grid-template-columns: 1fr !important;
-    gap: 1rem;
-  }
+  width: 100%;
+  box-sizing: border-box;
 }
