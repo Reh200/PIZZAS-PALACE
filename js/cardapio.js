@@ -31,3 +31,36 @@ function adicionarAoCarrinho(botao) {
     localStorage.setItem('carrinho', JSON.stringify(carrinho));
     alert(`✅ ${nomeFinal} adicionado ao carrinho!`);
 }
+
+// ==========================================
+// Script do botão "Voltar ao Topo"
+// ==========================================
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Seleciona o botão
+    const backToTopBtn = document.getElementById("back-to-top-btn");
+
+    // Monitora a rolagem da página
+    window.onscroll = function() {
+        if (backToTopBtn) {
+            scrollFunction();
+        }
+    };
+
+    function scrollFunction() {
+        // Mostra o botão se a rolagem for maior que 300px
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+            backToTopBtn.style.display = "block";
+        } else {
+            backToTopBtn.style.display = "none";
+        }
+    }
+});
+
+// Função chamada ao clicar no botão
+function voltarAoTopo() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Rola suavemente até o topo
+    });
+}
