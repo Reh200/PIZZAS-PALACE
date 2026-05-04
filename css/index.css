@@ -25,7 +25,7 @@ body {
   flex-direction: column;
 }
 
-/* =================== CABEÇALHO =================== */
+/* =================== Cabeçalho =================== */
 header {
   background-color: #141414;
   color: #fff;
@@ -35,43 +35,85 @@ header {
   align-items: center;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
   z-index: 1000;
-  flex-shrink: 0; /* Garante que o header não seja esmagado */
-  border-bottom: 2px solid #b58c38; /* Linha dourada */
+  flex-shrink: 0; 
+  border-bottom: 2px solid #b58c38;
   width: 100%;
   box-sizing: border-box;
   height: auto;
 }
 
-header h1 {
+/* Área do logo unificada para alinhamento perfeito */
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+header h1, .logo-area h1 {
   font-family: 'Playfair Display', serif;
   font-size: 1.8rem;
   font-weight: 700;
   font-style: italic;
   color: var(--primary-color, #dfa629);
-  display: flex;
-  align-items: center;
-  gap: 12px;
   margin: 0;
-  flex-shrink: 0;
-  text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.8);
-}
-
-.logo-area h1 {
-  font-size: 1.8rem;
-  font-weight: bold;
   display: flex;
   align-items: center;
   gap: 12px;
-  color: #dfa629; /* Cor dourada */
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 .logo-icon {
   width: 75px;
   height: 75px;
   object-fit: contain;
-  margin: -10px 0;
+  margin: 0; 
   filter: drop-shadow(0 0 4px rgba(223, 166, 41, 0.4));
+}
+
+/* =================== Responsividade Mobile =================== */
+@media (max-width: 768px) {
+  header {
+    padding: 0.6rem 1rem;
+    flex-direction: column; /* Empilha os elementos em telas menores para centralizar */
+    gap: 12px;
+  }
+
+  .logo-area {
+    justify-content: center;
+    width: 100%;
+  }
+
+  header h1, .logo-area h1 {
+    font-size: 1.5rem; /* Tamanho ajustado para maior visibilidade */
+    gap: 8px;
+  }
+
+  .logo-icon {
+    width: 65px; /* Tamanho aumentado de 50px para 65px */
+    height: 65px; /* Tamanho aumentado de 50px para 65px */
+  }
+
+  header nav {
+    justify-content: center;
+    width: 100%;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1, .logo-area h1 {
+    font-size: 1.3rem; /* Tamanho ajustado para maior visibilidade */
+    gap: 6px;
+  }
+
+  .logo-icon {
+    width: 55px; /* Tamanho aumentado de 40px para 55px */
+    height: 55px; /* Tamanho aumentado de 40px para 55px */
+  }
+
+  header nav a {
+    font-size: 0.8rem;
+  }
 }
 
 nav {
@@ -283,20 +325,6 @@ footer {
 
 /* =================== RESPONSIVIDADE =================== */
 @media (max-width: 768px) {
-  header {
-    flex-direction: column;
-    padding: 0.8rem 1rem;
-    gap: 12px;
-  }
-
-  header h1 {
-    font-size: 1.4rem;
-  }
-
-  .logo-icon {
-    width: 55px;
-    height: 55px;
-  }
 
   nav {
     gap: 12px;
