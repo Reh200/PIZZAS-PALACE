@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
 
 /* =================== RESET BÁSICO =================== */
@@ -36,6 +37,23 @@ header {
   z-index: 1000;
   flex-shrink: 0; /* Garante que o header não seja esmagado */
   border-bottom: 2px solid #b58c38; /* Linha dourada */
+  width: 100%;
+  box-sizing: border-box;
+  height: auto;
+}
+
+header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--primary-color, #dfa629);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  flex-shrink: 0;
+  text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 .logo-area h1 {
