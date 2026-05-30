@@ -221,47 +221,62 @@ header {
     letter-spacing: -1px;
 }
 
-/* =================== CAMPOS DE FORMULÁRIO (UNIFICADO) =================== */
-.campo-nome,
-.campo-cpf,
-.campo-endereco,
-.campo-pagamento,
-.campo-troco,
-.campo-telefone,
-.campo-obs {
-    margin-top: 10px; /* Margem original restaurada */
-}
-
-/* Estilo dos Labels */
+/* Estilo dos Labels (Unificados e Padronizados) */
+.campo-nome label,
 .campo-endereco label,
 .campo-pagamento label,
 .campo-troco label,
 .campo-telefone label,
-.campo-obs label,
-.campo-nome label,
-.campo-cpf label:not([for="check-cpf"]) {
+.campo-obs label {
     display: block;
     font-weight: 700;
     font-size: 0.65rem; /* Tamanho original restaurado */
     color: var(--texto-claro);
-    margin-bottom: 3px; /* Margem original restaurada */
+    margin-bottom: 3px; /* Espaço entre o texto do label e o input */
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
-/* Estilo dos Inputs, Textareas e Selects */
+/* CORREÇÃO DO INLINE-GRID DO HTML:
+   Desativa o grid de duas colunas da div que envolve o Nome,
+   permitindo que ele assuma 100% de largura de forma limpa.
+*/
+.campo-contato-detalhes {
+    display: block !important;
+    grid-template-columns: none !important;
+    gap: 0 !important;
+}
+
+/* Afastamento padrão rigorosamente IGUAL abaixo de cada seção de campo */
+.campo-endereco,
+.campo-contato-detalhes,
+.campo-telefone,
+.campo-pagamento,
+.campo-troco,
+.campo-obs {
+    margin-bottom: 10px !important;
+}
+
+/* Força os sub-blocos internos a zerarem margens extras para não duplicar espaço */
+.campo-nome {
+    margin-bottom: 0 !important;
+    display: block !important;
+    width: 100% !important;
+}
+
+/* Estilo unificado dos Inputs, Textareas e Selects */
+.campo-nome input,
 .campo-endereco textarea,
 .campo-obs textarea,
-.campo-telefone textarea,
-.campo-nome textarea,
-.campo-cpf input[type="text"],
+.campo-telefone input,
+.campo-troco input,
 #troco,
 #nome,
 #telefone {
-    width: 100%;
+    width: 100% !important;
     padding: 4px 6px; /* Padding original restaurado (Quase nulo) */
     border: 0.5px solid var(--cinza-borda); /* Borda original restaurada */
-    border-radius: 2px; /* Raio original restaurado */
+    border-radius: 2px; /* Raio original restaurada */
     font-size: 0.75rem; /* Fonte original restaurada */
     color: var(--texto-claro);
     background-color: var(--input-bg);
@@ -270,39 +285,6 @@ header {
     resize: none;
     height: 30px; /* Altura original restaurada */
     box-sizing: border-box;
-}
-
-.campo-cpf label[for="check-cpf"],
-.campo-cpf label:has(#check-cpf) {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-weight: 700;
-    font-size: 0.65rem;
-    color: var(--cinza-escuro);
-    text-transform: uppercase;
-    cursor: pointer;
-    margin-bottom: 4px;
-    letter-spacing: 0.5px;
-}
-
-#check-cpf {
-    accent-color: var(--vermelho);
-    width: 12px;
-    height: 12px;
-}
-
-#cpf:disabled {
-    background-color: #1a1a1a !important;
-    border: 0.5px solid #2a2a2a !important;
-    color: #ccc !important;
-    cursor: not-allowed;
-}
-
-#cpf:not(:disabled) {
-    background-color: var(--input-bg) !important;
-    border: 0.5px solid var(--vermelho) !important;
-    color: var(--texto-claro) !important;
 }
 
 textarea:focus,
@@ -320,6 +302,7 @@ input:focus,
     background: #1e1e1e;
     padding: 10px;
     border-radius: 5px; /* Borda original restaurada */
+    margin-top: 12px !important; /* ADICIONADO: Afasta a caixa do valor total acima dela */
     margin-bottom: 5px; /* Margem original restaurada */
     border-left: 4px solid #ffc107;
 }
