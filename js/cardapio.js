@@ -9,11 +9,14 @@ function adicionarAoCarrinho(botao) {
     const select = itemElement.querySelector('.select-preco');
     const preco = parseFloat(select.value);
     const opcaoTexto = select.options[select.selectedIndex].text;
-    const tamanho = opcaoTexto.split(' - ')[0];
 
-    const nomeFinal = `${nomeBase} (${tamanho})`;
+    // MELHORIA AQUI: Remove apenas o sufixo de preço " - R$ XX,XX" do texto da opção
+    const detalheOpcao = opcaoTexto.split(/ - R\$/i)[0].trim();
 
-    // Verifica se já existe esse exato item (mesmo nome e tamanho)
+    // Monta o nome final incluindo todos os detalhes (Sabor, tamanho, ml)
+    const nomeFinal = `${nomeBase} (${detalheOpcao})`;
+
+    // Verifica se já existe esse exato item (mesmo nome completo)
     const existente = carrinho.find(p => p.nome === nomeFinal);
 
     if (existente) {

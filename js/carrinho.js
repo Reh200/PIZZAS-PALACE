@@ -7,8 +7,7 @@ const foneWhatsapp = "5514991087543";
 const precosBordas = {
     "Nenhuma": 0, "Cheddar": 8.00, "Catupiry": 8.00,
     "Calabresa com catupiry": 14.00, "4 Queijos": 14.00,
-    "Chocolate": 12.00, "Doce de Leite": 12.00,
-    "Brigadeiro": 8.00, "Nutella": 13.00
+    "Chocolate": 12.00, "Doce de Leite": 12.00
 };
 
 const listaBebidas = ["Coca", "Suco", "Guaraná", "Fanta", "Sprite", "Água", "Cerveja"];
@@ -41,15 +40,37 @@ function exibirCarrinho() {
 
     carrinho.forEach((item, index) => {
         const isPizza = verificarSeEhPizza(item.nome);
+
+        // Garante que se o item for pizza e não tiver borda definida, comece como 'Nenhuma'
+        if (isPizza && !item.borda) {
+            item.borda = "Nenhuma";
+        }
+
         const valorBorda = isPizza ? (precosBordas[item.borda] || 0) : 0;
         const subtotal = (item.preco + valorBorda) * item.quantidade;
         totalGeral += subtotal;
+
+        // Cria dinamicamente o select de bordas caso o item seja uma pizza
+        let selectBordaHTML = '';
+        if (isPizza) {
+            selectBordaHTML = `<div class="campo-borda-item" style="margin-top: 4px; display: flex; align-items: center; gap: 5px;">
+        <label style="font-size: 0.75rem; color: #888; font-weight: 500;">Borda:</label>
+        <select onchange="alterarBorda(${index}, this.value)" style="padding: 1px 4px; border-radius: 4px; border: 1px solid #444; font-size: 0.75rem; background: #222; color: #fff; max-width: 160px; height: 22px; cursor: pointer;">`;
+
+            for (const nomeBorda in precosBordas) {
+                const selected = item.borda === nomeBorda ? 'selected' : '';
+                const precoAdicional = precosBordas[nomeBorda] > 0 ? ` (+ R$ ${precosBordas[nomeBorda].toFixed(2).replace('.', ',')})` : '';
+                selectBordaHTML += `<option value="${nomeBorda}" ${selected} style="background: #222; color: #fff;">${nomeBorda}${precoAdicional}</option>`;
+            }
+
+            selectBordaHTML += `</select></div>`;
+        }
 
         lista.innerHTML += `
             <div class="item-pedido">
                 <div class="info-item">
                     <strong>${item.quantidade}x ${item.nome}</strong>
-                    ${isPizza ? `<br><small>Borda: ${item.borda}</small>` : ''}
+                    ${selectBordaHTML}
                 </div>
                 <div class="controles-item" style="text-align: right;">
                     <div class="preco-subtotal">R$ ${subtotal.toFixed(2).replace('.', ',')}</div>
@@ -66,6 +87,12 @@ function exibirCarrinho() {
     if (totalElemento) totalElemento.innerText = `R$ ${totalGeral.toFixed(2).replace('.', ',')}`;
 }
 
+// NOVA FUNÇÃO: Atualiza a propriedade da borda do item específico e redesenha a tela
+function alterarBorda(index, novaBorda) {
+    carrinho[index].borda = novaBorda;
+    salvar();
+}
+
 function finalizarPedido() {
     const endereco = document.getElementById('endereco').value;
     const telefone = document.getElementById('telefone').value;
@@ -76,12 +103,10 @@ function finalizarPedido() {
     const troco = document.getElementById('troco').value;
     const obs = document.getElementById('obs') ? document.getElementById('obs').value : "";
 
-    // Validações
     if (carrinho.length === 0) return alert("Carrinho vazio!");
     if (!endereco || !telefone || !nome) return alert("Por favor, preencha nome, endereço e telefone.");
     if (selecionados.length === 0) return alert("Escolha uma forma de pagamento.");
-    
-    // Validação CPF Condicional
+
     if (cpfChecked && (cpf.replace(/[^\d]+/g, '').length !== 11)) {
         alert("Por favor, insira um CPF válido (11 números) ou desmarque a opção.");
         document.getElementById('cpf').focus();
@@ -96,22 +121,25 @@ function finalizarPedido() {
         const valorBorda = verificarSeEhPizza(item.nome) ? (precosBordas[item.borda] || 0) : 0;
         const sub = (item.preco + valorBorda) * item.quantidade;
         totalGeral += sub;
-        mensagem += `✅ *${item.quantidade}x ${item.nome}* ${item.borda !== 'Nenhuma' ? `(Borda ${item.borda})` : ''}%0A`;
+
+        // Ajustado para legibilidade da mensagem do Whatsapp
+        const textoBorda = (verificarSeEhPizza(item.nome) && item.borda && item.borda !== 'Nenhuma') ? ` (Borda: ${item.borda})` : '';
+        mensagem += `✅ *${item.quantidade}x ${item.nome}*${textoBorda}%0A`;
         mensagem += `   Sub: R$ ${sub.toFixed(2).replace('.', ',')}%0A%0A`;
     });
 
     mensagem += `*TOTAL: R$ ${totalGeral.toFixed(2).replace('.', ',')}*%0A%0A`;
     mensagem += `*Cliente:* ${nome}%0A*Endereço:* ${endereco}%0A*Contato:* ${telefone}%0A`;
-    
+
     if (cpfChecked) mensagem += `*CPF:* ${cpf}%0A`;
-    
+
     mensagem += `*Pagamento:* ${metodos.join(", ")}%0A`;
     if (metodos.includes('Dinheiro') && troco) mensagem += `*Troco para:* R$ ${troco}%0A`;
     if (obs) mensagem += `*Obs:* ${obs}`;
 
     localStorage.removeItem('carrinho');
     window.open(`https://wa.me/${foneWhatsapp}?text=${mensagem}`, '_blank');
-    location.reload(); // Recarrega para limpar a tela
+    location.reload();
 }
 
 function alterarQuantidade(index, mudanca) {
@@ -130,5 +158,4 @@ function salvar() {
     exibirCarrinho();
 }
 
-// Inicialização
 document.addEventListener('DOMContentLoaded', exibirCarrinho);
