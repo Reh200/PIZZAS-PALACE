@@ -41,36 +41,29 @@
       <h3 class="border-bottom pb-2 mb-4">🎁 Pizzas Promocionais</h3>
       <div class="grid d-flex flex-wrap justify-content-center gap-4">
 
-        <article class="item card-meio-a-meio">
-          <div class="card-body-custom">
-            <div class="card-badge">🌓 Especial</div>
-            <strong class="titulo-meio-a-meio">Monte sua Pizza</strong>
-            <p class="descricao-meio-a-meio">Escolha 2 sabores e pague pelo valor da metade mais cara.</p>
+        <article class="item card-meio-exclusivo border p-3 rounded shadow-sm text-center" style="width: 250px;"
+          data-categoria="pizza">
 
-            <div class="opcoes-meio-a-meio">
-              <div class="campo-item">
-                <label for="pizza-tamanho">Tamanho</label>
-                <select id="pizza-tamanho" class="form-select" onchange="atualizarSaboresDisponiveis()">
-                  <option value="Grande">Grande (35cm)</option>
-                  <option value="Média">Média (30cm)</option>
-                </select>
-              </div>
+          <strong class="d-block h5 mb-1">Monte sua Pizza</strong>
+          <p class="small text-muted my-1">Escolha o tamanho e os dois sabores desejados</p>
 
-              <div class="campo-item">
-                <label for="pizza-sabor1">1º Sabor</label>
-                <select id="pizza-sabor1" class="form-select"></select>
-              </div>
+          <label class="small text-muted d-block text-start mb-1" for="pizza-tamanho">Tamanho:</label>
+          <select id="pizza-tamanho" class="form-select form-select-sm mb-2">
+            <option value="Média">Média (30cm)</option>
+            <option value="Grande" selected>Grande (35cm)</option>
+          </select>
 
-              <div class="campo-item">
-                <label for="pizza-sabor2">2º Sabor</label>
-                <select id="pizza-sabor2" class="form-select"></select>
-              </div>
-            </div>
+          <label class="small text-muted d-block text-start mb-1" for="pizza-sabor1">1ª Metade:</label>
+          <select id="pizza-sabor1" class="form-select form-select-sm mb-2">
+          </select>
 
-            <button class="btn-adicionar" onclick="adicionarPizzaMeioAMeio()">
-              Adicionar ao Carrinho
-            </button>
-          </div>
+          <label class="small text-muted d-block text-start mb-1" for="pizza-sabor2">2ª Metade:</label>
+          <select id="pizza-sabor2" class="form-select form-select-sm mb-3">
+          </select>
+
+          <button class="btn btn-primary btn-sm w-100" onclick="adicionarPizzaMeioAMeio()">
+            Adicionar ao Carrinho
+          </button>
         </article>
 
         <article class="item border p-3 rounded shadow-sm text-center" style="width: 250px;">

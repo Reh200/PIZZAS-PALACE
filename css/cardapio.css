@@ -194,9 +194,9 @@ section {
 h2 {
   font-family: 'Dancing Script', cursive;
   text-align: center;
-  margin: 2.5rem 0;
+  margin: 0.5rem 0; /* CORRIGIDO: Reduzido de 2.5rem para 1rem acima e abaixo */
   color: var(--primary-color);
-  font-size: 3.5rem;
+  font-size: 3rem;
   font-weight: 700;
   display: flex;
   flex-direction: column;
@@ -406,22 +406,28 @@ footer {
   box-sizing: border-box;
 }
 
-/* CARD MEIO A MEIO INTEGRADO */
-/* CARD MEIO A MEIO COMPACTADO E INTEGRADO */
-.card-meio-a-meio {
+/* ==================================================
+   CARD MEIO A MEIO COMPACTADO E INTEGRADO (CORRIGIDO)
+   ================================================== */
+
+/* Vincula as mesmas regras de tamanho dos cards padrão */
+.item, .card-meio-a-meio {
     background-color: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 12px;
-    padding: 1rem 1.2rem; /* Reduzido o padding interno */
+    border: 1px solid var(--card-border) !important;
+    border-radius: 8px !important; /* Ajustado para bater com o padrão dos outros */
+    padding: 1rem !important; /* Batendo com o p-3 (1rem) do Bootstrap */
     box-shadow: 0 4px 12px var(--shadow);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100%; /* Deixa o próprio grid controlar a altura igual aos outros */
+    width: 250px !important; /* Trava a largura exatamente igual aos outros cards */
+    max-width: 250px !important;
+    box-sizing: border-box; /* Impede que paddings estufem o card */
     text-align: center;
     position: relative;
 }
 
+/* Badge flutuante caso queira usar no topo do card */
 .card-badge {
     background-color: var(--primary-color);
     color: #0d0d0d;
@@ -433,54 +439,70 @@ footer {
     position: absolute;
     top: 10px;
     left: 10px;
+    z-index: 5;
 }
 
-.titulo-meio-a-meio {
+/* Alinhamento do título principal do card */
+.titulo-meio-a-meio, .item strong.h5 {
     color: #fff;
-    font-size: 1.1rem; /* Tamanho levemente menor para caber melhor */
+    font-size: 1.1rem; 
     display: block;
-    margin-top: 15px;
+    margin-top: 10px;
     margin-bottom: 3px;
 }
 
-.descricao-meio-a-meio {
+/* Alinhamento da descrição */
+.descricao-meio-a-meio, .item p.small {
     font-size: 0.75rem;
     color: #aaa;
     margin-bottom: 10px;
     line-height: 1.2;
 }
 
+/* Container que empilha os seletores de tamanho e metades */
 .opcoes-meio-a-meio {
     display: flex;
     flex-direction: column;
-    gap: 6px; /* Diminuído o espaçamento entre as caixas de seleção */
+    gap: 6px; 
     margin-bottom: 12px;
     text-align: left;
+    width: 100%;
 }
 
 .campo-item {
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
-.campo-item label {
+/* Configuração das pequenas etiquetas (Tamanho, 1ª Metade, etc.) */
+.campo-item label, .item label.small {
     font-size: 0.65rem;
     font-weight: bold;
     text-transform: uppercase;
     color: var(--primary-color);
-    margin-bottom: 1px;
+    margin-bottom: 2px;
     display: block;
 }
 
-/* Deixa os selects mais baixos e compactos */
-.opcoes-meio-a-meio .form-select {
+/* Deixa os seletores perfeitamente ajustados e sem estouros */
+.opcoes-meio-a-meio .form-select, .item .form-select {
     background-color: var(--input-bg, #222) !important;
     color: var(--text-color, #fff) !important;
     border: 1px solid var(--card-border, #333) !important;
     border-radius: 6px !important;
     font-size: 0.8rem;
-    height: 30px; /* Reduzido de 34px para 30px */
+    height: 30px !important; /* Mantido ultra-compacto */
     padding: 0 6px;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+}
+
+/* Força o botão de adicionar a respeitar os limites internos */
+.item button, .card-meio-a-meio button {
+    width: 100% !important;
+    box-sizing: border-box;
 }
 
 /* =================== Responsividade =================== */
