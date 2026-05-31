@@ -30,29 +30,65 @@ function exibirCarrinho() {
     carrinho.forEach((item, index) => {
         const isPizza = verificarSeEhPizza(item.nome);
 
-        // Garante que se o item for pizza e não tiver borda definida, comece como 'Nenhuma'
         if (isPizza && !item.borda) {
             item.borda = "Nenhuma";
         }
 
-        const valorBorda = isPizza ? (precosBordas[item.borda] || 0) : 0;
+        // MATEMÁTICA DA BORDA: Soma o valor real de cada metade e divide por 2
+        let valorBorda = 0;
+        if (isPizza) {
+            if (item.borda.includes(' / ')) {
+                const partes = item.borda.replace('Borda Meio a Meio (½ ', '').replace(')', '').split(' / ½ ');
+                const preco1 = precosBordas[partes[0]] || 0;
+                const preco2 = precosBordas[partes[1]] || 0;
+                valorBorda = (preco1 + preco2) / 2; // Média real das bordas
+            } else {
+                valorBorda = precosBordas[item.borda] || 0;
+            }
+        }
+
         const subtotal = (item.preco + valorBorda) * item.quantidade;
         totalGeral += subtotal;
 
-        // Cria dinamicamente o select de bordas caso o item seja uma pizza
         let selectBordaHTML = '';
         if (isPizza) {
-            selectBordaHTML = `<div class="campo-borda-item" style="margin-top: 4px; display: flex; align-items: center; gap: 5px;">
-        <label style="font-size: 0.75rem; color: #888; font-weight: 500;">Borda:</label>
-        <select onchange="alterarBorda(${index}, this.value)" style="padding: 1px 4px; border-radius: 4px; border: 1px solid #444; font-size: 0.75rem; background: #222; color: #fff; max-width: 160px; height: 22px; cursor: pointer;">`;
+            if (item.borda.includes(' / ')) {
+                const partesBorda = item.borda.replace('Borda Meio a Meio (½ ', '').replace(')', '').split(' / ½ ');
+                const b1 = partesBorda[0];
+                const b2 = partesBorda[1];
 
-            for (const nomeBorda in precosBordas) {
-                const selected = item.borda === nomeBorda ? 'selected' : '';
-                const precoAdicional = precosBordas[nomeBorda] > 0 ? ` (+ R$ ${precosBordas[nomeBorda].toFixed(2).replace('.', ',')})` : '';
-                selectBordaHTML += `<option value="${nomeBorda}" ${selected} style="background: #222; color: #fff;">${nomeBorda}${precoAdicional}</option>`;
+                selectBordaHTML = `<div class="campo-borda-item" style="margin-top: 6px; display: flex; flex-wrap: wrap; align-items: center; gap: 4px;">
+                    <span style="font-size: 0.7rem; color: var(--primary-color, #dfa629); font-weight: bold; width: 100%;">Borda Dividida (Valor Real Proporcional):</span>
+                    <select onchange="alterarBordaMeioAMeio(${index}, this.value, '${b2}')" style="padding: 1px 4px; border-radius: 4px; border: 1px solid #444; font-size: 0.72rem; background: #222; color: #fff; max-width: 120px; height: 22px; cursor: pointer;">`;
+                for (const nb in precosBordas) {
+                    const sel = b1 === nb ? 'selected' : '';
+                    selectBordaHTML += `<option value="${nb}" ${sel}>½ ${nb}</option>`;
+                }
+                selectBordaHTML += `</select>
+                    <span style="font-size: 0.75rem; color: #666;">/</span>
+                    <select onchange="alterarBordaMeioAMeio(${index}, '${b1}', this.value)" style="padding: 1px 4px; border-radius: 4px; border: 1px solid #444; font-size: 0.72rem; background: #222; color: #fff; max-width: 120px; height: 22px; cursor: pointer;">`;
+                for (const nb in precosBordas) {
+                    const sel = b2 === nb ? 'selected' : '';
+                    selectBordaHTML += `<option value="${nb}" ${sel}>½ ${nb}</option>`;
+                }
+                selectBordaHTML += `</select>
+                    <button onclick="converterParaBordaInteira(${index})" style="background: none; border: none; color: #ff4a4a; font-size: 0.65rem; cursor: pointer; padding: 0 2px; text-decoration: underline;">Borda Inteira</button>
+                </div>`;
+            } else {
+                selectBordaHTML = `<div class="campo-borda-item" style="margin-top: 4px; display: flex; align-items: center; gap: 5px; flex-wrap: wrap;">
+                    <label style="font-size: 0.75rem; color: #888; font-weight: 500;">Borda:</label>
+                    <select onchange="alterarBorda(${index}, this.value)" style="padding: 1px 4px; border-radius: 4px; border: 1px solid #444; font-size: 0.75rem; background: #222; color: #fff; max-width: 160px; height: 22px; cursor: pointer;">`;
+
+                for (const nomeBorda in precosBordas) {
+                    const selected = item.borda === nomeBorda ? 'selected' : '';
+                    const precoAdicional = precosBordas[nomeBorda] > 0 ? ` (+ R$ ${precosBordas[nomeBorda].toFixed(2).replace('.', ',')})` : '';
+                    selectBordaHTML += `<option value="${nomeBorda}" ${selected} style="background: #222; color: #fff;">${nomeBorda}${precoAdicional}</option>`;
+                }
+
+                selectBordaHTML += `</select>
+                    <button onclick="transformarEmBordaMeioAMeio(${index})" style="background: none; border: none; color: var(--primary-color, #dfa629); font-size: 0.65rem; cursor: pointer; padding: 0 2px; text-decoration: underline;">Dividir Borda</button>
+                </div>`;
             }
-
-            selectBordaHTML += `</select></div>`;
         }
 
         lista.innerHTML += `
@@ -77,12 +113,103 @@ function exibirCarrinho() {
         totalElemento.innerText = `R$ ${totalGeral.toFixed(2).replace('.', ',')}`;
     }
     
-    // Atualiza os inputs de pagamento caso o total mude via carrinho
     gerenciarPagamento();
 }
 
 function alterarBorda(index, novaBorda) {
     carrinho[index].borda = novaBorda;
+    salvar();
+}
+
+// Adicionar Item Tradicional (Inteiras direto dos cards padrão)
+function adicionarAoCarrinho(botao) {
+    const itemElement = botao.closest('.item');
+    const categoryAttr = itemElement.getAttribute('data-categoria');
+    const categoria = categoryAttr ? categoryAttr : 'pizza';
+    const nomeBase = (itemElement.querySelector('strong') || itemElement.querySelector('h4')).innerText;
+    const select = itemElement.querySelector('.select-preco');
+    const preco = parseFloat(select.value);
+    const opcaoTexto = select.options[select.selectedIndex].text;
+
+    const detalheOpcao = opcaoTexto.split(/ - R\$/i)[0].trim();
+    const nomeFinal = `${nomeBase} (${detalheOpcao})`;
+
+    const existente = !!carrinho && carrinho.find(p => p.nome === nomeFinal);
+
+    if (existente) {
+        existente.quantidade += 1;
+    } else {
+        carrinho.push({
+            nome: nomeFinal,
+            preco: preco,
+            quantidade: 1,
+            categoria: categoria,
+            borda: "Nenhuma"
+        });
+    }
+
+    salvar();
+    alert(`✅ ${nomeFinal} adicionado ao carrinho!`);
+}
+
+// Adicionar Pizza Meio a Meio (Calculando o valor de cada metade somada / 2)
+function adicionarPizzaMeioAMeio() {
+    const tamanho = document.getElementById('pizza-tamanho').value;
+    const sabor1 = document.getElementById('pizza-sabor1').value;
+    const sabor2 = document.getElementById('pizza-sabor2').value;
+
+    if (sabor1 === sabor2) {
+        return alert("❌ Para pizzas Meio a Meio, selecione dois sabores diferentes! Se deseja apenas este sabor, adicione-o diretamente pelo cardápio abaixo.");
+    }
+
+    if (!sabor1 || !sabor2) {
+        return alert("❌ Por favor, selecione ambos os sabores para montar sua pizza!");
+    }
+
+    const precoSabor1 = cardapioPizzas[sabor1]?.[tamanho] || 0;
+    const precoSabor2 = cardapioPizzas[sabor2]?.[tamanho] || 0;
+    
+    // Matemática: Média real (Soma dos valores divididos por 2)
+    const precoFinal = (precoSabor1 + precoSabor2) / 2;
+    const nomeFinal = `Pizza ${tamanho} (½ ${sabor1} / ½ ${sabor2})`;
+
+    const existente = carrinho.find(p => p.nome === nomeFinal);
+
+    if (existente) {
+        existente.quantidade += 1;
+    } else {
+        carrinho.push({
+            nome: nomeFinal,
+            preco: precoFinal,
+            quantidade: 1,
+            categoria: 'pizza',
+            borda: "Nenhuma"
+        });
+    }
+
+    salvar();
+    alert(`✅ ${nomeFinal} adicionada ao carrinho!`);
+}
+
+function transformarEmBordaMeioAMeio(index) {
+    const bordaAtual = carrinho[index].borda !== "Nenhuma" ? carrinho[index].borda : "Cheddar";
+    carrinho[index].borda = `Borda Meio a Meio (½ ${bordaAtual} / ½ Catupiry)`;
+    salvar();
+}
+
+function alterarBordaMeioAMeio(index, metade1, metade2) {
+    if (metade1 === metade2) {
+        alert("❌ Você selecionou o mesmo recheio para as duas metades da borda! Para bordas inteiras, altere o seletor para o formato simplificado padrão.");
+        carrinho[index].borda = metade1; 
+    } else {
+        carrinho[index].borda = `Borda Meio a Meio (½ ${metade1} / ½ ${metade2})`;
+    }
+    salvar();
+}
+
+// Restaura o formato para borda única inteira
+function converterParaBordaInteira(index) {
+    carrinho[index].borda = "Nenhuma";
     salvar();
 }
 
@@ -95,7 +222,6 @@ function gerenciarPagamento() {
     const textoTotal = totalElemento ? totalElemento.innerText : "R$ 0,00";
     const valorTotalGeral = parseFloat(textoTotal.replace('R$', '').replace(/\s/g, '').replace(/\./g, '').replace(',', '.')) || 0;
 
-    // Impede marcar mais de 2 opções salvaguardando o estado do checkbox clicado
     if (selecionados.length > 2) {
         alert("Você pode selecionar no máximo 2 formas de pagamento!");
         if (typeof event !== 'undefined' && event.target) {
@@ -110,14 +236,10 @@ function gerenciarPagamento() {
         
         if (inputValor) {
             if (cb.checked) {
-                // Garante a exibição do input correspondente para todas as opções marcadas
                 inputValor.style.display = 'block';
-                
-                // Configuração inteligente de preenchimento de valores
                 if (selecionados.length === 1) {
                     inputValor.value = 'R$ ' + valorTotalGeral.toFixed(2).replace('.', ',');
                 } else if (inputValor.value === 'R$ ' + valorTotalGeral.toFixed(2).replace('.', ',')) {
-                    // Quando passa a ter 2 métodos, limpa o preenchimento automático para o usuário ratear os valores
                     inputValor.value = '';
                 }
             } else {
@@ -127,7 +249,6 @@ function gerenciarPagamento() {
         }
     });
 
-    // O troco só aparece se 'Dinheiro' for a ÚNICA opção selecionada
     const apenasDinheiroSelecionado = selecionados.length === 1 && selecionados[0].value === 'Dinheiro';
     const boxTroco = document.getElementById('box-troco');
     if (boxTroco) {
@@ -135,7 +256,7 @@ function gerenciarPagamento() {
             boxTroco.style.display = 'block';
         } else {
             boxTroco.style.display = 'none';
-            document.getElementById('troco').value = ''; // Limpa o campo caso mude de ideia
+            document.getElementById('troco').value = '';
         }
     }
 }
@@ -169,14 +290,23 @@ function finalizarPedido() {
     if (!endereco || !telefone || !nome) return alert("Por favor, preencha nome, endereço e telefone.");
     if (selecionados.length === 0) return alert("Escolha uma forma de pagamento.");
 
-    // Faz o cálculo real do total do carrinho
+    // Cálculo exato do valor dos itens do carrinho
     let totalGeral = 0;
     carrinho.forEach(item => {
-        const valorBorda = verificarSeEhPizza(item.nome) ? (precosBordas[item.borda] || 0) : 0;
+        let valorBorda = 0;
+        if (verificarSeEhPizza(item.nome)) {
+            if (item.borda.includes(' / ')) {
+                const partes = item.borda.replace('Borda Meio a Meio (½ ', '').replace(')', '').split(' / ½ ');
+                const preco1 = precosBordas[partes[0]] || 0;
+                const preco2 = precosBordas[partes[1]] || 0;
+                valorBorda = (preco1 + preco2) / 2; 
+            } else {
+                valorBorda = precosBordas[item.borda] || 0;
+            }
+        }
         totalGeral += (item.preco + valorBorda) * item.quantidade;
     });
 
-    // Validação matemática da divisão de valores inserida pelo cliente
     let somaFormasPagamento = 0;
     let descricoesPagamento = [];
 
@@ -194,44 +324,47 @@ function finalizarPedido() {
         descricoesPagamento.push(`${cb.value} (R$ ${valorParcial.toFixed(2).replace('.', ',')})`);
     }
 
-    // Validação específica para valor INSUFICIENTE ou SUPERIOR
     const diferenca = somaFormasPagamento - totalGeral;
 
-    if (diferenca < -0.01) { // Se faltar mais de 1 centavo
+    // VALIDAÇÃO AJUSTADA: Agora só barra se o valor informado for INSUFICIENTE (menor que o total)
+    if (diferenca < -0.01) {
         const restante = totalGeral - somaFormasPagamento;
         return alert(`O valor informado é INSUFICIENTE para finalizar a compra!\n\nTotal do Pedido: R$ ${totalGeral.toFixed(2).replace('.', ',')}\nInformado: R$ ${somaFormasPagamento.toFixed(2).replace('.', ',')}\nFaltam: R$ ${restante.toFixed(2).replace('.', ',')}\n\nPor favor, ajuste o valor do pagamento.`);
-    } 
-    else if (diferenca > 0.01) { // Se passar mais de 1 centavo
-        return alert(`A soma dos valores informados (R$ ${somaFormasPagamento.toFixed(2).replace('.', ',')}) é maior do que o total exato do seu carrinho (R$ ${totalGeral.toFixed(2).replace('.', ',')}). Ajuste a divisão!`);
     }
 
-    // Geração do texto para o WhatsApp
-    let mensagem = "*NOVO PEDIDO - PIZZAS PALACE*%0A%0A";
+    let message = "*NOVO PEDIDO - PIZZAS PALACE*%0A%0A";
 
     carrinho.forEach(item => {
-        const valorBorda = verificarSeEhPizza(item.nome) ? (precosBordas[item.borda] || 0) : 0;
+        let valorBorda = 0;
+        if (verificarSeEhPizza(item.nome)) {
+            if (item.borda.includes(' / ')) {
+                const partes = item.borda.replace('Borda Meio a Meio (½ ', '').replace(')', '').split(' / ½ ');
+                const preco1 = precosBordas[partes[0]] || 0;
+                const preco2 = precosBordas[partes[1]] || 0;
+                valorBorda = (preco1 + preco2) / 2;
+            } else {
+                valorBorda = precosBordas[item.borda] || 0;
+            }
+        }
         const sub = (item.preco + valorBorda) * item.quantidade;
 
-        const textoBorda = (verificarSeEhPizza(item.nome) && item.borda && item.borda !== 'Nenhuma') ? ` (Borda: ${item.borda})` : '';
-        mensagem += `*${item.quantidade}x ${item.nome}*${textoBorda}%0A`;
-        mensagem += `   Sub: R$ ${sub.toFixed(2).replace('.', ',')}%0A%0A`;
+        const textoBorda = (verificarSeEhPizza(item.nome) && item.borda && item.borda !== 'Nenhuma') ? ` (${item.borda})` : '';
+        message += `*${item.quantidade}x ${item.nome}*${textoBorda}%0A`;
+        message += `   Sub: R$ ${sub.toFixed(2).replace('.', ',')}%0A%0A`;
     });
 
-    mensagem += `*TOTAL: R$ ${totalGeral.toFixed(2).replace('.', ',')}*%0A%0A`;
-    mensagem += `*Cliente:* ${nome}%0A*Endereço:* ${endereco}%0A*Contato:* ${telefone}%0A`;
-
-    // Inclui a listagem detalhada de como os pagamentos foram divididos
-    mensagem += `*Pagamento:* ${descricoesPagamento.join(" + ")}%0A`;
+    message += `*TOTAL: R$ ${totalGeral.toFixed(2).replace('.', ',')}*%0A%0A`;
+    message += `*Cliente:* ${nome}%0A*Endereço:* ${endereco}%0A*Contato:* ${telefone}%0A`;
+    message += `*Pagamento:* ${descricoesPagamento.join(" + ")}%0A`;
     
-    // O troco só vai pro WhatsApp se Dinheiro for a única opção e o campo estiver preenchido
     const apenasDinheiroSelecionado = selecionados.length === 1 && selecionados[0].value === 'Dinheiro';
     if (apenasDinheiroSelecionado && troco) {
-        mensagem += `*Troco para:* R$ ${troco}%0A`;
+        message += `*Troco para:* R$ ${troco}%0A`;
     }
-    if (obs) mensagem += `*Obs:* ${obs}`;
+    if (obs) message += `*Obs:* ${obs}`;
 
     localStorage.removeItem('carrinho');
-    window.open(`https://wa.me/${foneWhatsapp}?text=${mensagem}`, '_blank');
+    window.open(`https://wa.me/${foneWhatsapp}?text=${message}`, '_blank');
     location.reload();
 }
 
@@ -262,4 +395,9 @@ document.addEventListener('DOMContentLoaded', () => {
     exibirCarrinho();
     window.gerenciarPagamento = gerenciarPagamento;
     window.mascaraValor = mascaraValor;
+    window.alterarBordaMeioAMeio = alterarBordaMeioAMeio;
+    window.transformarEmBordaMeioAMeio = transformarEmBordaMeioAMeio;
+    window.converterParaBordaInteira = converterParaBordaInteira;
+    window.adicionarAoCarrinho = adicionarAoCarrinho;
+    window.adicionarPizzaMeioAMeio = adicionarPizzaMeioAMeio;
 });

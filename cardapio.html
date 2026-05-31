@@ -21,11 +21,11 @@
         <a href="index.html">Início</a>
         <a href="carrinho.html" class="nav-destaque">🛒 Ver Carrinho</a>
         <a href="contato.html">📲 Contato</a>
-
       </nav>
 
       <div class="sub-header-categorias">
-        <a href="#promocionais" class="cat-link promo">🎁 Promoções</a>
+        <a href="#montar-pizza" class="cat-link promo">🌓 Meio a Meio</a>
+        <a href="#promocionais" class="cat-link">🎁 Promoções</a>
         <a href="#salgadas" class="cat-link">🍕 Salgadas</a>
         <a href="#doces" class="cat-link">🍫 Doces</a>
         <a href="#bebidas" class="cat-link">🥤 Bebidas</a>
@@ -34,11 +34,44 @@
   </header>
 
   <main class="container">
+
     <h2 class="text-center mb-5">Cardápio Completo</h2>
 
     <section id="promocionais" class="mb-5 categoria-scroll">
       <h3 class="border-bottom pb-2 mb-4">🎁 Pizzas Promocionais</h3>
       <div class="grid d-flex flex-wrap justify-content-center gap-4">
+
+        <article class="item card-meio-a-meio">
+          <div class="card-body-custom">
+            <div class="card-badge">🌓 Especial</div>
+            <strong class="titulo-meio-a-meio">Monte sua Pizza</strong>
+            <p class="descricao-meio-a-meio">Escolha 2 sabores e pague pelo valor da metade mais cara.</p>
+
+            <div class="opcoes-meio-a-meio">
+              <div class="campo-item">
+                <label for="pizza-tamanho">Tamanho</label>
+                <select id="pizza-tamanho" class="form-select" onchange="atualizarSaboresDisponiveis()">
+                  <option value="Grande">Grande (35cm)</option>
+                  <option value="Média">Média (30cm)</option>
+                </select>
+              </div>
+
+              <div class="campo-item">
+                <label for="pizza-sabor1">1º Sabor</label>
+                <select id="pizza-sabor1" class="form-select"></select>
+              </div>
+
+              <div class="campo-item">
+                <label for="pizza-sabor2">2º Sabor</label>
+                <select id="pizza-sabor2" class="form-select"></select>
+              </div>
+            </div>
+
+            <button class="btn-adicionar" onclick="adicionarPizzaMeioAMeio()">
+              Adicionar ao Carrinho
+            </button>
+          </div>
+        </article>
 
         <article class="item border p-3 rounded shadow-sm text-center" style="width: 250px;">
           <img class="img-fluid rounded mb-2" src="img/calabresa.png" alt="Calabresa">
