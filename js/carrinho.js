@@ -112,7 +112,7 @@ function exibirCarrinho() {
     if (totalElemento) {
         totalElemento.innerText = `R$ ${totalGeral.toFixed(2).replace('.', ',')}`;
     }
-    
+
     gerenciarPagamento();
 }
 
@@ -152,7 +152,7 @@ function adicionarAoCarrinho(botao) {
     alert(`✅ ${nomeFinal} adicionado ao carrinho!`);
 }
 
-// Adicionar Pizza Meio a Meio (Calculando o valor de cada metade somada / 2)
+// Adicionar Pizza Meio a Meio
 function adicionarPizzaMeioAMeio() {
     const tamanho = document.getElementById('pizza-tamanho').value;
     const sabor1 = document.getElementById('pizza-sabor1').value;
@@ -168,8 +168,7 @@ function adicionarPizzaMeioAMeio() {
 
     const precoSabor1 = cardapioPizzas[sabor1]?.[tamanho] || 0;
     const precoSabor2 = cardapioPizzas[sabor2]?.[tamanho] || 0;
-    
-    // Matemática: Média real (Soma dos valores divididos por 2)
+
     const precoFinal = (precoSabor1 + precoSabor2) / 2;
     const nomeFinal = `Pizza ${tamanho} (½ ${sabor1} / ½ ${sabor2})`;
 
@@ -200,25 +199,78 @@ function transformarEmBordaMeioAMeio(index) {
 function alterarBordaMeioAMeio(index, metade1, metade2) {
     if (metade1 === metade2) {
         alert("❌ Você selecionou o mesmo recheio para as duas metades da borda! Para bordas inteiras, altere o seletor para o formato simplificado padrão.");
-        carrinho[index].borda = metade1; 
+        carrinho[index].borda = metade1;
     } else {
         carrinho[index].borda = `Borda Meio a Meio (½ ${metade1} / ½ ${metade2})`;
     }
     salvar();
 }
 
-// Restaura o formato para borda única inteira
 function converterParaBordaInteira(index) {
     carrinho[index].borda = "Nenhuma";
     salvar();
 }
 
-// === CONTROLE E MÁSCARA DAS FORMAS DE PAGAMENTO ===
+function obterInputValorPorMetodo(checkboxValue) {
+    // Garante que espaços extras nas pontas não atrapalhem
+    const valorMetodo = checkboxValue.trim();
+
+    // =========================================================================
+    // MAPEAMENTO DIRETO (Garantia para os seus IDs do HTML)
+    // =========================================================================
+    if (valorMetodo === "Cartão de Crédito") {
+        return document.getElementById("valor-cartao-de-credito");
+    }
+    if (valorMetodo === "Cartão de Débito") {
+        return document.getElementById("valor-cartao-de-debito");
+    }
+    if (valorMetodo === "Dinheiro") {
+        return document.getElementById("valor-dinheiro") || document.getElementById("valor-Dinheiro");
+    }
+
+    // BLINDAGEM DO PIX: Aceita "PIX", "Pix" ou "pix" de forma idêntica
+    if (valorMetodo.toUpperCase() === "PIX") {
+        return document.getElementById("valor-pix") ||
+            document.getElementById("valor-PIX") ||
+            document.getElementById("valor-Pix");
+    }
+
+    // =========================================================================
+    // SISTEMA DE BUSCA SECUNDÁRIO (Caso adicione novas formas no futuro)
+    // =========================================================================
+    const normalizado = valorMetodo.toLowerCase().replace(/[áéíóúâêîôûàèìòùãõç]/gi, '');
+    const idComHifen = 'valor-' + normalizado.replace(/\s+/g, '-');
+    const idSemDe = 'valor-' + normalizado.replace(/\s+/g, '-').replace('-de-', '-');
+    const idAgressivo = 'valor-' + normalizado.replace(/[^a-z0-9]/g, '');
+    const idDireto = 'valor-' + valorMetodo.replace(/\s+/g, '-');
+
+    let elemento = document.getElementById(idComHifen) ||
+        document.getElementById(idSemDe) ||
+        document.getElementById(idAgressivo) ||
+        document.getElementById(idDireto);
+
+    if (!elemento) {
+        const inputs = document.querySelectorAll('input[type="text"], input[type="tel"]');
+        for (let input of inputs) {
+            const placeholderText = input.placeholder ? input.placeholder.toLowerCase() : '';
+            const nameText = input.name ? input.name.toLowerCase() : '';
+            const idText = input.id ? input.id.toLowerCase() : '';
+            const busca = normalizado.split(' ')[0];
+
+            if (idText.includes(busca) || placeholderText.includes(busca) || nameText.includes(busca)) {
+                elemento = input;
+                break;
+            }
+        }
+    }
+
+    return elemento;
+}
 
 function gerenciarPagamento() {
     const checkboxes = document.querySelectorAll('input[name="metodo"]');
     const selecionados = Array.from(checkboxes).filter(c => c.checked);
-    
+
     const textoTotal = totalElemento ? totalElemento.innerText : "R$ 0,00";
     const valorTotalGeral = parseFloat(textoTotal.replace('R$', '').replace(/\s/g, '').replace(/\./g, '').replace(',', '.')) || 0;
 
@@ -231,9 +283,8 @@ function gerenciarPagamento() {
     }
 
     checkboxes.forEach(cb => {
-        const idInput = 'valor-' + cb.value.replace(/\s+/g, '-').replace(/[áéíóúâêîôûàèìòùãõç]/gi, '');
-        const inputValor = document.getElementById(idInput);
-        
+        const inputValor = obterInputValorPorMetodo(cb.value);
+
         if (inputValor) {
             if (cb.checked) {
                 inputValor.style.display = 'block';
@@ -249,14 +300,26 @@ function gerenciarPagamento() {
         }
     });
 
-    const apenasDinheiroSelecionado = selecionados.length === 1 && selecionados[0].value === 'Dinheiro';
+    // === LÓGICA INTELIGENTE DO TROCO (SEM REPETIÇÃO) ===
+    const inputDinheiro = obterInputValorPorMetodo("Dinheiro");
     const boxTroco = document.getElementById('box-troco');
-    if (boxTroco) {
-        if (apenasDinheiroSelecionado) {
+
+    if (boxTroco && inputDinheiro) {
+        const apenasDinheiroSelecionado = selecionados.length === 1 && selecionados[0].value === 'Dinheiro';
+        const duasFormasComDinheiro = selecionados.length === 2 && Array.from(selecionados).some(c => c.value === 'Dinheiro');
+
+        // Pega o valor real que o usuário digitou no campo de dinheiro neste momento
+        const valorDigitadoNoDinheiro = converterStringParaFloat(inputDinheiro.value);
+
+        // O campo de troco SÓ APARECE se a opção Dinheiro estiver marcada E o valor digitado nela for MAIOR que o total do pedido
+        // (Ou se ele estiver dividindo o pagamento e digitou um valor no dinheiro maior do que precisava)
+        if ((apenasDinheiroSelecionado || duasFormasComDinheiro) && valorDigitadoNoDinheiro > valorTotalGeral) {
             boxTroco.style.display = 'block';
         } else {
+            // Se for igual, menor ou se o dinheiro não estiver marcado, esconde o campo e limpa o valor para não ir mensagem errada
             boxTroco.style.display = 'none';
-            document.getElementById('troco').value = '';
+            const inputTroco = document.getElementById('troco');
+            if (inputTroco) inputTroco.value = '';
         }
     }
 }
@@ -277,20 +340,21 @@ function mascaraValor(input) {
 }
 
 // === FINALIZAÇÃO E VALIDAÇÃO DO PEDIDO ===
+// === FINALIZAÇÃO E VALIDAÇÃO DO PEDIDO (COM VALIDAÇÃO DE SOMA E EXCEDENTES) ===
 
 function finalizarPedido() {
     const endereco = document.getElementById('endereco').value;
     const telefone = document.getElementById('telefone').value;
     const nome = document.getElementById('nome').value;
     const selecionados = document.querySelectorAll('input[name="metodo"]:checked');
-    const troco = document.getElementById('troco').value;
+    const trocoElement = document.getElementById('troco');
+    const troco = trocoElement ? trocoElement.value : '';
     const obs = document.getElementById('obs') ? document.getElementById('obs').value : "";
 
     if (carrinho.length === 0) return alert("Carrinho vazio!");
     if (!endereco || !telefone || !nome) return alert("Por favor, preencha nome, endereço e telefone.");
     if (selecionados.length === 0) return alert("Escolha uma forma de pagamento.");
 
-    // Cálculo exato do valor dos itens do carrinho
     let totalGeral = 0;
     carrinho.forEach(item => {
         let valorBorda = 0;
@@ -299,7 +363,7 @@ function finalizarPedido() {
                 const partes = item.borda.replace('Borda Meio a Meio (½ ', '').replace(')', '').split(' / ½ ');
                 const preco1 = precosBordas[partes[0]] || 0;
                 const preco2 = precosBordas[partes[1]] || 0;
-                valorBorda = (preco1 + preco2) / 2; 
+                valorBorda = (preco1 + preco2) / 2;
             } else {
                 valorBorda = precosBordas[item.borda] || 0;
             }
@@ -309,11 +373,17 @@ function finalizarPedido() {
 
     let somaFormasPagamento = 0;
     let descricoesPagamento = [];
+    let temDinheiro = false;
 
     for (let i = 0; i < selecionados.length; i++) {
         const cb = selecionados[i];
-        const idInput = 'valor-' + cb.value.replace(/\s+/g, '-').replace(/[áéíóúâêîôûàèìòùãõç]/gi, '');
-        const inputValor = document.getElementById(idInput);
+
+        // Verifica se a opção atual é Dinheiro
+        if (cb.value === "Dinheiro") {
+            temDinheiro = true;
+        }
+
+        const inputValor = obterInputValorPorMetodo(cb.value);
         const valorParcial = converterStringParaFloat(inputValor ? inputValor.value : '');
 
         if (valorParcial <= 0) {
@@ -324,13 +394,20 @@ function finalizarPedido() {
         descricoesPagamento.push(`${cb.value} (R$ ${valorParcial.toFixed(2).replace('.', ',')})`);
     }
 
-    const diferenca = somaFormasPagamento - totalGeral;
+    // --- NOVA REGRA DE VALIDAÇÃO DE VALORES ---
 
-    // VALIDAÇÃO AJUSTADA: Agora só barra se o valor informado for INSUFICIENTE (menor que o total)
-    if (diferenca < -0.01) {
+    // 1. Caso Geral: Valor informado é menor que o total (Sempre proibido)
+    if ((somaFormasPagamento - totalGeral) < -0.01) {
         const restante = totalGeral - somaFormasPagamento;
         return alert(`O valor informado é INSUFICIENTE para finalizar a compra!\n\nTotal do Pedido: R$ ${totalGeral.toFixed(2).replace('.', ',')}\nInformado: R$ ${somaFormasPagamento.toFixed(2).replace('.', ',')}\nFaltam: R$ ${restante.toFixed(2).replace('.', ',')}\n\nPor favor, ajuste o valor do pagamento.`);
     }
+
+    // 2. Caso Especial: Valor maior que o total em combinações SEM dinheiro (Cartão+Cartão ou Cartão+Pix)
+    if (!temDinheiro && (somaFormasPagamento - totalGeral) > 0.01) {
+        return alert(`O valor informado está ACIMA do total do pedido!\n\nComo a combinação escolhida não envolve Dinheiro, os valores informados devem somar exatamente o total do pedido.\n\nTotal do Pedido: R$ ${totalGeral.toFixed(2).replace('.', ',')}\nInformado: R$ ${somaFormasPagamento.toFixed(2).replace('.', ',')}\n\nPor favor, ajuste os campos de valor.`);
+    }
+
+    // --- FIM DA NOVA REGRA ---
 
     let message = "*NOVO PEDIDO - PIZZAS PALACE*%0A%0A";
 
@@ -356,9 +433,8 @@ function finalizarPedido() {
     message += `*TOTAL: R$ ${totalGeral.toFixed(2).replace('.', ',')}*%0A%0A`;
     message += `*Cliente:* ${nome}%0A*Endereço:* ${endereco}%0A*Contato:* ${telefone}%0A`;
     message += `*Pagamento:* ${descricoesPagamento.join(" + ")}%0A`;
-    
-    const apenasDinheiroSelecionado = selecionados.length === 1 && selecionados[0].value === 'Dinheiro';
-    if (apenasDinheiroSelecionado && troco) {
+
+    if (temDinheiro && troco) {
         message += `*Troco para:* R$ ${troco}%0A`;
     }
     if (obs) message += `*Obs:* ${obs}`;

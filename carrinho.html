@@ -39,7 +39,7 @@
             <span>Total do Pedido:</span>
             <h2 id="total-carrinho">R$ 0,00</h2>
           </div>
-         
+
           <div class="box-entrega">
             <strong>⏱ Tempo estimado de entrega:</strong> 35min a 1h, dependendo do fluxo de pedidos.
           </div>
@@ -64,35 +64,41 @@
           <div class="campo-pagamento">
             <label>💳 Forma de Pagamento (escolha até 2)</label>
             <div class="opcoes-pagamento">
-              
+
               <div class="opcao-item">
                 <label class="check-container">
                   <input type="checkbox" name="metodo" value="Pix" onchange="gerenciarPagamento()"> Pix
                 </label>
-                <input type="text" class="valor-metodo" id="valor-Pix" placeholder="R$ 0,00" style="display: none;" oninput="mascaraValor(this)">
+                <input type="text" class="valor-metodo" id="valor-Pix" placeholder="R$ 0,00" style="display: none;"
+                  oninput="mascaraValor(this)">
               </div>
 
               <div class="opcao-item">
                 <label class="check-container">
-                  <input type="checkbox" name="metodo" value="Cartão de Crédito" onchange="gerenciarPagamento()"> Cartão de Crédito
+                  <input type="checkbox" name="metodo" value="Cartão de Crédito" onchange="gerenciarPagamento()"> Cartão
+                  de Crédito
                 </label>
-                <input type="text" class="valor-metodo" id="valor-Cartao-Credito" placeholder="R$ 0,00" style="display: none;" oninput="mascaraValor(this)">
+                <input type="text" class="valor-metodo" id="valor-cartao-de-credito" placeholder="R$ 0,00"
+                  style="display: none;" oninput="mascaraValor(this)">
               </div>
 
               <div class="opcao-item">
                 <label class="check-container">
-                  <input type="checkbox" name="metodo" value="Cartão de Débito" onchange="gerenciarPagamento()"> Cartão de Débito
+                  <input type="checkbox" name="metodo" value="Cartão de Débito" onchange="gerenciarPagamento()"> Cartão
+                  de Débito
                 </label>
-                <input type="text" class="valor-metodo" id="valor-Cartao-Debito" placeholder="R$ 0,00" style="display: none;" oninput="mascaraValor(this)">
+                <input type="text" class="valor-metodo" id="valor-cartao-de-debito" placeholder="R$ 0,00"
+                  style="display: none;" oninput="mascaraValor(this)">
               </div>
 
               <div class="opcao-item">
                 <label class="check-container">
                   <input type="checkbox" name="metodo" value="Dinheiro" onchange="gerenciarPagamento()"> Dinheiro
                 </label>
-                <input type="text" class="valor-metodo" id="valor-Dinheiro" placeholder="R$ 0,00" style="display: none;" oninput="mascaraValor(this)">
+                <input type="text" class="valor-metodo" id="valor-dinheiro" placeholder="R$ 0,00" style="display: none;"
+                  oninput="mascaraValor(this); gerenciarPagamento()">
               </div>
-
+              
             </div>
             <p class="small text-muted mt-2"
               style="font-size: 0.85rem; color: #666; margin-top: 10px; font-style: italic;">
@@ -100,9 +106,9 @@
             </p>
           </div>
 
-          <div id="box-troco" class="campo-troco" style="display: none;">
-            <label for="troco">Precisa de troco para quanto?</label>
-            <input type="text" id="troco" placeholder="Ex: 50,00">
+          <div id="box-troco" style="display: none;">
+            <label>PRECISA DE TROCO PARA QUANTO?</label>
+            <input type="text" id="troco" placeholder="Ex: 100,00" oninput="mascaraValor(this)">
           </div>
 
           <div class="acoes-carrinho">

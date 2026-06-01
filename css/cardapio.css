@@ -194,7 +194,7 @@ section {
 h2 {
   font-family: 'Dancing Script', cursive;
   text-align: center;
-  margin: 0.5rem 0; /* CORRIGIDO: Reduzido de 2.5rem para 1rem acima e abaixo */
+  margin: 0.5rem 0;
   color: var(--primary-color);
   font-size: 3rem;
   font-weight: 700;
@@ -221,7 +221,7 @@ h3.border-bottom {
   font-weight: 700;
   border-bottom: 2px solid var(--secondary-color) !important;
   padding-bottom: 12px !important;
-  margin-top: 40px !important;
+  margin-top: 30px !important;
   margin-bottom: 25px !important;
 }
 
@@ -275,7 +275,7 @@ p.text-muted.small.mt-3.text-center {
   opacity: 0.8;
 }
 
-/* =================== Grid de Itens =================== */
+/* =================== Grid de Itens Padrão =================== */
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -407,102 +407,124 @@ footer {
 }
 
 /* ==================================================
-   CARD MEIO A MEIO COMPACTADO E INTEGRADO (CORRIGIDO)
+   CSS EXCLUSIVO PARA O CARD MEIO A MEIO (SETA ÚNICA FIXADA)
    ================================================== */
 
-/* Vincula as mesmas regras de tamanho dos cards padrão */
-.item, .card-meio-a-meio {
-    background-color: var(--card-bg);
-    border: 1px solid var(--card-border) !important;
-    border-radius: 8px !important; /* Ajustado para bater com o padrão dos outros */
-    padding: 1rem !important; /* Batendo com o p-3 (1rem) do Bootstrap */
-    box-shadow: 0 4px 12px var(--shadow);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 250px !important; /* Trava a largura exatamente igual aos outros cards */
-    max-width: 250px !important;
-    box-sizing: border-box; /* Impede que paddings estufem o card */
-    text-align: center;
-    position: relative;
+.item.card-meio-exclusivo, .card-meio-a-meio {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border) !important;
+  border-radius: 8px !important;
+  padding: 0.8rem !important; 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 250px !important;
+  max-width: 250px !important;
+  box-sizing: border-box;
+  text-align: center;
+  position: relative;
 }
 
 /* Badge flutuante caso queira usar no topo do card */
 .card-badge {
-    background-color: var(--primary-color);
-    color: #0d0d0d;
-    font-size: 0.65rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    padding: 2px 6px;
-    border-radius: 50px;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 5;
+  background-color: var(--primary-color);
+  color: #0d0d0d;
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 50px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 5;
 }
 
-/* Alinhamento do título principal do card */
-.titulo-meio-a-meio, .item strong.h5 {
-    color: #fff;
-    font-size: 1.1rem; 
-    display: block;
-    margin-top: 10px;
-    margin-bottom: 3px;
+/* Aplica o dourado apenas no título do card Meio a Meio */
+.card-meio-exclusivo strong.h5, .card-meio-exclusivo .titulo-meio-a-meio {
+  color: var(--primary-color) !important;
+  font-size: 1.05rem !important;
+  display: block;
+  margin-top: 5px !important;
+  margin-bottom: 2px !important;
 }
 
-/* Alinhamento da descrição */
-.descricao-meio-a-meio, .item p.small {
-    font-size: 0.75rem;
-    color: #aaa;
-    margin-bottom: 10px;
-    line-height: 1.2;
+/* Espaçamento compacto da descrição */
+.card-meio-exclusivo p.small, .card-meio-exclusivo .descricao-meio-a-meio {
+  font-size: 0.72rem !important;
+  color: #aaa;
+  margin-top: 0 !important;
+  margin-bottom: 8px !important;
+  line-height: 1.1 !important;
 }
 
 /* Container que empilha os seletores de tamanho e metades */
 .opcoes-meio-a-meio {
-    display: flex;
-    flex-direction: column;
-    gap: 6px; 
-    margin-bottom: 12px;
-    text-align: left;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px; 
+  margin-bottom: 0px;
+  text-align: left;
+  width: 100%;
 }
 
 .campo-item {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
-/* Configuração das pequenas etiquetas (Tamanho, 1ª Metade, etc.) */
-.campo-item label, .item label.small {
-    font-size: 0.65rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    color: var(--primary-color);
-    margin-bottom: 2px;
-    display: block;
+/* Configuração dos textos das etiquetas (Tamanho, Metades) */
+.campo-item label, .card-meio-exclusivo label.small {
+  font-size: 0.62rem !important;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: var(--primary-color);
+  margin-bottom: 1px !important;
+  display: block;
+  text-align: left;
 }
 
-/* Deixa os seletores perfeitamente ajustados e sem estouros */
-.opcoes-meio-a-meio .form-select, .item .form-select {
-    background-color: var(--input-bg, #222) !important;
-    color: var(--text-color, #fff) !important;
-    border: 1px solid var(--card-border, #333) !important;
-    border-radius: 6px !important;
-    font-size: 0.8rem;
-    height: 30px !important; /* Mantido ultra-compacto */
-    padding: 0 6px;
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box;
+/* CORREÇÃO DEFINITIVA DO SELECT: Força o navegador a deletar a seta do Bootstrap */
+.card-meio-exclusivo .form-select, .item.card-meio-exclusivo select {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  
+  /* Força a cor escura e limpa no fundo */
+  background-color: #222 !important;
+  color: #fff !important;
+  border: 1px solid var(--card-border, #333) !important;
+  border-radius: 4px !important;
+  font-size: 0.75rem !important;
+  height: 28px !important; 
+  padding: 0 24px 0 6px !important; /* Mantém o texto longe da seta direita */
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box;
+  
+  /* Desenha estritamente uma ÚNICA seta branca à direita */
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 8px center !important;
+  background-size: 10px 10px !important;
 }
 
-/* Força o botão de adicionar a respeitar os limites internos */
-.item button, .card-meio-a-meio button {
-    width: 100% !important;
-    box-sizing: border-box;
+/* AFASTAMENTO DO BOTÃO: Respiro ideal no último select do card meio a meio */
+.card-meio-exclusivo #pizza-sabor2, 
+.card-meio-exclusivo select:last-of-type {
+  margin-bottom: 14px !important; 
+}
+
+/* Ajusta o tamanho e restaura a fonte correta do botão de adicionar deste card */
+.card-meio-exclusivo button, .card-meio-a-meio button {
+  width: 100% !important;
+  box-sizing: border-box;
+  margin-top: 0 !important;
+  font-family: inherit !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  font-size: 0.75rem !important;
 }
 
 /* =================== Responsividade =================== */
